@@ -1,0 +1,28 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>libreSubs</groupId>
+	<artifactId>libreSubsSite</artifactId>
+	<packaging>pom</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>LibreSubs</name>
+	<description>LibreSubs - Community work</description>
+	<licenses>
+		<license>
+			<name>GPL 2.0</name>
+			<url>http://www.gnu.org/licenses/old-licenses/gpl-2.0.html</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<modules>
+		<module>libreSubsWicketSite</module>
+		<module>libreSubsEngine</module>
+		<module>libreSubsCLI</module>
+	</modules>
+
+	<properties>
+		<junit.version>4.8.1</junit.version>
+		<log4j.version>1.2.14</log4j.version>
+	</properties>
+</project>

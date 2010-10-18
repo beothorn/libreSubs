@@ -1,0 +1,15 @@
+<html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.5-strict.dtd" >
+    <head>  
+        <title>Subtitles</title>
+    </head>
+    <body>
+        <strong>Subtitles</strong>
+        <br/><br/>
+        Choose language:
+        <br/>
+        Enter Partial MD5 (use this command on linux <i>head -c 1000 | md5sum</i>):
+        <span wicket:id="message">message will be here</span>
+        <br/>
+        Or use this command <i>head -c 1000 | md5sum | xargs wget http://localhost:8081?langage=PT_BR&md5={}</i>
+    </body>
+</html>
