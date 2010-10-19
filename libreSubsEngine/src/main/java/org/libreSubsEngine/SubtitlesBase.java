@@ -6,7 +6,7 @@ import java.util.Map;
 public class SubtitlesBase {
 
 	public enum Language {
-		PT_BR
+		pt_BR
 	};
 
 	private final Map<Language, Map<Long, String>> languageForSubtitles;
