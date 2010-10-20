@@ -1,42 +1,59 @@
 package org.libreSubsEngine;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.StringUtils;
+
 public class SubtitlesBase {
 
-	public enum Language {
-		pt_BR
-	};
+	private final Map<SubtitleKey, Subtitle> subtitles;
+	private final File baseDir;
 
-	private final Map<Language, Map<Long, String>> languageForSubtitles;
-
-	public SubtitlesBase() {
-		languageForSubtitles = new LinkedHashMap<Language, Map<Long, String>>();
+	public SubtitlesBase(final File baseDir) {
+		this.baseDir = baseDir;
+		subtitles = new LinkedHashMap<SubtitleKey, Subtitle>();
 	}
 
-	public void addSubtitle(final long partialMD5, final Language language,
-			final String sub) {
-		Map<Long, String> md5ForLanguage = languageForSubtitles.get(language);
-		if (md5ForLanguage == null) {
-			md5ForLanguage = new LinkedHashMap<Long, String>();
-			languageForSubtitles.put(language, md5ForLanguage);
+	public void addSubtitle(final long videoID, final Language language,final String content) throws IOException {
+		final String videoIDAsString = Long.toString(videoID);
+		final String strDirName = videoIDAsString.substring(0, 2);
+		final File strDir = new File(baseDir, strDirName);
+		if(!strDir.exists()){
+			strDir.mkdir();
 		}
-		md5ForLanguage.put(partialMD5, sub);
+		final String fileName = videoIDAsString + "." + language;
+		final File subtitleFile = new File(strDir, fileName);
+		
+		FileUtils.writeStringToFile(subtitleFile, content);
+	}
+	
+	public void addSubtitle(final File strFile) throws IOException {
+		final String videoID = StringUtils.substringBeforeLast(strFile.getName(), ".");
+		final String language = StringUtils.substringAfterLast(strFile.getName(), ".");
+		final SubtitleKey subtitleKey = new SubtitleKey(Language.valueOf(language), Long.parseLong(videoID));
+		
+		final String strFileContent = FileUtils.readFileToString(strFile);
+		final Subtitle subtitle = new Subtitle(strFileContent, strFile);
+		
+		subtitles.put(subtitleKey, subtitle);
 	}
 
-	public String getSubtitleFromPartialMD5OrNull(final Language language,
-			long partialMD5) {
-		final Map<Long, String> md5ForLanguage = languageForSubtitles
-				.get(language);
-		if (md5ForLanguage == null)
+	public String getSubtitleContentsFromVideoIDOrNull(final Language language,
+			final long videoID) {
+		final SubtitleKey subtitleKey = new SubtitleKey(language, videoID);
+		final Subtitle subtitle = subtitles.get(subtitleKey);
+		if (subtitle == null)
 			return null;
-		final String subtitles = md5ForLanguage.get(partialMD5);
-		return subtitles;
+		final String content = subtitle.getContent();
+		return content;
 	}
 
-	public void changeContentsForSubtitle(String newContent, Language ptBr,
-			long partialmd5) {
+	public void changeContentsForSubtitle(final String newContent, final Language ptBr,
+			final long videoID) {
 		
 	}
 

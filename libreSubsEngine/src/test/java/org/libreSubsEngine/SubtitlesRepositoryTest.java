@@ -7,9 +7,7 @@ import junit.framework.Assert;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-import org.libreSubsEngine.SubtitlesBase.Language;
 import org.libreSubsEngine.testUtils.PioneerFileInfo;
 import org.libreSubsEngine.testUtils.TempRepositoryCreator;
 
@@ -23,38 +21,36 @@ public class SubtitlesRepositoryTest {
 	}
 	
 	@Test
-	public void loadRepositoryTest(){
+	public void loadRepositoryTest() throws IOException{
 		final SubtitlesBase subtitlesBase = loadSubtitleBase();
-		final String subtitleFromPartialMD5OrNull = subtitlesBase.getSubtitleFromPartialMD5OrNull(Language.pt_BR,
-				PioneerFileInfo.partialmd5);
-		Assert.assertEquals(PioneerFileInfo.content, subtitleFromPartialMD5OrNull);
+		final String subtitleFromVideoIDOrNull = subtitlesBase.getSubtitleContentsFromVideoIDOrNull(Language.pt_BR,
+				PioneerFileInfo.videoID);
+		Assert.assertEquals(PioneerFileInfo.content, subtitleFromVideoIDOrNull);
 	}
 
-	private SubtitlesBase loadSubtitleBase() {
+	private SubtitlesBase loadSubtitleBase() throws IOException {
 		final File tempDir = tempRepositoryCreator.getTempDir();
-		final SubtitlesBase subtitlesBase = new SubtitlesBase();
+		final SubtitlesBase subtitlesBase = new SubtitlesBase(tempDir);
 		new SubtitleBaseLoader(tempDir,subtitlesBase);
 		return subtitlesBase;
 	}
 	
-	@Ignore
 	@Test
 	public void changeSubtitleContentInternally() throws IOException{
 		final SubtitlesBase subtitlesBase = loadSubtitleBase();
 		final String newContent = "New Content";
 		//TODO: Language + partial md5 should be a class and str contents and str file should be another class
-		subtitlesBase.changeContentsForSubtitle(newContent,PioneerFileInfo.language,PioneerFileInfo.partialmd5);
+		subtitlesBase.changeContentsForSubtitle(newContent,PioneerFileInfo.language,PioneerFileInfo.videoID);
 		final File fileOnTemp = tempRepositoryCreator.getFileOnTemp(PioneerFileInfo.path);
 		final String pioneerFileContents = FileUtils.readFileToString(fileOnTemp);
 		Assert.assertEquals(newContent, pioneerFileContents);
-		final String subtitleFromPartialMD5OrNull = subtitlesBase.getSubtitleFromPartialMD5OrNull(Language.pt_BR,
-				PioneerFileInfo.partialmd5);
-		Assert.assertEquals(newContent, subtitleFromPartialMD5OrNull);
+		final String subtitleFromVideoIDOrNull = subtitlesBase.getSubtitleContentsFromVideoIDOrNull(Language.pt_BR,
+				PioneerFileInfo.videoID);
+		Assert.assertEquals(newContent, subtitleFromVideoIDOrNull);
 	}
 	
 	@Test
 	public void changeSubtitleContentExternallyAndWarnBase(){
 		
 	}
-
 }
