@@ -7,7 +7,7 @@ import junit.framework.Assert;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.Before;
-import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.libreSubsEngine.SubtitlesBase.Language;
 import org.libreSubsEngine.testUtils.PioneerFileInfo;
@@ -37,6 +37,7 @@ public class SubtitlesRepositoryTest {
 		return subtitlesBase;
 	}
 	
+	@Ignore
 	@Test
 	public void changeSubtitleContentInternally() throws IOException{
 		final SubtitlesBase subtitlesBase = loadSubtitleBase();

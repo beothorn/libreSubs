@@ -10,13 +10,11 @@ import org.libreSubsEngine.SubtitlesBase.Language;
 public class SubtitleBaseLoader {
 
 	private final SubtitlesBase subtitlesBase;
-	private final File baseDir;
 
 	public SubtitleBaseLoader(File baseDir, SubtitlesBase subtitlesBase) {
 		if(!baseDir.isDirectory()){
 			throw new RuntimeException("BaseDir is not a directory");
 		}
-		this.baseDir = baseDir;
 		this.subtitlesBase = subtitlesBase;
 		
 		loadAllFiles(baseDir);
