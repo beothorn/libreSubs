@@ -21,6 +21,10 @@ public class TempRepositoryCreator {
 		return tempDir;
 	}
 	
+	public File getFileOnTemp(String fileRelativePath){
+		return new File(tempDir,fileRelativePath);
+	}
+	
 	private void createTempRepository() throws IOException {
 		final File tempDir = getTempDir();
 		if(tempDir.exists())
@@ -30,5 +34,4 @@ public class TempRepositoryCreator {
 		final File testRepo = new File(tempRepoURL.getFile());
 		FileUtils.copyDirectory(testRepo, tempDir);
 	}
-
 }

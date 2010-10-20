@@ -35,4 +35,9 @@ public class SubtitlesBase {
 		return subtitles;
 	}
 
+	public void changeContentsForSubtitle(String newContent, Language ptBr,
+			long partialmd5) {
+		
+	}
+
 }
