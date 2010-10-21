@@ -27,8 +27,13 @@ public class SubtitlesBase {
 		}
 		final String fileName = videoIDAsString + "." + language;
 		final File subtitleFile = new File(strDir, fileName);
+		if(subtitleFile.exists())
+			throw new RuntimeException("File already exists");
+		else
+			subtitleFile.createNewFile();
 		
 		FileUtils.writeStringToFile(subtitleFile, content);
+		addSubtitle(subtitleFile);
 	}
 	
 	public void addSubtitle(final File strFile) throws IOException {
@@ -52,9 +57,15 @@ public class SubtitlesBase {
 		return content;
 	}
 
-	public void changeContentsForSubtitle(final String newContent, final Language ptBr,
-			final long videoID) {
-		
+	public void changeContentsForSubtitle(final String newContent, final Language language,
+			final long videoID) throws IOException {
+		changeContentsForSubtitle(newContent, new SubtitleKey(language, videoID) );
+	}
+	
+	public void changeContentsForSubtitle(final String newContent, final SubtitleKey subtitleKey) throws IOException {
+		final Subtitle subtitle = subtitles.get(subtitleKey);
+		subtitle.setContent(newContent);
+		subtitle.write();
 	}
 
 }

@@ -10,17 +10,17 @@ public class Subtitle {
 	private String content;
 	private File strFile;
 
-	public Subtitle(File strFile) throws IOException {
+	public Subtitle(final File strFile) throws IOException {
 		this.setContent(FileUtils.readFileToString(strFile));
 		this.strFile = strFile;
 	}
 	
-	public Subtitle(String content, File strFile) {
+	public Subtitle(final String content, final File strFile) {
 		this.setContent(content);
 		this.setStrFile(strFile);
 	}
 
-	public void setContent(String content) {
+	public void setContent(final String content) {
 		this.content = content;
 	}
 
@@ -28,12 +28,16 @@ public class Subtitle {
 		return content;
 	}
 
-	public void setStrFile(File strFile) {
+	public void setStrFile(final File strFile) {
 		this.strFile = strFile;
 	}
 
 	public File getStrFileOrNull() {
 		return strFile;
+	}
+
+	public void write() throws IOException {
+		FileUtils.writeStringToFile(strFile, content);
 	}
 	
 	

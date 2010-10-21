@@ -39,7 +39,6 @@ public class SubtitlesRepositoryTest {
 	public void changeSubtitleContentInternally() throws IOException{
 		final SubtitlesBase subtitlesBase = loadSubtitleBase();
 		final String newContent = "New Content";
-		//TODO: Language + partial md5 should be a class and str contents and str file should be another class
 		subtitlesBase.changeContentsForSubtitle(newContent,PioneerFileInfo.language,PioneerFileInfo.videoID);
 		final File fileOnTemp = tempRepositoryCreator.getFileOnTemp(PioneerFileInfo.path);
 		final String pioneerFileContents = FileUtils.readFileToString(fileOnTemp);
