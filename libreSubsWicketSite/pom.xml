@@ -65,6 +65,12 @@
 			<type>jar</type>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>libreSubs</groupId>
+			<artifactId>libreSubsEngine</artifactId>
+			<version>${project.version}</version>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
 	<build>
 		<resources>

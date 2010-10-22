@@ -1,19 +1,24 @@
-package org.libreSubsEngine;
+package org.libreSubsEngine.subtitleRepository.repository;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
+import org.libreSubsEngine.Language;
 
-public class SubtitlesBase {
+public class SubtitlesRepository {
 
 	private final Map<SubtitleKey, Subtitle> subtitles;
 	private final File baseDir;
 
-	public SubtitlesBase(final File baseDir) {
+	public SubtitlesRepository(final File baseDir) {
+		if(!baseDir.isDirectory()){
+			throw new RuntimeException("BaseDir is not a directory");
+		}
 		this.baseDir = baseDir;
 		subtitles = new LinkedHashMap<SubtitleKey, Subtitle>();
 	}
@@ -48,7 +53,7 @@ public class SubtitlesBase {
 	}
 
 	public String getSubtitleContentsFromVideoIDOrNull(final Language language,
-			final long videoID) {
+			final long videoID) throws IOException {
 		final SubtitleKey subtitleKey = new SubtitleKey(language, videoID);
 		final Subtitle subtitle = subtitles.get(subtitleKey);
 		if (subtitle == null)
@@ -65,7 +70,19 @@ public class SubtitlesBase {
 	public void changeContentsForSubtitle(final String newContent, final SubtitleKey subtitleKey) throws IOException {
 		final Subtitle subtitle = subtitles.get(subtitleKey);
 		subtitle.setContent(newContent);
-		subtitle.write();
+	}
+
+	public File getBaseDir() {
+		return baseDir;
+	}
+
+	public String listSubtitles() {
+		final StringBuilder subtitlesList = new StringBuilder();
+		final Set<SubtitleKey> keySet = subtitles.keySet();
+		for (final SubtitleKey subtitleKey : keySet) {
+			subtitlesList.append(subtitleKey.toString()+"\n");
+		}
+		return subtitlesList.toString();
 	}
 
 }

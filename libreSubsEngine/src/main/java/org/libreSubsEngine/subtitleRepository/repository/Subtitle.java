@@ -1,4 +1,4 @@
-package org.libreSubsEngine;
+package org.libreSubsEngine.subtitleRepository.repository;
 
 import java.io.File;
 import java.io.IOException;
@@ -11,20 +11,21 @@ public class Subtitle {
 	private File strFile;
 
 	public Subtitle(final File strFile) throws IOException {
-		this.setContent(FileUtils.readFileToString(strFile));
 		this.strFile = strFile;
+		this.content = FileUtils.readFileToString(strFile);
 	}
 	
-	public Subtitle(final String content, final File strFile) {
-		this.setContent(content);
+	public Subtitle(final String content, final File strFile) throws IOException {
 		this.setStrFile(strFile);
+		this.setContent(content);
 	}
 
-	public void setContent(final String content) {
+	public void setContent(final String content) throws IOException {
 		this.content = content;
+		writeContentToFile();
 	}
 
-	public String getContent() {
+	public String getContent() throws IOException {
 		return content;
 	}
 
@@ -36,10 +37,8 @@ public class Subtitle {
 		return strFile;
 	}
 
-	public void write() throws IOException {
+	private void writeContentToFile() throws IOException {
+		
 		FileUtils.writeStringToFile(strFile, content);
 	}
-	
-	
-
 }

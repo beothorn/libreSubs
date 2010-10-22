@@ -6,6 +6,7 @@ import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepository;
 import org.libreSubsEngine.testUtils.MockVideoFileInfo;
 import org.libreSubsEngine.testUtils.TempRepositoryCreator;
 
@@ -20,7 +21,7 @@ public class SubtitleVideoIDMatcherTest {
 	
 	@Test
 	public void addSubAndRetrieve() throws IOException {
-		final SubtitlesBase subtitlesBase = new SubtitlesBase(tempRepositoryCreator.getTempDir());
+		final SubtitlesRepository subtitlesBase = new SubtitlesRepository(tempRepositoryCreator.getTempDir());
 		subtitlesBase.addSubtitle(MockVideoFileInfo.videoID, MockVideoFileInfo.language, MockVideoFileInfo.content);
 		final String subtitleFromVideoIDOrNull = subtitlesBase.getSubtitleContentsFromVideoIDOrNull(MockVideoFileInfo.language,
 				MockVideoFileInfo.videoID);

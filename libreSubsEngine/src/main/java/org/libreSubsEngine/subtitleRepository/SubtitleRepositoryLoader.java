@@ -1,19 +1,18 @@
-package org.libreSubsEngine;
+package org.libreSubsEngine.subtitleRepository;
 
 import java.io.File;
 import java.io.IOException;
 
-public class SubtitleBaseLoader {
+import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepository;
 
-	private final SubtitlesBase subtitlesBase;
 
-	public SubtitleBaseLoader(final File baseDir, final SubtitlesBase subtitlesBase) throws IOException {
-		if(!baseDir.isDirectory()){
-			throw new RuntimeException("BaseDir is not a directory");
-		}
-		this.subtitlesBase = subtitlesBase;
-		
-		loadAllFiles(baseDir);
+public class SubtitleRepositoryLoader {
+
+	private final SubtitlesRepository subtitlesBase;
+
+	public SubtitleRepositoryLoader(final SubtitlesRepository subtitlesRepository) throws IOException {
+		this.subtitlesBase = subtitlesRepository;
+		loadAllFiles(subtitlesRepository.getBaseDir());
 	}
 	
 	private void loadAllFiles(final File dir) throws IOException{

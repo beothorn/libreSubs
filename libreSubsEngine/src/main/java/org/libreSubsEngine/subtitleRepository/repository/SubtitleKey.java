@@ -1,11 +1,13 @@
-package org.libreSubsEngine;
+package org.libreSubsEngine.subtitleRepository.repository;
+
+import org.libreSubsEngine.Language;
 
 public class SubtitleKey {
 	
 	private final Language language;
 	private final long videoID;
 
-	public SubtitleKey(Language language, long videoID) {
+	public SubtitleKey(final Language language, final long videoID) {
 		this.language = language;
 		this.videoID = videoID;
 	}
@@ -22,6 +24,11 @@ public class SubtitleKey {
 	@Override
 	public int hashCode() {
 		return (int) (videoID + language.ordinal());
+	}
+	
+	@Override
+	public String toString() {
+		return "videoID: "+videoID +" language: "+ language.toString();
 	}
 
 }
