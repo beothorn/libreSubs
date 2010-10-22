@@ -128,10 +128,45 @@
 					<downloadSources>true</downloadSources>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.cargo</groupId>
+				<artifactId>cargo-maven2-plugin</artifactId>
+				<configuration>
+					<wait>true</wait>
+					<container>
+						<containerId>tomcat7x</containerId>
+						<type>installed</type>
+						<home>${catalina.home}</home>
+					</container>
+					<configuration>
+						<type>existing</type>
+						<home>${catalina.home}</home>
+						<properties>
+							<cargo.tomcat.manager.url>https://localhost/manager</cargo.tomcat.manager.url>
+							<cargo.remote.username>cargo</cargo.remote.username>
+							<cargo.remote.password>cargocargocargoargh</cargo.remote.password>
+						</properties>
+					</configuration>
+					<deployer>
+						<type>installed</type>
+						<deployables>
+							<deployable>
+								<groupId>libreSubs</groupId>
+								<artifactId>libreSubsWicketSite</artifactId>
+								<type>war</type>
+							</deployable>
+						</deployables>
+					</deployer>
+				</configuration>
+
+			</plugin>
 		</plugins>
 	</build>
+
+
 	<properties>
 		<wicket.version>1.5-M2.1</wicket.version>
 		<jetty.version>6.1.4</jetty.version>
+		<catalina.home>/home/lucas/Programas/tomcat</catalina.home>
 	</properties>
 </project>
