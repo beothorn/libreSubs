@@ -27,14 +27,13 @@ public class SubtitlesRepositoryTest {
 	@Test
 	public void loadRepositoryTest() throws IOException{
 		final SubtitlesRepository subtitlesBase = loadSubtitleBase();
-		final String subtitleFromVideoIDOrNull = subtitlesBase.getSubtitleContentsFromVideoIDOrNull(Language.pt_BR,
+		final String subtitleFromVideoIDOrNull = subtitlesBase.getSubtitleContentsFromVideoIDAndLanguageOrNull(Language.pt_BR,
 				PioneerFileInfo.videoID);
 		Assert.assertEquals(PioneerFileInfo.content, subtitleFromVideoIDOrNull);
 	}
 
 	private SubtitlesRepository loadSubtitleBase() throws IOException {
-		final File tempDir = tempRepositoryCreator.getTempDir();
-		final SubtitlesRepository subtitlesBase = new SubtitlesRepository(tempDir);
+		final SubtitlesRepository subtitlesBase = new SubtitlesRepository(tempRepositoryCreator);
 		new SubtitleRepositoryLoader(subtitlesBase);
 		return subtitlesBase;
 	}
@@ -46,7 +45,7 @@ public class SubtitlesRepositoryTest {
 		final File fileOnTemp = tempRepositoryCreator.getFileOnTemp(PioneerFileInfo.path);
 		final String pioneerFileContents = FileUtils.readFileToString(fileOnTemp);
 		Assert.assertEquals(newContent, pioneerFileContents);
-		final String subtitleFromVideoIDOrNull = subtitlesBase.getSubtitleContentsFromVideoIDOrNull(Language.pt_BR,
+		final String subtitleFromVideoIDOrNull = subtitlesBase.getSubtitleContentsFromVideoIDAndLanguageOrNull(Language.pt_BR,
 				PioneerFileInfo.videoID);
 		Assert.assertEquals(newContent, subtitleFromVideoIDOrNull);
 	}

@@ -1,5 +1,8 @@
 package org.libreSubsEngine;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum Language {
 	ar,
 	ar_AE,
@@ -152,5 +155,20 @@ public enum Language {
 	zh_CN,
 	zh_HK,
 	zh_SG,
-	zh_TW
+	zh_TW;
+
+	private static List<String> languagesAsStringList = loadLanguagesToStringArrary();
+
+	private static List<String> loadLanguagesToStringArrary(){		
+		final Language[] values = values();
+		languagesAsStringList = new ArrayList<String>();
+		for (final Language language : values) {
+			languagesAsStringList.add(language.name());
+		}
+		return languagesAsStringList;
+	}
+	
+	public static List<String> getLanguagesAsStringList() {
+		return languagesAsStringList;
+	}
 }

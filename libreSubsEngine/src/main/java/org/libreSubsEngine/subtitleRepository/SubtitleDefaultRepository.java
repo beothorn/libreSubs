@@ -2,7 +2,7 @@ package org.libreSubsEngine.subtitleRepository;
 
 import java.io.File;
 
-public class SubtitleDefaultRepository {
+public class SubtitleDefaultRepository implements SubtitleRepositoryLocation {
 	
 	private final File baseDir;
 	

@@ -9,24 +9,22 @@ import java.util.Set;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.libreSubsEngine.Language;
+import org.libreSubsEngine.subtitleRepository.SubtitleRepositoryLocation;
 
 public class SubtitlesRepository {
 
 	private final Map<SubtitleKey, Subtitle> subtitles;
-	private final File baseDir;
+	private final SubtitleRepositoryLocation repositoryLocation;
 
-	public SubtitlesRepository(final File baseDir) {
-		if(!baseDir.isDirectory()){
-			throw new RuntimeException("BaseDir is not a directory");
-		}
-		this.baseDir = baseDir;
+	public SubtitlesRepository(final SubtitleRepositoryLocation baseDir) {		
+		this.repositoryLocation = baseDir;
 		subtitles = new LinkedHashMap<SubtitleKey, Subtitle>();
 	}
 
-	public void addSubtitle(final long videoID, final Language language,final String content) throws IOException {
-		final String videoIDAsString = Long.toString(videoID);
+	public void addSubtitle(final SHA1 videoID, final Language language,final String content) throws IOException {
+		final String videoIDAsString = videoID.toString();
 		final String strDirName = videoIDAsString.substring(0, 2);
-		final File strDir = new File(baseDir, strDirName);
+		final File strDir = new File(repositoryLocation.getBaseDir(), strDirName);
 		if(!strDir.exists()){
 			strDir.mkdir();
 		}
@@ -44,7 +42,8 @@ public class SubtitlesRepository {
 	public void addSubtitle(final File strFile) throws IOException {
 		final String videoID = StringUtils.substringBeforeLast(strFile.getName(), ".");
 		final String language = StringUtils.substringAfterLast(strFile.getName(), ".");
-		final SubtitleKey subtitleKey = new SubtitleKey(Language.valueOf(language), Long.parseLong(videoID));
+		final SHA1 videoSHA1 = new SHA1(videoID);
+		final SubtitleKey subtitleKey = new SubtitleKey(Language.valueOf(language), videoSHA1);
 		
 		final String strFileContent = FileUtils.readFileToString(strFile);
 		final Subtitle subtitle = new Subtitle(strFileContent, strFile);
@@ -52,9 +51,14 @@ public class SubtitlesRepository {
 		subtitles.put(subtitleKey, subtitle);
 	}
 
-	public String getSubtitleContentsFromVideoIDOrNull(final Language language,
-			final long videoID) throws IOException {
+	public String getSubtitleContentsFromVideoIDAndLanguageOrNull(final Language language,
+			final SHA1 videoID) throws IOException {
 		final SubtitleKey subtitleKey = new SubtitleKey(language, videoID);
+		return getSubtitleContentsForKey(subtitleKey);
+	}
+
+	public String getSubtitleContentsForKey(final SubtitleKey subtitleKey)
+			throws IOException {
 		final Subtitle subtitle = subtitles.get(subtitleKey);
 		if (subtitle == null)
 			return null;
@@ -63,17 +67,13 @@ public class SubtitlesRepository {
 	}
 
 	public void changeContentsForSubtitle(final String newContent, final Language language,
-			final long videoID) throws IOException {
+			final SHA1 videoID) throws IOException {
 		changeContentsForSubtitle(newContent, new SubtitleKey(language, videoID) );
 	}
 	
 	public void changeContentsForSubtitle(final String newContent, final SubtitleKey subtitleKey) throws IOException {
 		final Subtitle subtitle = subtitles.get(subtitleKey);
 		subtitle.setContent(newContent);
-	}
-
-	public File getBaseDir() {
-		return baseDir;
 	}
 
 	public String listSubtitles() {
@@ -83,6 +83,10 @@ public class SubtitlesRepository {
 			subtitlesList.append(subtitleKey.toString()+"\n");
 		}
 		return subtitlesList.toString();
+	}
+
+	public File getBaseDir() {
+		return repositoryLocation.getBaseDir();
 	}
 
 }

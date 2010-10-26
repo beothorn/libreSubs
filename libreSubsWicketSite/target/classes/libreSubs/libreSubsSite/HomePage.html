@@ -1,15 +1,32 @@
 <html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.5-strict.dtd" >
     <head>  
-        <title>Subtitles</title>
+        <title>LibreSubs</title>
     </head>
     <body>
-        <strong>Subtitles</strong>
-        <br/><br/>
-        Choose language:
-        <br/>
-        Enter Partial MD5 (use this command on linux <i>head -c 1000 | md5sum</i>):
+        <strong>LibreSubs</strong>
+         <a id = "teste">Execute link and go to the link's anchor</a>
+        
         <span wicket:id="message">message will be here</span>
+        <br/><br/>
+        Arraste seu arquivo de video aqui:<br/>
+        <i>Colocar Applet aqui</i>
         <br/>
-        Or use this command <i>head -c 1000 | md5sum | xargs wget http://localhost:8081?langage=PT_BR&md5={}</i>
+        Ou cole o SHA1 dos primeiros 100k do seu arquivo aqui:<br/>        
+        
+		<form wicket:id="inputForm">
+        	Língua:<br/>
+        	<select wicket:id="localeSelect">
+        		<option>pt_BR</option>
+                <option>en_US</option>
+            </select>
+        	SHA1:
+        	<input wicket:id="sha1" type="text" size="40"/>
+        	Nome do Arquivo:
+        	<input wicket:id="fileName" type="text" size="80"/>
+        	<input type="submit" value="Baixar legenda" />
+    	</form>
+        <br/>
+        Ou use o comando:<br/> 
+        <i>head SEUARQUIVO -c 1000 | md5sum | xargs wget http://localhost:8081?langage=PT_BR&md5={}</i>
     </body>
 </html>

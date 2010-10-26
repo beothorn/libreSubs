@@ -21,9 +21,9 @@ public class SubtitleVideoIDMatcherTest {
 	
 	@Test
 	public void addSubAndRetrieve() throws IOException {
-		final SubtitlesRepository subtitlesBase = new SubtitlesRepository(tempRepositoryCreator.getTempDir());
+		final SubtitlesRepository subtitlesBase = new SubtitlesRepository(tempRepositoryCreator);
 		subtitlesBase.addSubtitle(MockVideoFileInfo.videoID, MockVideoFileInfo.language, MockVideoFileInfo.content);
-		final String subtitleFromVideoIDOrNull = subtitlesBase.getSubtitleContentsFromVideoIDOrNull(MockVideoFileInfo.language,
+		final String subtitleFromVideoIDOrNull = subtitlesBase.getSubtitleContentsFromVideoIDAndLanguageOrNull(MockVideoFileInfo.language,
 				MockVideoFileInfo.videoID);
 		Assert.assertEquals(MockVideoFileInfo.content, subtitleFromVideoIDOrNull);
 	}
