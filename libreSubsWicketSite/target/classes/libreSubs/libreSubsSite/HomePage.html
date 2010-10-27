@@ -31,6 +31,7 @@
     	</form>
         <br/>
         Ou (um dia funcionará) use o comando:<br/> 
-        <i>head SEUARQUIVO -c 1000 | md5sum | xargs wget http://localhost:8081?langage=PT_BR&md5={}</i>
+        <i>head SEUARQUIVO -c 100 | sha1sum | xargs wget http://localhost:8081?lang=pt_BR&sha1={}&srt=SEUARQUIVO</i>
+        <a wicket:id="test">test</a>
     </body>
 </html>

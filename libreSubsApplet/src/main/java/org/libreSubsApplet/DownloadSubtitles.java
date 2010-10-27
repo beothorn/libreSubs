@@ -25,7 +25,11 @@ public class DownloadSubtitles implements DropFileListener {
 			try {
 				final byte[] test = new byte[PARTIAL_SHA1_SIZE];
 				fileImageInputStream.read(test);
-				System.out.println(file.getName()+" "+DigestUtils.shaHex(test));
+				final String fileName = file.getName();
+				System.out.println(fileName+" "+DigestUtils.shaHex(test));
+				final File srtFile = new File(file.getParent(),fileName+".srt");
+				srtFile.createNewFile();
+				
 //				URL u=new URL("http://localhost:7001/enter.html");
 //				app.getAppletContext().showDocument(u);
 			} catch (final IOException e) {

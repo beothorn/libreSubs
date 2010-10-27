@@ -8,6 +8,7 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.libreSubsEngine.Language;
 import org.libreSubsEngine.subtitleRepository.SubtitleDefaultRepository;
@@ -25,6 +26,7 @@ public class HomePage extends WebPage {
 	public String sha1;
 	public String localeSelect;
 	public String fileName;
+
 	/**
 	 * Constructor that is invoked when page is invoked without a session.
 	 * 
@@ -70,7 +72,13 @@ public class HomePage extends WebPage {
 		form.add(new DropDownChoice<String>("localeSelect", Language
 				.getLanguagesAsStringList()));
 
-		// add
+		add(new Link<String>("test") {
+			@Override
+			public void onClick() {
+				setResponsePage(new RequestSrt());
+			}
+		});
+
 	}
 
 }
