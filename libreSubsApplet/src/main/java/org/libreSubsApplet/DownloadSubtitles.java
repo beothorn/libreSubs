@@ -10,18 +10,24 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 public class DownloadSubtitles implements DropFileListener {
 
+	private static final int PARTIAL_SHA1_SIZE = 100;
+
 	@Override
-	public void dropedFiles(final List<File> files) {
+	public void droppedFiles(final List<File> files) {
 		for (final File file : files) {
 			FileInputStream fileImageInputStream;
 			try {
 				fileImageInputStream = new FileInputStream(file);
-			} catch (final FileNotFoundException e1) {
-				e1.printStackTrace();
+			} catch (final FileNotFoundException fileNotFound) {
+				fileNotFound.printStackTrace();
 				return;
 			}
 			try {
-				System.out.println(DigestUtils.shaHex(fileImageInputStream));
+				final byte[] test = new byte[PARTIAL_SHA1_SIZE];
+				fileImageInputStream.read(test);
+				System.out.println(file.getName()+" "+DigestUtils.shaHex(test));
+//				URL u=new URL("http://localhost:7001/enter.html");
+//				app.getAppletContext().showDocument(u);
 			} catch (final IOException e) {
 				e.printStackTrace();
 			}

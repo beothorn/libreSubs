@@ -70,6 +70,7 @@ public class HomePage extends WebPage {
 		form.add(new DropDownChoice<String>("localeSelect", Language
 				.getLanguagesAsStringList()));
 
+		// add
 	}
 
 }

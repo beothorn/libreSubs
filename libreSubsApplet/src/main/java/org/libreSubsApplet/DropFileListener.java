@@ -5,6 +5,6 @@ import java.util.List;
 
 public interface DropFileListener {
 	
-	public void dropedFiles(List<File> files);
+	public void droppedFiles(List<File> files);
 
 }
