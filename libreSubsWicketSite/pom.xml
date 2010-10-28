@@ -13,6 +13,7 @@
 	<name>libreSubsWicketSite</name>
 
 	<build>
+		<finalName>${libresubs.war.name}</finalName>
 		<resources>
 			<resource>
 				<filtering>false</filtering>
@@ -47,9 +48,9 @@
 		</testResources>
 		<plugins>
 			<plugin>
-				<inherited>true</inherited>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<inherited>true</inherited>
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>
@@ -71,6 +72,12 @@
 			<plugin>
 				<groupId>org.codehaus.cargo</groupId>
 				<artifactId>cargo-maven2-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>deploy</id>
+						<phase>package</phase>
+					</execution>
+				</executions>
 				<configuration>
 					<wait>true</wait>
 					<container>
@@ -98,7 +105,39 @@
 						</deployables>
 					</deployer>
 				</configuration>
-
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.1</version>
+				<executions>
+					<execution>
+						<id>copy</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+						<configuration>
+							<artifactItems>
+								<artifactItem>
+									<groupId>libreSubs</groupId>
+									<artifactId>libreSubsApplet</artifactId>
+									<overWrite>true</overWrite>
+									<destFileName>subFinder.jar</destFileName>
+								</artifactItem>
+							</artifactItems>
+							<outputDirectory>${project.build.directory}/classes/libreSubs/libreSubsSite</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<version>2.1-beta-1</version>
+				<configuration>
+					<warName>${libresubs.war.name}</warName>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
@@ -168,5 +207,6 @@
 	<properties>
 		<jetty.version>6.1.4</jetty.version>
 		<catalina.home>/home/lucas/Programas/tomcat</catalina.home>
+		<libresubs.war.name>latestLibresubs</libresubs.war.name>
 	</properties>
 </project>

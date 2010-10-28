@@ -15,16 +15,16 @@ public class DownloadSubtitles implements DropFileListener {
 	@Override
 	public void droppedFiles(final List<File> files) {
 		for (final File file : files) {
-			FileInputStream fileImageInputStream;
+			FileInputStream fileInputStream;
 			try {
-				fileImageInputStream = new FileInputStream(file);
+				fileInputStream = new FileInputStream(file);
 			} catch (final FileNotFoundException fileNotFound) {
 				fileNotFound.printStackTrace();
 				return;
 			}
 			try {
 				final byte[] test = new byte[PARTIAL_SHA1_SIZE];
-				fileImageInputStream.read(test);
+				fileInputStream.read(test);
 				final String fileName = file.getName();
 				System.out.println(fileName+" "+DigestUtils.shaHex(test));
 				final File srtFile = new File(file.getParent(),fileName+".srt");

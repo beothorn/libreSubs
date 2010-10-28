@@ -1,0 +1,37 @@
+<html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.5-strict.dtd" >
+    <head>  
+        <title>LibreSubs</title>
+    </head>
+    <body>
+        <strong>LibreSubs</strong>
+        
+        <h2>Lista de legendas:</h2>
+        <p>
+        <span wicket:id="message">lista de legendas</span>
+        </p>
+        
+        <br/><br/>
+        Arraste seu arquivo de video aqui:<br/>
+        <i>Colocar Applet aqui</i>
+        <br/>
+        Ou cole o SHA1 dos primeiros 100k do seu arquivo aqui:
+        <br/>        
+        <br/>
+		<form wicket:id="inputForm">
+        	Língua:<br/>
+        	<select wicket:id="localeSelect">
+        		<option>pt_BR</option>
+                <option>en_US</option>
+            </select><br/>
+        	SHA1:<br/>
+        	<input wicket:id="sha1" type="text" size="40"/><br/>
+        	Nome do Arquivo:<br/>
+        	<input wicket:id="fileName" type="text" size="80"/><br/>
+        	<input type="submit" value="Baixar legenda" />
+    	</form>
+        <br/>
+        Ou (um dia funcionará) use o comando:<br/> 
+        <i>head SEUARQUIVO -c 100 | sha1sum | xargs wget http://localhost:8081?lang=pt_BR&sha1={}&srt=SEUARQUIVO</i>
+        <a wicket:id="test">test</a>
+    </body>
+</html>

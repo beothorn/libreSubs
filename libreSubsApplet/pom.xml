@@ -24,6 +24,25 @@
 					<debug>true</debug>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jarsigner-plugin</artifactId>
+				<executions>
+					<execution>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+						<phase>package</phase>
+						<configuration>
+							<keystore>~/libresubs.keystore</keystore>
+							<alias>libresubs</alias>
+							<storepass>bolada</storepass>
+							<keypass>bolada</keypass>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
 		</plugins>
 	</build>
 	<dependencies>
