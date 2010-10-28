@@ -79,6 +79,23 @@ public class HomePage extends WebPage {
 			}
 		});
 
+
+		// WebResource export = new WebResource() {
+		// @Override
+		// public IResourceStream getResourceStream() {
+		// return HomePage.class.getResourceAsStream("subFinder.jar");
+		// }
+		//
+		// @Override
+		// protected void setHeaders(WebResponse response) {
+		// super.setHeaders(response);
+		// response.setAttachmentHeader("subFinder.jar");
+		// }
+		// };
+		// export.setCacheable(false);
+		//
+		// Application.get().getSharedResources().add("subFinder.jar", export);
+
 	}
 
 }

@@ -19,7 +19,7 @@
     <property name="basedir" value="/home/lucas/workspace/libreSubs/libreSubsEngine"/>
     <property name="java.endorsed.dirs" value="/home/lucas/Programas/jdk1.6.0_14/jre/lib/endorsed"/>
     <property name="os.arch" value="amd64"/>
-    <property name="surefire.real.class.path" value="/tmp/surefirebooter1911780110562295014.jar"/>
+    <property name="surefire.real.class.path" value="/tmp/surefirebooter6170672464810582129.jar"/>
     <property name="java.io.tmpdir" value="/tmp"/>
     <property name="line.separator" value="
 "/>

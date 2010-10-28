@@ -123,10 +123,10 @@
 									<groupId>libreSubs</groupId>
 									<artifactId>libreSubsApplet</artifactId>
 									<overWrite>true</overWrite>
-									<destFileName>subFinder.jar</destFileName>
+									<destFileName>${libresubs.applet.name}</destFileName>
 								</artifactItem>
 							</artifactItems>
-							<outputDirectory>${project.build.directory}/classes/libreSubs/libreSubsSite</outputDirectory>
+							<outputDirectory>${project.build.directory}/lib/libreSubs/libreSubsSite</outputDirectory>
 						</configuration>
 					</execution>
 				</executions>
@@ -137,6 +137,15 @@
 				<version>2.1-beta-1</version>
 				<configuration>
 					<warName>${libresubs.war.name}</warName>
+					<webResources>
+						<resource>
+							<directory>${project.build.directory}</directory>
+							<includes>
+								<include>**/${libresubs.applet.name}</include>
+							</includes>
+
+						</resource>
+					</webResources>
 				</configuration>
 			</plugin>
 		</plugins>
@@ -208,5 +217,6 @@
 		<jetty.version>6.1.4</jetty.version>
 		<catalina.home>/home/lucas/Programas/tomcat</catalina.home>
 		<libresubs.war.name>latestLibresubs</libresubs.war.name>
+		<libresubs.applet.name>subFinder.jar</libresubs.applet.name>
 	</properties>
 </project>

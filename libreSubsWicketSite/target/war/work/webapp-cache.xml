@@ -4,6 +4,7 @@
       <string>currentBuild</string>
       <path-set>
         <pathsSet class="linked-hash-set">
+          <string>lib/libreSubs/libreSubsSite/subFinder.jar</string>
           <string>WEB-INF/web.xml</string>
           <string>WEB-INF/classes/libreSubs/libreSubsSite/HomePage.class</string>
           <string>WEB-INF/classes/libreSubs/libreSubsSite/HomePage$2.class</string>
@@ -12,7 +13,6 @@
           <string>WEB-INF/classes/libreSubs/libreSubsSite/HomePage.html</string>
           <string>WEB-INF/classes/libreSubs/libreSubsSite/SubtitleResource.class</string>
           <string>WEB-INF/classes/libreSubs/libreSubsSite/ErrorPage.html</string>
-          <string>WEB-INF/classes/libreSubs/libreSubsSite/subFinder.jar</string>
           <string>WEB-INF/classes/libreSubs/libreSubsSite/WicketApplication.class</string>
           <string>WEB-INF/classes/libreSubs/libreSubsSite/HomePage$1.class</string>
           <string>WEB-INF/classes/libreSubs/libreSubsSite/RequestSrt.class</string>
