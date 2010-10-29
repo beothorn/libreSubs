@@ -76,6 +76,9 @@
 					<execution>
 						<id>deploy</id>
 						<phase>package</phase>
+						<goals>
+							<goal>deploy</goal>
+						</goals>
 					</execution>
 				</executions>
 				<configuration>
