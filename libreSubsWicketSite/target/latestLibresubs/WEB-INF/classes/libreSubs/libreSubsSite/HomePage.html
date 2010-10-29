@@ -3,18 +3,16 @@
         <title>LibreSubs</title>
     </head>
     <body>
-        <strong>LibreSubs</strong>
+        <h1></h1>
         
         <h2>Lista de legendas:</h2>
         <p>
         <span wicket:id="message">lista de legendas</span>
         </p>
         
-		<div wicket:id="appletDiv"/>
-        
         <br/><br/>
         Arraste seu arquivo de video aqui:<br/>
-
+		<div wicket:id="appletDiv"/>
         <br/>
         Ou cole o SHA1 dos primeiros 100k do seu arquivo aqui:
         <br/>        
@@ -34,6 +32,5 @@
         <br/>
         Ou (um dia funcionará) use o comando:<br/> 
         <i>head SEUARQUIVO -c 100 | sha1sum | xargs wget http://localhost:8081?lang=pt_BR&sha1={}&srt=SEUARQUIVO</i>
-        <a wicket:id="test">test</a>
     </body>
 </html>

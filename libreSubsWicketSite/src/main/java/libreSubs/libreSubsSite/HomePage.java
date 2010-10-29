@@ -3,7 +3,6 @@ package libreSubs.libreSubsSite;
 import java.io.IOException;
 
 import org.apache.wicket.PageParameters;
-import org.apache.wicket.RequestCycle;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.DropDownChoice;
@@ -11,7 +10,6 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.protocol.http.RequestUtils;
 import org.libreSubsEngine.Language;
 import org.libreSubsEngine.subtitleRepository.SubtitleDefaultRepository;
 import org.libreSubsEngine.subtitleRepository.SubtitleRepositoryLoader;
@@ -35,7 +33,6 @@ public class HomePage extends WebPage {
 	 * @param parameters
 	 *            Page parameters
 	 */
-	@SuppressWarnings("serial")
 	public HomePage(final PageParameters parameters) {
 
 		final SubtitleRepositoryLocation subtitleDefaultRepository = new SubtitleDefaultRepository();
@@ -43,27 +40,46 @@ public class HomePage extends WebPage {
 				subtitleDefaultRepository);
 		try {
 			new SubtitleRepositoryLoader(subtitlesRepository);
-		} catch (IOException e) {
+		} catch (final IOException e) {
 			setResponsePage(new ErrorPage("Could not load subtitle repository."));
 		}
 
-		final String basePath = RequestUtils.toAbsolutePath(RequestCycle
-				.get().getRequest().getRelativePathPrefixToWicketHandler());
+		addSubtitleFinderApplet();
+		addSubtitlesListPrintForDebug(subtitlesRepository);
+		addSubtitleSearchForm(subtitlesRepository);
+
+		add(new Link<String>("teste") {
+			@Override
+			public void onClick() {
+				setResponsePage(new RequestSrt());
+			}
+		});
+
+	}
+
+	private void addSubtitleFinderApplet() {
 
 		final DeployJava div = new DeployJava("appletDiv");
-		div.setWidth(500);
+		div.setWidth(800);
 		div.setHeight(500);
 		div.setCode("org.libreSubsApplet.MainApplet.class");
-		div.setCodebase(basePath + "applets");
+		div.setCodebase(WicketApplication.getBasePath() + "applets");
 		div.setArchive("subFinder.jar");
 		div.addParameter("text", "Hello world");
 		div.setMinimalVersion("1.6");
 		add(div);
+	}
 
+	private void addSubtitlesListPrintForDebug(
+			final SubtitlesRepository subtitlesRepository) {
 		add(new Label("message", "SubList: "
 				+ subtitlesRepository.listSubtitles()));
+	}
 
-		Form<String> form = new Form<String>("inputForm",
+	@SuppressWarnings("serial")
+	private void addSubtitleSearchForm(
+			final SubtitlesRepository subtitlesRepository) {
+		final Form<String> form = new Form<String>("inputForm",
 				new CompoundPropertyModel<String>(this)) {
 			@Override
 			protected void onSubmit() {
@@ -74,7 +90,7 @@ public class HomePage extends WebPage {
 					new SubtitleResource(subtitlesRepository, subtitleKey,
 							fileName);
 
-				} catch (IOException e) {
+				} catch (final IOException e) {
 					setResponsePage(new ErrorPage("Could not load subtitle."));
 					return;
 				}
@@ -86,14 +102,6 @@ public class HomePage extends WebPage {
 		form.add(new TextField<String>("fileName"));
 		form.add(new DropDownChoice<String>("localeSelect", Language
 				.getLanguagesAsStringList()));
-
-		add(new Link<String>("test") {
-			@Override
-			public void onClick() {
-				setResponsePage(new RequestSrt());
-			}
-		});
-
 	}
 
 }

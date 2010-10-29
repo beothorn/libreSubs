@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0.025" errors="0" skipped="0" tests="1" name="org.libreSubsApplet.AppTest">
+<testsuite failures="0" time="0.027" errors="0" skipped="0" tests="1" name="org.libreSubsApplet.AppTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/home/lucas/Programas/jdk1.6.0_14/jre/lib/amd64"/>
@@ -19,7 +19,7 @@
     <property name="basedir" value="/home/lucas/workspace/libreSubs/libreSubsApplet"/>
     <property name="java.endorsed.dirs" value="/home/lucas/Programas/jdk1.6.0_14/jre/lib/endorsed"/>
     <property name="os.arch" value="amd64"/>
-    <property name="surefire.real.class.path" value="/tmp/surefirebooter7115869842471139806.jar"/>
+    <property name="surefire.real.class.path" value="/tmp/surefirebooter2144346813591654829.jar"/>
     <property name="java.io.tmpdir" value="/tmp"/>
     <property name="line.separator" value="
 "/>
@@ -27,7 +27,7 @@
     <property name="os.name" value="Linux"/>
     <property name="sun.jnu.encoding" value="UTF-8"/>
     <property name="java.library.path" value="/home/lucas/Programas/jdk1.6.0_14/jre/lib/amd64/server:/home/lucas/Programas/jdk1.6.0_14/jre/lib/amd64:/home/lucas/Programas/jdk1.6.0_14/jre/../lib/amd64:/usr/lib32:/usr/java/packages/lib/amd64:/lib:/usr/lib"/>
-    <property name="surefire.test.class.path" value="/home/lucas/workspace/libreSubs/libreSubsApplet/target/test-classes:/home/lucas/workspace/libreSubs/libreSubsApplet/target/classes:/home/lucas/.m2/repository/junit/junit/4.8.1/junit-4.8.1.jar:/home/lucas/.m2/repository/commons-codec/commons-codec/1.4/commons-codec-1.4.jar:/home/lucas/.m2/repository/commons-io/commons-io/2.0/commons-io-2.0.jar:"/>
+    <property name="surefire.test.class.path" value="/home/lucas/workspace/libreSubs/libreSubsApplet/target/test-classes:/home/lucas/workspace/libreSubs/libreSubsApplet/target/classes:/home/lucas/.m2/repository/junit/junit/4.8.1/junit-4.8.1.jar:/home/lucas/.m2/repository/commons-io/commons-io/2.0/commons-io-2.0.jar:/home/lucas/workspace/libreSubs/libreSubsCommons/target/libreSubsCommons-0.0.1-SNAPSHOT.jar:/home/lucas/.m2/repository/commons-codec/commons-codec/1.4/commons-codec-1.4.jar:"/>
     <property name="java.specification.name" value="Java Platform API Specification"/>
     <property name="java.class.version" value="50.0"/>
     <property name="sun.management.compiler" value="HotSpot 64-Bit Server Compiler"/>
@@ -38,7 +38,7 @@
     <property name="file.encoding" value="UTF-8"/>
     <property name="java.specification.version" value="1.6"/>
     <property name="user.name" value="lucas"/>
-    <property name="java.class.path" value="/home/lucas/workspace/libreSubs/libreSubsApplet/target/test-classes:/home/lucas/workspace/libreSubs/libreSubsApplet/target/classes:/home/lucas/.m2/repository/junit/junit/4.8.1/junit-4.8.1.jar:/home/lucas/.m2/repository/commons-codec/commons-codec/1.4/commons-codec-1.4.jar:/home/lucas/.m2/repository/commons-io/commons-io/2.0/commons-io-2.0.jar:"/>
+    <property name="java.class.path" value="/home/lucas/workspace/libreSubs/libreSubsApplet/target/test-classes:/home/lucas/workspace/libreSubs/libreSubsApplet/target/classes:/home/lucas/.m2/repository/junit/junit/4.8.1/junit-4.8.1.jar:/home/lucas/.m2/repository/commons-io/commons-io/2.0/commons-io-2.0.jar:/home/lucas/workspace/libreSubs/libreSubsCommons/target/libreSubsCommons-0.0.1-SNAPSHOT.jar:/home/lucas/.m2/repository/commons-codec/commons-codec/1.4/commons-codec-1.4.jar:"/>
     <property name="java.vm.specification.version" value="1.0"/>
     <property name="sun.arch.data.model" value="64"/>
     <property name="java.home" value="/home/lucas/Programas/jdk1.6.0_14/jre"/>
@@ -57,5 +57,5 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase time="0.004" classname="org.libreSubsApplet.AppTest" name="testApp"/>
+  <testcase time="0.003" classname="org.libreSubsApplet.AppTest" name="testApp"/>
 </testsuite>

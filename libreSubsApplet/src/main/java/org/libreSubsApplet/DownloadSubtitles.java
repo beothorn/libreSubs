@@ -1,41 +1,50 @@
 package org.libreSubsApplet;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 
-import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.io.FilenameUtils;
+import org.libreSubsCommons.FileUtils;
+import org.libreSubsCommons.SHA1Utils;
 
 public class DownloadSubtitles implements DropFileListener {
 
-	private static final int PARTIAL_SHA1_SIZE = 100;
+	private final URL subtitleSource;
+	private final OutputListener outputListener;
+
+	public DownloadSubtitles(final URL subtitleSource, final OutputListener outputListener) {
+		this.subtitleSource = subtitleSource;
+		this.outputListener = outputListener;
+	}
+	
 
 	@Override
-	public void droppedFiles(final List<File> files) {
+	public void droppedFiles(final List<File> files){
 		for (final File file : files) {
-			FileInputStream fileInputStream;
+
+			final String shaHex;
 			try {
-				fileInputStream = new FileInputStream(file);
-			} catch (final FileNotFoundException fileNotFound) {
-				fileNotFound.printStackTrace();
-				return;
+				shaHex = SHA1Utils.getPartialSHA1ForFile(file);
+			} catch (final IOException e1) {
+				throw new RuntimeException("Error while calculating partial SHA1 for file.",e1);
 			}
-			try {
-				final byte[] test = new byte[PARTIAL_SHA1_SIZE];
-				fileInputStream.read(test);
-				final String fileName = file.getName();
-				System.out.println(fileName+" "+DigestUtils.shaHex(test));
-				final File srtFile = new File(file.getParent(),fileName+".srt");
-				srtFile.createNewFile();
-				
-//				URL u=new URL("http://localhost:7001/enter.html");
-//				app.getAppletContext().showDocument(u);
-			} catch (final IOException e) {
-				e.printStackTrace();
-			}
+
+			final String fileName = file.getName();
+			final String parent = file.getParent();
+			final String newStrFileName = FilenameUtils.removeExtension(fileName)
+					+ ".srt";
+			outputListener.info(shaHex);
+			final File srtFile = FileUtils.createFileOrCry(parent, newStrFileName);
+			
+//			 final URL u=new URL(subtitleSource;
+//			 app.getAppletContext().showDocument(u);
 		}
 	}
+
+	
+
+	
 
 }
