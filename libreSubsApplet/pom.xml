@@ -36,8 +36,8 @@
 						<configuration>
 							<keystore>~/libresubs.keystore</keystore>
 							<alias>libresubs</alias>
-							<storepass>bolada</storepass>
-							<keypass>bolada</keypass>
+							<storepass>${keystore.password}</storepass>
+							<keypass>${keystore.keypass}</keypass>
 						</configuration>
 					</execution>
 				</executions>

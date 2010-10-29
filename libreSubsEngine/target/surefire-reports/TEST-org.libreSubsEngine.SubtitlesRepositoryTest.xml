@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite failures="0" time="0.072" errors="0" skipped="0" tests="2" name="org.libreSubsEngine.SubtitlesRepositoryTest">
+<testsuite failures="0" time="0.066" errors="0" skipped="0" tests="2" name="org.libreSubsEngine.SubtitlesRepositoryTest">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="/home/lucas/Programas/jdk1.6.0_14/jre/lib/amd64"/>
@@ -19,7 +19,7 @@
     <property name="basedir" value="/home/lucas/workspace/libreSubs/libreSubsEngine"/>
     <property name="java.endorsed.dirs" value="/home/lucas/Programas/jdk1.6.0_14/jre/lib/endorsed"/>
     <property name="os.arch" value="amd64"/>
-    <property name="surefire.real.class.path" value="/tmp/surefirebooter6170672464810582129.jar"/>
+    <property name="surefire.real.class.path" value="/tmp/surefirebooter1782139051295052862.jar"/>
     <property name="java.io.tmpdir" value="/tmp"/>
     <property name="line.separator" value="
 "/>
@@ -57,6 +57,6 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase time="0.034" classname="org.libreSubsEngine.SubtitlesRepositoryTest" name="loadRepositoryTest"/>
-  <testcase time="0.002" classname="org.libreSubsEngine.SubtitlesRepositoryTest" name="changeSubtitleContentInternally"/>
+  <testcase time="0.032" classname="org.libreSubsEngine.SubtitlesRepositoryTest" name="loadRepositoryTest"/>
+  <testcase time="0.003" classname="org.libreSubsEngine.SubtitlesRepositoryTest" name="changeSubtitleContentInternally"/>
 </testsuite>

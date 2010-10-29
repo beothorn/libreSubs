@@ -4,7 +4,7 @@
       <string>currentBuild</string>
       <path-set>
         <pathsSet class="linked-hash-set">
-          <string>lib/libreSubs/libreSubsSite/subFinder.jar</string>
+          <string>applets/subFinder.jar</string>
           <string>WEB-INF/web.xml</string>
           <string>WEB-INF/classes/libreSubs/libreSubsSite/HomePage.class</string>
           <string>WEB-INF/classes/libreSubs/libreSubsSite/HomePage$2.class</string>
@@ -15,15 +15,21 @@
           <string>WEB-INF/classes/libreSubs/libreSubsSite/ErrorPage.html</string>
           <string>WEB-INF/classes/libreSubs/libreSubsSite/WicketApplication.class</string>
           <string>WEB-INF/classes/libreSubs/libreSubsSite/HomePage$1.class</string>
+          <string>WEB-INF/classes/libreSubs/libreSubsSite/DeployJava.class</string>
           <string>WEB-INF/classes/libreSubs/libreSubsSite/RequestSrt.class</string>
           <string>WEB-INF/classes/log4j.properties</string>
           <string>WEB-INF/lib/wicket-1.4.12.jar</string>
           <string>WEB-INF/lib/slf4j-api-1.5.8.jar</string>
           <string>WEB-INF/lib/slf4j-log4j12-1.4.2.jar</string>
           <string>WEB-INF/lib/log4j-1.2.14.jar</string>
+          <string>WEB-INF/lib/json-lib-2.3-jdk15.jar</string>
+          <string>WEB-INF/lib/commons-beanutils-1.8.0.jar</string>
+          <string>WEB-INF/lib/commons-logging-1.1.1.jar</string>
+          <string>WEB-INF/lib/commons-collections-3.2.1.jar</string>
+          <string>WEB-INF/lib/commons-lang-2.4.jar</string>
+          <string>WEB-INF/lib/ezmorph-1.0.6.jar</string>
           <string>WEB-INF/lib/libreSubsEngine-0.0.1-SNAPSHOT.jar</string>
           <string>WEB-INF/lib/commons-io-1.3.2.jar</string>
-          <string>WEB-INF/lib/commons-lang-2.5.jar</string>
           <string>WEB-INF/lib/libreSubsApplet-0.0.1-SNAPSHOT.jar</string>
           <string>WEB-INF/lib/commons-codec-1.4.jar</string>
           <string>WEB-INF/lib/commons-io-2.0.jar</string>
@@ -111,6 +117,19 @@
         <exclusions/>
         <optional>false</optional>
       </dependency>
+    </org.apache.maven.plugin.war.util.DependencyInfo>
+    <org.apache.maven.plugin.war.util.DependencyInfo>
+      <dependency>
+        <groupId>net.sf.json-lib</groupId>
+        <artifactId>json-lib</artifactId>
+        <version>2.3</version>
+        <type>jar</type>
+        <classifier>jdk15</classifier>
+        <scope>compile</scope>
+        <exclusions/>
+        <optional>false</optional>
+      </dependency>
+      <targetFileName>json-lib-2.3-jdk15.jar</targetFileName>
     </org.apache.maven.plugin.war.util.DependencyInfo>
     <org.apache.maven.plugin.war.util.DependencyInfo>
       <dependency>

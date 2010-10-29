@@ -88,11 +88,6 @@
 					<configuration>
 						<type>existing</type>
 						<home>${catalina.home}</home>
-						<properties>
-							<cargo.tomcat.manager.url>https://localhost/manager</cargo.tomcat.manager.url>
-							<cargo.remote.username>cargo</cargo.remote.username>
-							<cargo.remote.password>cargocargocargoargh</cargo.remote.password>
-						</properties>
 					</configuration>
 					<deployer>
 						<type>installed</type>
@@ -126,7 +121,7 @@
 									<destFileName>${libresubs.applet.name}</destFileName>
 								</artifactItem>
 							</artifactItems>
-							<outputDirectory>${project.build.directory}/lib/libreSubs/libreSubsSite</outputDirectory>
+							<outputDirectory>${project.build.directory}/applets</outputDirectory>
 						</configuration>
 					</execution>
 				</executions>
@@ -198,6 +193,12 @@
 			<version>${junit.version}</version>
 			<type>jar</type>
 			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.json-lib</groupId>
+			<artifactId>json-lib</artifactId>
+			<version>2.3</version>
+			<classifier>jdk15</classifier>
 		</dependency>
 		<dependency>
 			<groupId>libreSubs</groupId>

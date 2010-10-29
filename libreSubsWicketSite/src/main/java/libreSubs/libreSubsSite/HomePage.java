@@ -3,6 +3,7 @@ package libreSubs.libreSubsSite;
 import java.io.IOException;
 
 import org.apache.wicket.PageParameters;
+import org.apache.wicket.RequestCycle;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.DropDownChoice;
@@ -10,6 +11,7 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.protocol.http.RequestUtils;
 import org.libreSubsEngine.Language;
 import org.libreSubsEngine.subtitleRepository.SubtitleDefaultRepository;
 import org.libreSubsEngine.subtitleRepository.SubtitleRepositoryLoader;
@@ -45,6 +47,19 @@ public class HomePage extends WebPage {
 			setResponsePage(new ErrorPage("Could not load subtitle repository."));
 		}
 
+		final String basePath = RequestUtils.toAbsolutePath(RequestCycle
+				.get().getRequest().getRelativePathPrefixToWicketHandler());
+
+		final DeployJava div = new DeployJava("appletDiv");
+		div.setWidth(500);
+		div.setHeight(500);
+		div.setCode("org.libreSubsApplet.MainApplet.class");
+		div.setCodebase(basePath + "applets");
+		div.setArchive("subFinder.jar");
+		div.addParameter("text", "Hello world");
+		div.setMinimalVersion("1.6");
+		add(div);
+
 		add(new Label("message", "SubList: "
 				+ subtitlesRepository.listSubtitles()));
 
@@ -78,23 +93,6 @@ public class HomePage extends WebPage {
 				setResponsePage(new RequestSrt());
 			}
 		});
-
-
-		// WebResource export = new WebResource() {
-		// @Override
-		// public IResourceStream getResourceStream() {
-		// return HomePage.class.getResourceAsStream("subFinder.jar");
-		// }
-		//
-		// @Override
-		// protected void setHeaders(WebResponse response) {
-		// super.setHeaders(response);
-		// response.setAttachmentHeader("subFinder.jar");
-		// }
-		// };
-		// export.setCacheable(false);
-		//
-		// Application.get().getSharedResources().add("subFinder.jar", export);
 
 	}
 
