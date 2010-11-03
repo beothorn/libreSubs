@@ -1,6 +1,6 @@
 package org.libreSubsEngine.subtitleRepository.repository;
 
-import org.libreSubsEngine.Language;
+import org.libreSubsCommons.Language;
 
 public class SubtitleKey {
 	

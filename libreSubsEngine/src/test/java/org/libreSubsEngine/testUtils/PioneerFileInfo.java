@@ -1,6 +1,6 @@
 package org.libreSubsEngine.testUtils;
 
-import org.libreSubsEngine.Language;
+import org.libreSubsCommons.Language;
 import org.libreSubsEngine.subtitleRepository.repository.SHA1;
 
 public class PioneerFileInfo {

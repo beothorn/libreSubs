@@ -1,4 +1,4 @@
-package org.libreSubsApplet;
+package org.libreSubsApplet.dropFile;
 
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;

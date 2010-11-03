@@ -8,7 +8,7 @@ import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
-import org.libreSubsEngine.Language;
+import org.libreSubsCommons.Language;
 import org.libreSubsEngine.subtitleRepository.SubtitleRepositoryLocation;
 
 public class SubtitlesRepository {

@@ -8,9 +8,8 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.CompoundPropertyModel;
-import org.libreSubsEngine.Language;
+import org.libreSubsCommons.Language;
 import org.libreSubsEngine.subtitleRepository.SubtitleDefaultRepository;
 import org.libreSubsEngine.subtitleRepository.SubtitleRepositoryLoader;
 import org.libreSubsEngine.subtitleRepository.SubtitleRepositoryLocation;
@@ -48,13 +47,6 @@ public class HomePage extends WebPage {
 		addSubtitlesListPrintForDebug(subtitlesRepository);
 		addSubtitleSearchForm(subtitlesRepository);
 
-		add(new Link<String>("teste") {
-			@Override
-			public void onClick() {
-				setResponsePage(new RequestSrt());
-			}
-		});
-
 	}
 
 	private void addSubtitleFinderApplet() {
@@ -65,7 +57,8 @@ public class HomePage extends WebPage {
 		div.setCode("org.libreSubsApplet.MainApplet.class");
 		div.setCodebase(WicketApplication.getBasePath() + "applets");
 		div.setArchive("subFinder.jar");
-		div.addParameter("text", "Hello world");
+		div.addParameter("srtProviderURL", WicketApplication.getBasePath()
+				+ "?id=%id&lang=%lang&file=%file");
 		div.setMinimalVersion("1.6");
 		add(div);
 	}

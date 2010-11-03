@@ -4,13 +4,13 @@ import java.awt.BorderLayout;
 import java.awt.Image;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JApplet;
 import javax.swing.JLabel;
+
+import org.libreSubsApplet.dropFile.DropFilesTarget;
 
 @SuppressWarnings("serial")
 public class MainApplet extends JApplet implements OutputListener{
@@ -27,21 +27,25 @@ public class MainApplet extends JApplet implements OutputListener{
 		try {
 			image = ImageIO.read(resourceAsStream);
 		} catch (final IOException e1) {
-			throw new RuntimeException(e1);
+			add(new JLabel(e1.getMessage()));
+			return;
 		}
 
 		final ImageIcon icon = new ImageIcon(image);
 
 		stringBucketLabel = new JLabel(icon);
 		final DropFilesTarget dropFilesTarget = new DropFilesTarget();
-		URL srtSource;
-		try {
-			srtSource = new URL("http://www.lucass.is-a-geek.com:8080/latestLibresubs/");
-		} catch (final MalformedURLException e) {
-			throw new RuntimeException(e);
+		
+		final String srtProviderURL = getParameter("srtProviderURL");
+		if(srtProviderURL==null){
+			add(new JLabel("You must add th parameter srtProviderURL. Example\n" +
+					"<param name=srtProviderURL value=\"http://www.yoursite.com/latestLibresubs/?id=%id&lang=%lang&file=%file\"> "));
+			return;
 		}
+		final SubtitleResourceResolver srtSource = new SubtitleResourceResolver("srtProviderURL not null");
 		
 		dropFilesTarget.addDropFileListener(new DownloadSubtitles(srtSource, this));
+		
 		stringBucketLabel.setDropTarget(dropFilesTarget);
 		add(stringBucketLabel);
 	}

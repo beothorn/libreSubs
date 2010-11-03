@@ -1,4 +1,4 @@
-package org.libreSubsApplet;
+package org.libreSubsApplet.dropFile;
 
 import java.io.File;
 import java.util.List;
