@@ -11,6 +11,7 @@ import javax.swing.JApplet;
 import javax.swing.JLabel;
 
 import org.libreSubsApplet.dropFile.DropFilesTarget;
+import org.libreSubsCommons.SubtitleResourceResolver;
 
 @SuppressWarnings("serial")
 public class MainApplet extends JApplet implements OutputListener{

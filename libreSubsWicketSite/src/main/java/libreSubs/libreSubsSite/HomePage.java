@@ -1,52 +1,30 @@
 package libreSubs.libreSubsSite;
 
-import java.io.IOException;
-
-import org.apache.wicket.PageParameters;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.request.target.basic.RedirectRequestTarget;
 import org.libreSubsCommons.Language;
-import org.libreSubsEngine.subtitleRepository.SubtitleDefaultRepository;
-import org.libreSubsEngine.subtitleRepository.SubtitleRepositoryLoader;
-import org.libreSubsEngine.subtitleRepository.SubtitleRepositoryLocation;
-import org.libreSubsEngine.subtitleRepository.repository.SHA1;
-import org.libreSubsEngine.subtitleRepository.repository.SubtitleKey;
+import org.libreSubsCommons.SubtitleResourceResolver;
 import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepository;
 
-/**
- * Homepage
- */
 public class HomePage extends WebPage {
 
 	public String sha1;
 	public String localeSelect;
 	public String fileName;
 
-	/**
-	 * Constructor that is invoked when page is invoked without a session.
-	 * 
-	 * @param parameters
-	 *            Page parameters
-	 */
-	public HomePage(final PageParameters parameters) {
-
-		final SubtitleRepositoryLocation subtitleDefaultRepository = new SubtitleDefaultRepository();
-		final SubtitlesRepository subtitlesRepository = new SubtitlesRepository(
-				subtitleDefaultRepository);
-		try {
-			new SubtitleRepositoryLoader(subtitlesRepository);
-		} catch (final IOException e) {
-			setResponsePage(new ErrorPage("Could not load subtitle repository."));
-		}
+	public HomePage() {
 
 		addSubtitleFinderApplet();
-		addSubtitlesListPrintForDebug(subtitlesRepository);
-		addSubtitleSearchForm(subtitlesRepository);
 
+		final SubtitlesRepository subtitles = WicketApplication.subtitles;
+
+		addSubtitlesListPrintForDebug(subtitles);
+		addSubtitleSearchForm(subtitles);
 	}
 
 	private void addSubtitleFinderApplet() {
@@ -76,18 +54,16 @@ public class HomePage extends WebPage {
 				new CompoundPropertyModel<String>(this)) {
 			@Override
 			protected void onSubmit() {
-				try {
-					final SubtitleKey subtitleKey = new SubtitleKey(Language
-							.valueOf(localeSelect), new SHA1(sha1));
 
-					new SubtitleResource(subtitlesRepository, subtitleKey,
-							fileName);
+				final String idParam = SubtitleResourceResolver.idParameter;
+				final String langParam = SubtitleResourceResolver.langParameter;
+				final String fileParam = SubtitleResourceResolver.fileParameter;
 
-				} catch (final IOException e) {
-					setResponsePage(new ErrorPage("Could not load subtitle."));
-					return;
-				}
-
+				final String subRequestURL = "/sub?" + idParam + "=" + sha1
+						+ "&" + langParam + "=" + localeSelect + "&"
+						+ fileParam + "=" + fileName;
+				getRequestCycle().setRequestTarget(
+						new RedirectRequestTarget(subRequestURL));
 			}
 		};
 		add(form);

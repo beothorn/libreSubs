@@ -15,6 +15,7 @@ import org.libreSubsApplet.dropFile.DropFileListener;
 import org.libreSubsCommons.FileUtils;
 import org.libreSubsCommons.Language;
 import org.libreSubsCommons.SHA1Utils;
+import org.libreSubsCommons.SubtitleResourceResolver;
 
 public class DownloadSubtitles implements DropFileListener {
 
