@@ -16,7 +16,7 @@ public class SubtitleResourceResolver {
 	public String resolve(final String id, final Language lang, final String file) {
 		String resolved = urlParameter.replace("%"+idParameter, id);;
 		resolved = resolved.replace("%"+langParameter, lang.toString());
-		resolved = resolved.replace("%"+file, file);		
+		resolved = resolved.replace("%"+fileParameter, file);		
 		return resolved;
 	}
 

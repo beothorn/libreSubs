@@ -14,7 +14,6 @@ import org.libreSubsEngine.subtitleRepository.repository.SubtitleKey;
 @SuppressWarnings("serial")
 public class SubRequest extends DynamicWebResource {
 
-
 	@Override
 	protected DynamicWebResource.ResourceState getResourceState() {
 		return new ResourceState() {
