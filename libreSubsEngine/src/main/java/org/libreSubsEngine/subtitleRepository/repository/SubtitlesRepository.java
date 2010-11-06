@@ -54,11 +54,12 @@ public class SubtitlesRepository {
 	public String getSubtitleContentsFromVideoIDAndLanguageOrNull(final Language language,
 			final SHA1 videoID) throws IOException {
 		final SubtitleKey subtitleKey = new SubtitleKey(language, videoID);
-		return getSubtitleContentsForKey(subtitleKey);
+		return getSubtitleContentsForKeyOrNull(subtitleKey);
 	}
 
-	public String getSubtitleContentsForKey(final SubtitleKey subtitleKey)
-			throws IOException {
+	public String getSubtitleContentsForKeyOrNull(final SubtitleKey subtitleKey){
+		if(subtitleKey == null)
+			return null;
 		final Subtitle subtitle = subtitles.get(subtitleKey);
 		if (subtitle == null)
 			return null;
@@ -87,6 +88,12 @@ public class SubtitlesRepository {
 
 	public File getBaseDir() {
 		return repositoryLocation.getBaseDir();
+	}
+
+	public boolean subtitleExists(final SubtitleKey key){
+		if(key == null)
+			return false;
+		return subtitles.containsKey(key);
 	}
 
 }

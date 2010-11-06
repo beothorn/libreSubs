@@ -2,6 +2,8 @@ package libreSubs.libreSubsSite;
 
 import java.io.IOException;
 
+import libreSubs.libreSubsSite.subRequest.SubRequest;
+
 import org.apache.wicket.Request;
 import org.apache.wicket.RequestCycle;
 import org.apache.wicket.ResourceReference;
@@ -9,6 +11,7 @@ import org.apache.wicket.protocol.http.RequestUtils;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.settings.IResourceSettings;
 import org.apache.wicket.util.resource.locator.ResourceStreamLocator;
+import org.libreSubsEngine.SubtitlesRepositoryHandler;
 import org.libreSubsEngine.subtitleRepository.SubtitleDefaultRepository;
 import org.libreSubsEngine.subtitleRepository.SubtitleRepositoryLoader;
 import org.libreSubsEngine.subtitleRepository.SubtitleRepositoryLocation;
@@ -22,7 +25,7 @@ import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepository;
 public class WicketApplication extends WebApplication
 {    
 
-	public static SubtitlesRepository subtitles;
+	private static SubtitlesRepositoryHandler subtitles;
 
     /**
      * Constructor
@@ -38,6 +41,10 @@ public class WicketApplication extends WebApplication
 		return RequestUtils.toAbsolutePath(relativePathPrefix);
 	}
 
+	public static String getSubtitleOrNull(final String id, final String lang) {
+		return subtitles.getSubtitleOrNull(id, lang);
+	}
+
 	@Override
 	protected void init() {
 
@@ -50,7 +57,8 @@ public class WicketApplication extends WebApplication
 			throw new RuntimeException(e);
 		}
 
-		WicketApplication.subtitles = subtitlesRepository;
+		WicketApplication.subtitles = new SubtitlesRepositoryHandler(
+				subtitlesRepository);
 
 		addAppletsFolderToPublicResources();
 		getSharedResources().add("subRequest", new SubRequest());
@@ -71,6 +79,14 @@ public class WicketApplication extends WebApplication
 	public Class<HomePage> getHomePage()
 	{
 		return HomePage.class;
+	}
+
+	public static String listSubtitles() {
+		return subtitles.listSubtitles();
+	}
+
+	public static boolean subtitleExists(final String id, final String language) {
+		return subtitles.subtitleExists(id, language);
 	}
 
 }

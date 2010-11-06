@@ -25,7 +25,7 @@ public class Subtitle {
 		writeContentToFile();
 	}
 
-	public String getContent() throws IOException {
+	public String getContent(){
 		return content;
 	}
 
@@ -38,7 +38,6 @@ public class Subtitle {
 	}
 
 	private void writeContentToFile() throws IOException {
-		
 		FileUtils.writeStringToFile(strFile, content);
 	}
 }

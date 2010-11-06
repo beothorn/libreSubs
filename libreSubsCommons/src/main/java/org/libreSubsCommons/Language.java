@@ -171,4 +171,8 @@ public enum Language {
 	public static List<String> getLanguagesAsStringList() {
 		return languagesAsStringList;
 	}
+
+	public static boolean isValidLanguage(final String language) {
+		return languagesAsStringList.contains(language);
+	}
 }

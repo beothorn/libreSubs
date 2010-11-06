@@ -9,7 +9,6 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.request.target.basic.RedirectRequestTarget;
 import org.libreSubsCommons.Language;
 import org.libreSubsCommons.SubtitleResourceResolver;
-import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepository;
 
 public class HomePage extends WebPage {
 
@@ -21,10 +20,8 @@ public class HomePage extends WebPage {
 
 		addSubtitleFinderApplet();
 
-		final SubtitlesRepository subtitles = WicketApplication.subtitles;
-
-		addSubtitlesListPrintForDebug(subtitles);
-		addSubtitleSearchForm(subtitles);
+		addSubtitlesListPrintForDebug();
+		addSubtitleSearchForm();
 	}
 
 	private void addSubtitleFinderApplet() {
@@ -41,15 +38,13 @@ public class HomePage extends WebPage {
 		add(div);
 	}
 
-	private void addSubtitlesListPrintForDebug(
-			final SubtitlesRepository subtitlesRepository) {
+	private void addSubtitlesListPrintForDebug() {
 		add(new Label("message", "SubList: "
-				+ subtitlesRepository.listSubtitles()));
+				+ WicketApplication.listSubtitles()));
 	}
 
 	@SuppressWarnings("serial")
-	private void addSubtitleSearchForm(
-			final SubtitlesRepository subtitlesRepository) {
+	private void addSubtitleSearchForm() {
 		final Form<String> form = new Form<String>("inputForm",
 				new CompoundPropertyModel<String>(this)) {
 			@Override
