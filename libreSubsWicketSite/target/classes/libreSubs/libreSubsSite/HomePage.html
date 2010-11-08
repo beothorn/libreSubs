@@ -30,8 +30,9 @@
         	<input type="submit" value="Baixar legenda" />
     	</form>
         <br/>
-        Ou (um dia funcionará) use o comando:<br/> 
-        <i>head SEUARQUIVO -c 100 | sha1sum | xargs wget http://localhost:8081?lang=pt_BR&sha1={}&srt=SEUARQUIVO</i>
+        Ou use o comando:<br/> 
+        <i>head SEUARQUIVO -c 100 | sha1sum | xargs wget http://localhost:8081/sub?lang=pt_BR&id={}&file=SEUARQUIVO</i>
        <br/><br/><br/><br/><br/>
+       <a wicket:id="uploadSub">bla</a>
     </body>
 </html>

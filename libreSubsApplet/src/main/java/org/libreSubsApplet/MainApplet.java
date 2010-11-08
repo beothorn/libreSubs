@@ -39,7 +39,7 @@ public class MainApplet extends JApplet implements OutputListener{
 		
 		final String srtProviderURL = getParameter("srtProviderURL");
 		if(srtProviderURL==null){
-			add(new JLabel("You must add th parameter srtProviderURL. Example\n" +
+			add(new JLabel("You must add a parameter srtProviderURL. Example\n" +
 					"<param name=srtProviderURL value=\"http://www.yoursite.com/latestLibresubs/?id=%id&lang=%lang&file=%file\"> "));
 			return;
 		}

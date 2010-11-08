@@ -19,6 +19,9 @@ public class ErrorResourceState extends ResourceState {
 
 	@Override
 	public byte[] getData() {
+
+		// TODO: somehow rende upload page
+
 		final String htmlMessage = "<html><head><title>Erro</title></head><body>"
 				+ errorMessage + "</body></html>";
 		try {

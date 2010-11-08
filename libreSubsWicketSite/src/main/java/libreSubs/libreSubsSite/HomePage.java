@@ -1,10 +1,13 @@
 package libreSubs.libreSubsSite;
 
+import libreSubs.libreSubsSite.uploadPage.UploadSubtitle;
+
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.request.target.basic.RedirectRequestTarget;
 import org.libreSubsCommons.Language;
@@ -22,6 +25,15 @@ public class HomePage extends WebPage {
 
 		addSubtitlesListPrintForDebug();
 		addSubtitleSearchForm();
+		
+		add(new Link<String>("uploadSub"){
+
+			@Override
+			public void onClick() {
+				setResponsePage(UploadSubtitle.class);
+			}
+			
+		});
 	}
 
 	private void addSubtitleFinderApplet() {
