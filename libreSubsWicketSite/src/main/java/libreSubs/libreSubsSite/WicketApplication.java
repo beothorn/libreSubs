@@ -16,6 +16,7 @@ import org.libreSubsEngine.subtitleRepository.SubtitleDefaultRepository;
 import org.libreSubsEngine.subtitleRepository.SubtitleRepositoryLoader;
 import org.libreSubsEngine.subtitleRepository.SubtitleRepositoryLocation;
 import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepository;
+import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
 
 /**
  * Application object for your web application. If you want to run this application without deploying, run the Start class.
@@ -33,6 +34,12 @@ public class WicketApplication extends WebApplication
 	public WicketApplication()
 	{
 	}
+
+	private void mountSubRequestResource() {
+		getSharedResources().add("subRequest", new SubRequest());
+		mountSharedResource("/sub", new ResourceReference("subRequest")
+				.getSharedResourceKey());
+	}
 	
 	public static String getBasePath() {
 		final Request request = RequestCycle.get().getRequest();
@@ -47,7 +54,20 @@ public class WicketApplication extends WebApplication
 
 	@Override
 	protected void init() {
+		setupSubtitleRepository();
+		scanForWicketAnnotations();
+		addAppletsFolderToPublicResources();
+		mountSubRequestResource();
+	}
 
+	private void scanForWicketAnnotations() {
+		String wicketPagesPackage = HomePage.class.getPackage().getName();
+		new AnnotatedMountScanner().scanPackage(
+				wicketPagesPackage)
+				.mount(this);
+	}
+
+	private void setupSubtitleRepository() {
 		final SubtitleRepositoryLocation subtitleDefaultRepository = new SubtitleDefaultRepository();
 		final SubtitlesRepository subtitlesRepository = new SubtitlesRepository(
 				subtitleDefaultRepository);
@@ -59,11 +79,6 @@ public class WicketApplication extends WebApplication
 
 		WicketApplication.subtitles = new SubtitlesRepositoryHandler(
 				subtitlesRepository);
-
-		addAppletsFolderToPublicResources();
-		getSharedResources().add("subRequest", new SubRequest());
-		mountSharedResource("/sub", new ResourceReference("subRequest")
-				.getSharedResourceKey());
 	}
 
 	private void addAppletsFolderToPublicResources() {
