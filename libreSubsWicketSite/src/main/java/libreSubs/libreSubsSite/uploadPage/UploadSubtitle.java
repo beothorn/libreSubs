@@ -10,10 +10,10 @@ public class UploadSubtitle extends WebPage {
 	public UploadSubtitle() {
 		add(new Label("message", "Fazer upload de legenda"));
 
-		// Add simple upload form, which is hooked up to its feedback panel by
-		// virtue of that panel being nested in the form.
-		final FileUploadForm simpleUploadForm = new FileUploadForm(
-				"simpleUpload");
+
+		final SubtitleUploadForm simpleUploadForm = new SubtitleUploadForm(
+				"simpleUpload", new SubtitleUploadFormModelProperties());
+
 		// Create feedback panels
 		final FeedbackPanel uploadFeedback = new FeedbackPanel("uploadFeedback");
 

@@ -7,7 +7,12 @@ import java.io.IOException;
 import org.apache.commons.codec.digest.DigestUtils;
 
 public class SHA1Utils {
-	private static final int PARTIAL_SHA1_SIZE = 100;
+	
+	private static int PARTIAL_SHA1_SIZE = 100;
+	
+	public static String getPartialSHA1SizeAsHumanReadable(){
+		return PARTIAL_SHA1_SIZE+"k";
+	}
 	
 	public static String getPartialSHA1ForFile(final File file) throws IOException {
 		FileInputStream fileInputStream;

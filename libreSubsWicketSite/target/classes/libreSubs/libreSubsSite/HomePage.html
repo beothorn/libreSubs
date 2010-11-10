@@ -9,6 +9,11 @@
         <p>
         <span wicket:id="message">lista de legendas</span>
         </p>
+        <br/><br/>
+        Menu:
+        <ul>
+			<li><a wicket:id="uploadSub">Upload</a></li>
+		</ul> 
         
         <br/><br/>
         Arraste seu arquivo de video aqui:<br/>
@@ -31,8 +36,7 @@
     	</form>
         <br/>
         Ou use o comando:<br/> 
-        <i>head SEUARQUIVO -c 100 | sha1sum | xargs wget http://localhost:8081/sub?lang=pt_BR&id={}&file=SEUARQUIVO</i>
+        <i>head SEUARQUIVO -c 100 | sha1sum | xargs wget  <span wicket:id="siteBaseURL">site url</span>sub?lang=pt_BR&id={} -O destino.srt</i>
        <br/><br/><br/><br/><br/>
-       <a wicket:id="uploadSub">bla</a>
     </body>
 </html>

@@ -12,6 +12,14 @@
 			<fieldset>
 				<legend>Upload form</legend>
 				<p>
+				Língua:<br/>
+	        	<select wicket:id="localeSelect">
+	        		<option>pt_BR</option>
+	                <option>en_US</option>
+	            </select><br/>
+	        	SHA1:<br/>
+	        	<input wicket:id="sha1" type="text" size="40"/><br/>
+	        	Nome do Arquivo:<br/>
 				<label for="upload">File</label>
 				<input wicket:id="fileInput" id="upload" type="file"/>
 				</p>

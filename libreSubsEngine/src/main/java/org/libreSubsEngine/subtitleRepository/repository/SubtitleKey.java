@@ -5,9 +5,9 @@ import org.libreSubsCommons.Language;
 public class SubtitleKey {
 	
 	private final Language language;
-	private final SHA1 videoID;	
+	private final PartialSHA1 videoID;	
 
-	public SubtitleKey(final Language language, final SHA1 videoID) {
+	public SubtitleKey(final Language language, final PartialSHA1 videoID) {
 		this.language = language;
 		this.videoID = videoID;
 	}

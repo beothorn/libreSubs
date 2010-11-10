@@ -1,9 +1,8 @@
-package org.libreSubsEngine.subtitleRepository;
+package org.libreSubsEngine.subtitleRepository.repository;
 
 import java.io.File;
 import java.io.IOException;
 
-import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepository;
 
 
 public class SubtitleRepositoryLoader {
@@ -30,7 +29,7 @@ public class SubtitleRepositoryLoader {
 	}
 
 	private void addStrFile(final File child) throws IOException {
-		subtitlesBase.addSubtitle(child);
+		subtitlesBase.addSubtitleFromFileWithBaseName(child);
 	}
 
 }

@@ -21,7 +21,7 @@ public class SubtitlesRepository {
 		subtitles = new LinkedHashMap<SubtitleKey, Subtitle>();
 	}
 
-	public void addSubtitle(final SHA1 videoID, final Language language,final String content) throws IOException {
+	void addSubtitle(final PartialSHA1 videoID, final Language language,final String content) throws IOException {
 		final String videoIDAsString = videoID.toString();
 		final String strDirName = videoIDAsString.substring(0, 2);
 		final File strDir = new File(repositoryLocation.getBaseDir(), strDirName);
@@ -36,23 +36,27 @@ public class SubtitlesRepository {
 			subtitleFile.createNewFile();
 		
 		FileUtils.writeStringToFile(subtitleFile, content);
-		addSubtitle(subtitleFile);
+		addSubtitleFromFileWithBaseName(subtitleFile);
 	}
 	
-	public void addSubtitle(final File strFile) throws IOException {
+	void addSubtitleFromFileWithBaseName(final File strFile) throws IOException {
 		final String videoID = StringUtils.substringBeforeLast(strFile.getName(), ".");
 		final String language = StringUtils.substringAfterLast(strFile.getName(), ".");
-		final SHA1 videoSHA1 = new SHA1(videoID);
-		final SubtitleKey subtitleKey = new SubtitleKey(Language.valueOf(language), videoSHA1);
-		
+		final PartialSHA1 videoSHA1 = new PartialSHA1(videoID);
+		addSubtitleToBaseOnMemory(videoSHA1, language, strFile);
+	}
+
+	private void addSubtitleToBaseOnMemory(final PartialSHA1 videoSHA1,final String language,final File strFile
+			) throws IOException {
 		final String strFileContent = FileUtils.readFileToString(strFile);
-		final Subtitle subtitle = new Subtitle(strFileContent, strFile);
 		
+		final SubtitleKey subtitleKey = new SubtitleKey(Language.valueOf(language), videoSHA1);
+		final Subtitle subtitle = new Subtitle(strFileContent, strFile);
 		subtitles.put(subtitleKey, subtitle);
 	}
 
 	public String getSubtitleContentsFromVideoIDAndLanguageOrNull(final Language language,
-			final SHA1 videoID) throws IOException {
+			final PartialSHA1 videoID) throws IOException {
 		final SubtitleKey subtitleKey = new SubtitleKey(language, videoID);
 		return getSubtitleContentsForKeyOrNull(subtitleKey);
 	}
@@ -68,7 +72,7 @@ public class SubtitlesRepository {
 	}
 
 	public void changeContentsForSubtitle(final String newContent, final Language language,
-			final SHA1 videoID) throws IOException {
+			final PartialSHA1 videoID) throws IOException {
 		changeContentsForSubtitle(newContent, new SubtitleKey(language, videoID) );
 	}
 	

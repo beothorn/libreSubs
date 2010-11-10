@@ -1,18 +1,18 @@
 package org.libreSubsEngine.subtitleRepository.repository;
 
-public class SHA1 {
+public class PartialSHA1 {
 	
 	private final String sha1Hex;
 	
-	public SHA1(final String sha1Hex) {
+	public PartialSHA1(final String sha1Hex) {
 		this.sha1Hex = sha1Hex;
 	}
 	
 	@Override
-	public boolean equals(Object obj) {
-		if(!(obj instanceof SHA1))
+	public boolean equals(final Object obj) {
+		if(!(obj instanceof PartialSHA1))
 			return false;
-		SHA1 other = (SHA1) obj;
+		final PartialSHA1 other = (PartialSHA1) obj;
 		return sha1Hex.equals(other.sha1Hex);
 	}
 	

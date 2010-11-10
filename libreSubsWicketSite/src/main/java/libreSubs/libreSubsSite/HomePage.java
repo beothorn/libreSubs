@@ -18,14 +18,18 @@ public class HomePage extends WebPage {
 	public String sha1;
 	public String localeSelect;
 	public String fileName;
+	public static boolean showApplet = true;
 
+	@SuppressWarnings("serial")
 	public HomePage() {
 
 		addSubtitleFinderApplet();
 
 		addSubtitlesListPrintForDebug();
 		addSubtitleSearchForm();
-		
+
+		add(new Label("siteBaseURL", WicketApplication.getBasePath()));
+
 		add(new Link<String>("uploadSub"){
 
 			@Override
@@ -37,6 +41,10 @@ public class HomePage extends WebPage {
 	}
 
 	private void addSubtitleFinderApplet() {
+		if (!HomePage.showApplet) {
+			add(new Label("appletDiv", "APPLET GOES HERE"));
+			return;
+		}
 
 		final DeployJava div = new DeployJava("appletDiv");
 		div.setWidth(800);

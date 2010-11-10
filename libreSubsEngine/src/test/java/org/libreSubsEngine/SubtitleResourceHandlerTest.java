@@ -6,13 +6,14 @@ import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.libreSubsEngine.subtitleRepository.SubtitleRepositoryLoader;
+import org.libreSubsEngine.subtitleRepository.repository.SubtitleRepositoryLoader;
 import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepository;
-import org.libreSubsEngine.testUtils.TempRepositoryCreator;
+import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepositoryHandler;
+import org.libreSubsEngine.testUtils.TempRepositoryRepo;
 
 public class SubtitleResourceHandlerTest {
 	
-	private TempRepositoryCreator tempRepositoryCreator;
+	private TempRepositoryRepo tempRepositoryCreator;
 	private SubtitlesRepository subtitlesBase;
 	private SubtitlesRepositoryHandler subtitleRepositoryHandler;
 	
@@ -26,7 +27,7 @@ public class SubtitleResourceHandlerTest {
 	
 	@Before
 	public void setup() throws IOException{
-		tempRepositoryCreator = new TempRepositoryCreator();
+		tempRepositoryCreator = new TempRepositoryRepo();
 		subtitlesBase = loadSubtitleBase();
 		subtitleRepositoryHandler = new SubtitlesRepositoryHandler(subtitlesBase);
 	}
