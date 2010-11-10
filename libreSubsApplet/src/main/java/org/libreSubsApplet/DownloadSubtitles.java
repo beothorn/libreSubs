@@ -44,9 +44,11 @@ public class DownloadSubtitles implements DropFileListener {
 					+ ".srt";
 			outputListener.info(shaHex);
 			final File srtFile = FileUtils.createFileOrCry(parent, newStrFileName);
-			
-			
-			download(subtitleSource.resolve("1111", Language.pt_BR, newStrFileName), srtFile);
+			try{
+				download(subtitleSource.resolve(shaHex, Language.pt_BR, newStrFileName), srtFile);
+			}catch(final Exception e){
+				srtFile.delete();
+			}
 		}
 	}
 

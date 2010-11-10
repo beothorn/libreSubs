@@ -40,10 +40,10 @@ public class MainApplet extends JApplet implements OutputListener{
 		final String srtProviderURL = getParameter("srtProviderURL");
 		if(srtProviderURL==null){
 			add(new JLabel("You must add a parameter srtProviderURL. Example\n" +
-					"<param name=srtProviderURL value=\"http://www.yoursite.com/latestLibresubs/?id=%id&lang=%lang&file=%file\"> "));
+					"<param name=srtProviderURL value=\"http://www.yoursite.com/sub?id=%id&lang=%lang\"> "));
 			return;
 		}
-		final SubtitleResourceResolver srtSource = new SubtitleResourceResolver("srtProviderURL not null");
+		final SubtitleResourceResolver srtSource = new SubtitleResourceResolver(srtProviderURL);
 		
 		dropFilesTarget.addDropFileListener(new DownloadSubtitles(srtSource, this));
 		
