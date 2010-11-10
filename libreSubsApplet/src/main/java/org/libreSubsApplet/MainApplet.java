@@ -1,14 +1,9 @@
 package org.libreSubsApplet;
 
 import java.awt.BorderLayout;
-import java.awt.Image;
-import java.io.IOException;
-import java.io.InputStream;
 
-import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JApplet;
-import javax.swing.JLabel;
+import javax.swing.JTextArea;
 
 import org.libreSubsApplet.dropFile.DropFilesTarget;
 import org.libreSubsCommons.SubtitleResourceResolver;
@@ -16,33 +11,18 @@ import org.libreSubsCommons.SubtitleResourceResolver;
 @SuppressWarnings("serial")
 public class MainApplet extends JApplet implements OutputListener{
 
-	private JLabel stringBucketLabel;
+	private JTextArea stringBucketLabel;
 
 	@Override
 	public void init() {
 		setLayout(new BorderLayout());
-
-		final InputStream resourceAsStream = MainApplet.class.getClassLoader()
-				.getResourceAsStream("libreSubs.png");
-		Image image;
-		try {
-			image = ImageIO.read(resourceAsStream);
-		} catch (final IOException e1) {
-			add(new JLabel(e1.getMessage()));
-			return;
-		}
-
-		final ImageIcon icon = new ImageIcon(image);
-
-		stringBucketLabel = new JLabel(icon);
+		
+		stringBucketLabel = new JTextArea();
+		stringBucketLabel.setEditable(false);
+        
 		final DropFilesTarget dropFilesTarget = new DropFilesTarget();
 		
-		final String srtProviderURL = getParameter("srtProviderURL");
-		if(srtProviderURL==null){
-			add(new JLabel("You must add a parameter srtProviderURL. Example\n" +
-					"<param name=srtProviderURL value=\"http://www.yoursite.com/sub?id=%id&lang=%lang\"> "));
-			return;
-		}
+		final String srtProviderURL = getSrtProviderUrl();
 		final SubtitleResourceResolver srtSource = new SubtitleResourceResolver(srtProviderURL);
 		
 		dropFilesTarget.addDropFileListener(new DownloadSubtitles(srtSource, this));
@@ -50,6 +30,16 @@ public class MainApplet extends JApplet implements OutputListener{
 		stringBucketLabel.setDropTarget(dropFilesTarget);
 		add(stringBucketLabel);
 	}
+
+    public String getSrtProviderUrl() {
+        final String srtProviderURL = getParameter("srtProviderURL");
+		
+		
+		if(srtProviderURL==null){
+			return "http://127.0.0.1:8081/sub?id=%id&lang=%lang";
+		}
+        return srtProviderURL;
+    }
 
 	@Override
 	public void info(final String info) {
