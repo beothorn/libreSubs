@@ -1,0 +1,10 @@
+libreSubsApplet/target
+libreSubsCLI/target
+libreSubsCommons/target
+libreSubsEngine/target
+libreSubsWicketSite/target
+**/.settings
+**/.project
+**/.classpath
+
+
