@@ -4,6 +4,7 @@ libreSubsCommons/target
 libreSubsEngine/target
 libreSubsWicketSite/target
 **/.settings
+**/.settings/*
 **/.project
 **/.classpath
 **/*.class
