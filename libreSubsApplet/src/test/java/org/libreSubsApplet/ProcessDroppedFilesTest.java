@@ -18,7 +18,7 @@ public class ProcessDroppedFilesTest {
 		droppedList.add(videoFile);
 		
 		final ActionForDroppedFilesResolver actionForDroppedFilesResolver = new ActionForDroppedFilesResolver(droppedList);
-		final List<File> filesToDownload = actionForDroppedFilesResolver.getFilesToDownload();
+		final List<File> filesToDownload = actionForDroppedFilesResolver.getVideosToDownloadSubtitles();
 		Assert.assertEquals(droppedList.toString(), filesToDownload.toString());
 	}
 	

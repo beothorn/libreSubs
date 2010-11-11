@@ -10,12 +10,12 @@ import org.apache.commons.io.FilenameUtils;
 public class ActionForDroppedFilesResolver {
 
 	private static final String SUBTITLE_EXTENSION = "srt";
-	private final List<File> filesToDownload;
+	private final List<File> videosWithoutSubtitles;
 	private final List<VideoWithSubtitle> filesToUpload;
 	private final static String[] videoFilesExtensions = new String[]{"mpeg", "mpg", "avi", "mov","wmv", "rm", "rmvb", "mp4", "3gp","ogm" , "ogg", "mkv"};
 	
 	public ActionForDroppedFilesResolver(final List<File> droppedList) {
-		filesToDownload = new ArrayList<File>();
+		videosWithoutSubtitles = new ArrayList<File>();
 		filesToUpload = new ArrayList<VideoWithSubtitle>();
 		final List<File> videoFiles = new ArrayList<File>();
 		final List<File> subtitlesFiles = new ArrayList<File>();
@@ -31,7 +31,7 @@ public class ActionForDroppedFilesResolver {
 		for (final File videoFile : videoFiles) {
 			final File sub = getSubtitleForVideoOnSubtitleListOrNull(videoFile, subtitlesFiles);
 			if(sub == null){
-				filesToDownload.add(videoFile);
+				videosWithoutSubtitles.add(videoFile);
 			}else{
 				filesToUpload.add(new VideoWithSubtitle(videoFile, sub));
 			}
@@ -50,8 +50,8 @@ public class ActionForDroppedFilesResolver {
 		return null;
 	}
 
-	public List<File> getFilesToDownload() {
-		return filesToDownload;
+	public List<File> getVideosToDownloadSubtitles() {
+		return videosWithoutSubtitles;
 	}
 
 	public List<VideoWithSubtitle> getFilesToUpload() {

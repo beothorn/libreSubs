@@ -31,63 +31,74 @@ public class DroppedFilesProcessor implements DropFileListener {
 		final ActionForDroppedFilesResolver actionForDroppedFiles = new ActionForDroppedFilesResolver(
 				files);
 
-		downloadFiles(actionForDroppedFiles.getFilesToDownload());
+		tryToDownloadSubtitlesForVideos(actionForDroppedFiles
+				.getVideosToDownloadSubtitles());
 		uploadFiles(actionForDroppedFiles.getFilesToUpload());
 	}
 
 	private void uploadFiles(final List<VideoWithSubtitle> filesToUpload) {
 		for (final VideoWithSubtitle videoWithSubtitle : filesToUpload) {
-			outputListener.error("Upload ainda não foi implementado "+videoWithSubtitle);
+			outputListener.error("Upload ainda não foi implementado "
+					+ videoWithSubtitle);
 		}
 	}
 
-	private void downloadFiles(final List<File> filesToDownload) {
-		for (final File video : filesToDownload) {
-			outputListener.info("Baixando legenda para "+video.getName());
-			final String shaHex;
-			try {
-				shaHex = SHA1Utils.getPartialSHA1ForFile(video);
-			} catch (final IOException e1) {
-				outputListener.error("Erro calculando SHA1; "+e1.getMessage());
-				throw new RuntimeException(
-						"Error while calculating partial SHA1 for file.", e1);
-			}
-
-			final String fileName = video.getName();
-			final String parent = video.getParent();
-			final String newStrFileName = FilenameUtils
-					.removeExtension(fileName)
-					+ ".srt";
-			outputListener.info("Arquivo: " + fileName+" - SHA1: " + shaHex);
-			
-			final DownloadedContent downloadedContent;
-			
-			try {
-				downloadedContent = downloadAdressForString(subtitleSource.resolve(shaHex, Language.pt_BR,
-						newStrFileName));
-				if(downloadedContent.isError()){
-					outputListener.error("Ocorreu um erro ao tentar baixar a legenda: " + downloadedContent.getContent());
-					continue;
-				}
-			} catch (final Exception e) {
-				outputListener.error("Ocorreu um erro ao tentar baixar a legenda: " + e.getMessage());
-				continue;
-			}
-			
-			final File srtFile = FileUtils.createFileOrCry(parent,
-					newStrFileName);
-			try {
-				org.apache.commons.io.FileUtils.writeStringToFile(srtFile, downloadedContent.getContent());
-				outputListener.info("Legenda salva com sucesso");			
-			} catch (final IOException e) {
-				srtFile.delete();
-				outputListener.error("Ocorreu um erro ao tentar escreve arquivo de legenda: " + e.getMessage());
-			}
-			
+	private void tryToDownloadSubtitlesForVideos(
+			final List<File> videosAskingSubtitles) {
+		for (final File video : videosAskingSubtitles) {
+			tryToDownloadSubtitleForVideo(video);
 		}
 	}
 
-	public DownloadedContent downloadAdressForString(final String address) throws IOException {
+	private void tryToDownloadSubtitleForVideo(final File video) {
+		outputListener.info("Baixando legenda para " + video.getName());
+		final String shaHex;
+		
+		try {
+			shaHex = SHA1Utils.getPartialSHA1ForFile(video);
+		} catch (final IOException e1) {
+			outputListener.error("Erro calculando SHA1; " + e1.getMessage());
+			return;
+		}
+
+		final String fileName = video.getName();
+		final String parent = video.getParent();
+		final String newStrFileName = FilenameUtils.removeExtension(fileName)
+				+ ".srt";
+		outputListener.info("Arquivo: " + fileName + " - SHA1: " + shaHex);
+
+		final DownloadedContent downloadedContent;
+
+		try {
+			downloadedContent = downloadAdressForString(subtitleSource.resolve(
+					shaHex, Language.pt_BR, newStrFileName));
+			if (downloadedContent.isError()) {
+				outputListener
+						.error("Ocorreu um erro ao tentar baixar a legenda: "
+								+ downloadedContent.getContent());
+				return;
+			}
+		} catch (final Exception e) {
+			outputListener.error("Ocorreu um erro ao tentar baixar a legenda: "
+					+ e.getMessage());
+			return;
+		}
+
+		final File srtFile = FileUtils.createFileOrCry(parent, newStrFileName);
+		try {
+			org.apache.commons.io.FileUtils.writeStringToFile(srtFile,
+					downloadedContent.getContent());
+			outputListener.info("Legenda salva com sucesso");
+		} catch (final IOException e) {
+			srtFile.delete();
+			outputListener
+					.error("Ocorreu um erro ao tentar escreve arquivo de legenda: "
+							+ e.getMessage());
+		}
+	}
+
+	private DownloadedContent downloadAdressForString(final String address)
+			throws IOException {
 		final URL url = new URL(address);
 		final URLConnection conn = url.openConnection();
 		final String contentType = conn.getContentType();
