@@ -1,7 +1,5 @@
 package libreSubs.libreSubsSite.subRequest;
 
-import java.io.UnsupportedEncodingException;
-
 import libreSubs.libreSubsSite.WicketApplication;
 
 import org.apache.wicket.markup.html.DynamicWebResource;
@@ -43,16 +41,12 @@ public class SubRequest extends DynamicWebResource {
 
 			@Override
 			public byte[] getData() {
-				try {
-					return subtitle.getBytes("UTF-8");
-				} catch (final UnsupportedEncodingException e) {
-					throw new RuntimeException(e);
-				}
+				return subtitle.getBytes();
 			}
 
 			@Override
 			public String getContentType() {
-				return "text/str";
+				return "text/srt";
 			}
 		};
 	}

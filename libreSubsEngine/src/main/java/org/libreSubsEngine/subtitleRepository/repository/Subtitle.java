@@ -8,15 +8,15 @@ import org.apache.commons.io.FileUtils;
 public class Subtitle {
 	
 	private String content;
-	private File strFile;
+	private File srtFile;
 
-	public Subtitle(final File strFile) throws IOException {
-		this.strFile = strFile;
-		this.content = FileUtils.readFileToString(strFile);
+	public Subtitle(final File srtFile) throws IOException {
+		this.srtFile = srtFile;
+		this.content = FileUtils.readFileToString(srtFile);
 	}
 	
-	public Subtitle(final String content, final File strFile) throws IOException {
-		this.setStrFile(strFile);
+	public Subtitle(final String content, final File srtFile) throws IOException {
+		this.setStrFile(srtFile);
 		this.setContent(content);
 	}
 
@@ -29,15 +29,15 @@ public class Subtitle {
 		return content;
 	}
 
-	public void setStrFile(final File strFile) {
-		this.strFile = strFile;
+	public void setStrFile(final File srtFile) {
+		this.srtFile = srtFile;
 	}
 
 	public File getStrFileOrNull() {
-		return strFile;
+		return srtFile;
 	}
 
 	private void writeContentToFile() throws IOException {
-		FileUtils.writeStringToFile(strFile, content);
+		FileUtils.writeStringToFile(srtFile, content);
 	}
 }

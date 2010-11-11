@@ -24,12 +24,12 @@ public class SubtitlesRepository {
 	void addSubtitle(final PartialSHA1 videoID, final Language language,final String content) throws IOException {
 		final String videoIDAsString = videoID.toString();
 		final String strDirName = videoIDAsString.substring(0, 2);
-		final File strDir = new File(repositoryLocation.getBaseDir(), strDirName);
-		if(!strDir.exists()){
-			strDir.mkdir();
+		final File srtDir = new File(repositoryLocation.getBaseDir(), strDirName);
+		if(!srtDir.exists()){
+			srtDir.mkdir();
 		}
 		final String fileName = videoIDAsString + "." + language;
-		final File subtitleFile = new File(strDir, fileName);
+		final File subtitleFile = new File(srtDir, fileName);
 		if(subtitleFile.exists())
 			throw new RuntimeException("File already exists");
 		else
@@ -39,19 +39,19 @@ public class SubtitlesRepository {
 		addSubtitleFromFileWithBaseName(subtitleFile);
 	}
 	
-	void addSubtitleFromFileWithBaseName(final File strFile) throws IOException {
-		final String videoID = StringUtils.substringBeforeLast(strFile.getName(), ".");
-		final String language = StringUtils.substringAfterLast(strFile.getName(), ".");
+	void addSubtitleFromFileWithBaseName(final File srtFile) throws IOException {
+		final String videoID = StringUtils.substringBeforeLast(srtFile.getName(), ".");
+		final String language = StringUtils.substringAfterLast(srtFile.getName(), ".");
 		final PartialSHA1 videoSHA1 = new PartialSHA1(videoID);
-		addSubtitleToBaseOnMemory(videoSHA1, language, strFile);
+		addSubtitleToBaseOnMemory(videoSHA1, language, srtFile);
 	}
 
-	private void addSubtitleToBaseOnMemory(final PartialSHA1 videoSHA1,final String language,final File strFile
+	private void addSubtitleToBaseOnMemory(final PartialSHA1 videoSHA1,final String language,final File srtFile
 			) throws IOException {
-		final String strFileContent = FileUtils.readFileToString(strFile);
+		final String srtFileContent = FileUtils.readFileToString(srtFile);
 		
 		final SubtitleKey subtitleKey = new SubtitleKey(Language.valueOf(language), videoSHA1);
-		final Subtitle subtitle = new Subtitle(strFileContent, strFile);
+		final Subtitle subtitle = new Subtitle(srtFileContent, srtFile);
 		subtitles.put(subtitleKey, subtitle);
 	}
 
