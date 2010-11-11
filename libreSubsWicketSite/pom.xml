@@ -59,10 +59,6 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.mortbay.jetty</groupId>
-				<artifactId>maven-jetty-plugin</artifactId>
-			</plugin>
-			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
 				<configuration>
@@ -106,7 +102,6 @@
 							<includes>
 								<include>**/${libresubs.applet.name}</include>
 							</includes>
-
 						</resource>
 					</webResources>
 				</configuration>
@@ -132,28 +127,6 @@
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
 			<version>${log4j.version}</version>
-		</dependency>
-
-		<!--  JUNIT DEPENDENCY FOR TESTING -->
-
-		<!--  JETTY DEPENDENCIES FOR TESTING  -->
-		<dependency>
-			<groupId>org.mortbay.jetty</groupId>
-			<artifactId>jetty</artifactId>
-			<version>${jetty.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.mortbay.jetty</groupId>
-			<artifactId>jetty-util</artifactId>
-			<version>${jetty.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.mortbay.jetty</groupId>
-			<artifactId>jetty-management</artifactId>
-			<version>${jetty.version}</version>
-			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>
@@ -188,10 +161,9 @@
 			<scope>compile</scope>
 		</dependency>
 	</dependencies>
-
+	
 	<properties>
 		<jetty.version>6.1.4</jetty.version>
-		<catalina.home>/home/lucas/Programas/tomcat</catalina.home>
 		<libresubs.war.name>latestLibresubs</libresubs.war.name>
 		<libresubs.applet.name>subFinder.jar</libresubs.applet.name>
 	</properties>
