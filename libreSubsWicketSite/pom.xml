@@ -84,7 +84,7 @@
 							<artifactItems>
 								<artifactItem>
 									<groupId>libreSubs</groupId>
-									<artifactId>libreSubsDownloadApplet</artifactId>
+									<artifactId>libreSubsApplet</artifactId>
 									<overWrite>true</overWrite>
 									<destFileName>${libresubs.applet.name}</destFileName>
 								</artifactItem>
@@ -176,7 +176,7 @@
 		</dependency>
 		<dependency>
 			<groupId>libreSubs</groupId>
-			<artifactId>libreSubsDownloadApplet</artifactId>
+			<artifactId>libreSubsApplet</artifactId>
 			<version>${project.version}</version>
 			<scope>compile</scope>
 		</dependency>

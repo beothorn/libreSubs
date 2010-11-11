@@ -8,8 +8,8 @@
 	</parent>
 
 	<groupId>libreSubs</groupId>
-	<artifactId>libreSubsDownloadApplet</artifactId>
-	<name>libreSubsDownloadApplet</name>
+	<artifactId>libreSubsApplet</artifactId>
+	<name>libreSubsApplet</name>
 
 	<build>
 		<plugins>

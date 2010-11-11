@@ -6,5 +6,6 @@ libreSubsWicketSite/target
 **/.settings
 **/.project
 **/.classpath
+**/*.class
 
 
