@@ -44,8 +44,30 @@
 									<keystore>${keystore.path}</keystore>
 									<alias>libresubs</alias>
 									<storepass>${keystore.password}</storepass>
-									<keypass>${keystore.keypass}</keypass>
+									<keypass>${keystore.password}</keypass>
 								</configuration>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-enforcer-plugin</artifactId>
+						<configuration>
+							<rules>
+								<requireProperty>
+									<property>keystore.path</property>
+								</requireProperty>
+								<requireProperty>
+									<property>keystore.password</property>
+								</requireProperty>
+							</rules>
+							<fail>true</fail>
+						</configuration>
+						<executions>
+							<execution>
+								<goals>
+									<goal>enforce</goal>
+								</goals>
 							</execution>
 						</executions>
 					</plugin>
