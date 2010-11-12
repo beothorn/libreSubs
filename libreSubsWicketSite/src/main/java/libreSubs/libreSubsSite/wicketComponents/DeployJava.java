@@ -1,4 +1,4 @@
-package libreSubs.libreSubsSite;
+package libreSubs.libreSubsSite.wicketComponents;
 
 import net.sf.json.JSONObject;
 

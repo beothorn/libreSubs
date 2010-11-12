@@ -5,11 +5,10 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.wicketstuff.annotation.mount.MountPath;
 
-@MountPath(path = "upload")
+@MountPath(path = "uploadSrt")
 public class UploadSubtitle extends WebPage {
 	public UploadSubtitle() {
 		add(new Label("message", "Fazer upload de legenda"));
-
 
 		final SubtitleUploadForm simpleUploadForm = new SubtitleUploadForm(
 				"simpleUpload", new SubtitleUploadFormModelProperties());

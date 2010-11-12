@@ -1,4 +1,4 @@
-package libreSubs.libreSubsSite.subRequest;
+package libreSubs.libreSubsSite.downloadPage;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.wicket.util.value.ValueMap;

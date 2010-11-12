@@ -3,7 +3,7 @@ package libreSubs.libreSubsSite;
 import java.io.File;
 import java.io.IOException;
 
-import libreSubs.libreSubsSite.subRequest.SubRequest;
+import libreSubs.libreSubsSite.downloadPage.DownloadSubtitle;
 
 import org.apache.wicket.Request;
 import org.apache.wicket.RequestCycle;
@@ -22,7 +22,6 @@ import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
 public class WicketApplication extends WebApplication
 {    
 
-	private static final String DOWNLOAD_SRT_RESOURCE = "downloadSrt";
 	private static final Class<HomePage> HOME_PAGE_CLASS = HomePage.class;
 	private static SubtitlesRepositoryHandler subtitles;
 
@@ -79,14 +78,11 @@ public class WicketApplication extends WebApplication
 		mountSubRequestResource();
 	}
 
-	public static String getDownloadURLPath() {
-		return getBasePath() + DOWNLOAD_SRT_RESOURCE;
-	}
-
 	private void mountSubRequestResource() {
-		getSharedResources().add(DOWNLOAD_SRT_RESOURCE, new SubRequest());
-		mountSharedResource("/" + DOWNLOAD_SRT_RESOURCE, new ResourceReference(
-				DOWNLOAD_SRT_RESOURCE)
+		getSharedResources().add(DownloadSubtitle.RESOURCE_NAME,
+				new DownloadSubtitle());
+		mountSharedResource("/" + DownloadSubtitle.RESOURCE_NAME,
+				new ResourceReference(DownloadSubtitle.RESOURCE_NAME)
 				.getSharedResourceKey());
 	}
 

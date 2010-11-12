@@ -1,4 +1,4 @@
-package libreSubs.libreSubsSite.subRequest;
+package libreSubs.libreSubsSite.downloadPage;
 
 import org.apache.wicket.markup.html.DynamicWebResource.ResourceState;
 

@@ -1,4 +1,4 @@
-package libreSubs.libreSubsSite;
+package libreSubs.libreSubsSite.downloadPage;
 
 public class DownloadSubParameters {
 

@@ -1,4 +1,4 @@
-package libreSubs.libreSubsSite.subRequest;
+package libreSubs.libreSubsSite.downloadPage;
 
 import libreSubs.libreSubsSite.WicketApplication;
 
@@ -7,10 +7,16 @@ import org.apache.wicket.protocol.http.WebResponse;
 import org.libreSubsCommons.Language;
 
 @SuppressWarnings("serial")
-public class SubRequest extends DynamicWebResource {
+public class DownloadSubtitle extends DynamicWebResource {
 
-	public SubRequest() {
+	public static final String RESOURCE_NAME = "downloadSrt";
+	
+	public DownloadSubtitle() {
 		setCacheable(false);
+	}
+
+	public static String getDownloadURLPath() {
+		return WicketApplication.getBasePath() + RESOURCE_NAME;
 	}
 
 	@Override

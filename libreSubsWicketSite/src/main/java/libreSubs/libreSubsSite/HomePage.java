@@ -1,6 +1,9 @@
 package libreSubs.libreSubsSite;
 
+import libreSubs.libreSubsSite.downloadPage.DownloadSubParameters;
+import libreSubs.libreSubsSite.downloadPage.DownloadSubtitle;
 import libreSubs.libreSubsSite.uploadPage.UploadSubtitle;
+import libreSubs.libreSubsSite.wicketComponents.DeployJava;
 
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
@@ -51,7 +54,7 @@ public class HomePage extends WebPage {
 		div.setArchive("subFinder.jar");
 		final String idParam = SubtitleResourceResolver.idParameter;
 		final String langParam = SubtitleResourceResolver.langParameter;
-		div.addParameter("srtProviderURL", WicketApplication
+		div.addParameter("srtProviderURL", DownloadSubtitle
 				.getDownloadURLPath()
 				+ "?" + idParam + "=%id&" + langParam + "=%lang");
 		div.setMinimalVersion("1.6");
@@ -75,7 +78,7 @@ public class HomePage extends WebPage {
 				final String langParam = SubtitleResourceResolver.langParameter;
 				final String fileParam = SubtitleResourceResolver.fileParameter;
 
-				final String subRequestURL = WicketApplication
+				final String subRequestURL = DownloadSubtitle
 						.getDownloadURLPath()
 						+ "?"
 						+ idParam

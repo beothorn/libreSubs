@@ -11,8 +11,8 @@
 	
 	<groupId>libreSubs</groupId>
 	<artifactId>libreSubsCommons</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 
+	<name>libreSubsCommons</name>
 	<build>
 		<plugins>
 			<plugin>
