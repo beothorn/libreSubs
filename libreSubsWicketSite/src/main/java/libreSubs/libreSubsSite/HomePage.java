@@ -15,16 +15,12 @@ import org.libreSubsCommons.SubtitleResourceResolver;
 
 public class HomePage extends WebPage {
 
-	public String sha1;
-	public String localeSelect;
-	public String fileName;
-	public static boolean showApplet = true;
+	private DownloadSubParameters downloadParameters;
 
 	@SuppressWarnings("serial")
 	public HomePage() {
 
 		addSubtitleFinderApplet();
-
 		addSubtitlesListPrintForDebug();
 		addSubtitleSearchForm();
 
@@ -41,7 +37,8 @@ public class HomePage extends WebPage {
 	}
 
 	private void addSubtitleFinderApplet() {
-		if (!HomePage.showApplet) {
+		if (WicketApplication.get().getConfigurationType().equals(
+				WicketApplication.DEVELOPMENT)) {
 			add(new Label("appletDiv", "APPLET GOES HERE"));
 			return;
 		}
@@ -52,8 +49,11 @@ public class HomePage extends WebPage {
 		div.setCode("org.libreSubsApplet.MainApplet.class");
 		div.setCodebase(WicketApplication.getBasePath() + "applets");
 		div.setArchive("subFinder.jar");
-		div.addParameter("srtProviderURL", WicketApplication.getBasePath()
-				+ "?id=%id&lang=%lang&file=%file");
+		final String idParam = SubtitleResourceResolver.idParameter;
+		final String langParam = SubtitleResourceResolver.langParameter;
+		div.addParameter("srtProviderURL", WicketApplication
+				.getDownloadURLPath()
+				+ "?" + idParam + "=%id&" + langParam + "=%lang");
 		div.setMinimalVersion("1.6");
 		add(div);
 	}
@@ -65,8 +65,9 @@ public class HomePage extends WebPage {
 
 	@SuppressWarnings("serial")
 	private void addSubtitleSearchForm() {
+		downloadParameters = new DownloadSubParameters();
 		final Form<String> form = new Form<String>("inputForm",
-				new CompoundPropertyModel<String>(this)) {
+				new CompoundPropertyModel<String>(downloadParameters)) {
 			@Override
 			protected void onSubmit() {
 
@@ -74,9 +75,17 @@ public class HomePage extends WebPage {
 				final String langParam = SubtitleResourceResolver.langParameter;
 				final String fileParam = SubtitleResourceResolver.fileParameter;
 
-				final String subRequestURL = "/sub?" + idParam + "=" + sha1
-						+ "&" + langParam + "=" + localeSelect + "&"
-						+ fileParam + "=" + fileName;
+				final String subRequestURL = WicketApplication
+						.getDownloadURLPath()
+						+ "?"
+						+ idParam
+						+ "="
+						+ downloadParameters.sha1
+						+ "&"
+						+ langParam
+						+ "="
+						+ downloadParameters.localeSelect
+						+ "&" + fileParam + "=" + downloadParameters.fileName;
 				getRequestCycle().setRequestTarget(
 						new RedirectRequestTarget(subRequestURL));
 			}

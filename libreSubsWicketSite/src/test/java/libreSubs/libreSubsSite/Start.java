@@ -1,5 +1,7 @@
 package libreSubs.libreSubsSite;
 
+import java.net.URL;
+
 import org.mortbay.jetty.Connector;
 import org.mortbay.jetty.Server;
 import org.mortbay.jetty.bio.SocketConnector;
@@ -23,10 +25,11 @@ public class Start {
 		bb.setServer(server);
 		bb.setContextPath("/");
 		bb.setWar("src/main/webapp");
+		// bb.setWar("src/test/resources");
+		final URL resource = Start.class.getResource("/WEB-INF/web.xml");
+		bb.setDescriptor(resource.getFile());
 		
 		server.addHandler(bb);
-
-		HomePage.showApplet = false;
 
 		try {
 			System.out.println(">>> STARTING EMBEDDED JETTY SERVER, PRESS ANY KEY TO STOP");

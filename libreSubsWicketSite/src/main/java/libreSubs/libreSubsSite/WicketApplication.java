@@ -22,6 +22,7 @@ import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
 public class WicketApplication extends WebApplication
 {    
 
+	private static final String DOWNLOAD_SRT_RESOURCE = "downloadSrt";
 	private static final Class<HomePage> HOME_PAGE_CLASS = HomePage.class;
 	private static SubtitlesRepositoryHandler subtitles;
 
@@ -78,9 +79,14 @@ public class WicketApplication extends WebApplication
 		mountSubRequestResource();
 	}
 
+	public static String getDownloadURLPath() {
+		return getBasePath() + DOWNLOAD_SRT_RESOURCE;
+	}
+
 	private void mountSubRequestResource() {
-		getSharedResources().add("subRequest", new SubRequest());
-		mountSharedResource("/sub", new ResourceReference("subRequest")
+		getSharedResources().add(DOWNLOAD_SRT_RESOURCE, new SubRequest());
+		mountSharedResource("/" + DOWNLOAD_SRT_RESOURCE, new ResourceReference(
+				DOWNLOAD_SRT_RESOURCE)
 				.getSharedResourceKey());
 	}
 

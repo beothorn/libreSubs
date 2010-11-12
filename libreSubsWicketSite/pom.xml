@@ -149,6 +149,12 @@
 		</dependency>
 		<dependency>
 			<groupId>libreSubs</groupId>
+			<artifactId>libreSubsCommons</artifactId>
+			<version>${project.version}</version>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>libreSubs</groupId>
 			<artifactId>libreSubsApplet</artifactId>
 			<version>${project.version}</version>
 			<scope>compile</scope>
@@ -160,10 +166,16 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.mortbay.jetty</groupId>
+			<artifactId>jetty</artifactId>
+			<version>6.1.25</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
 	</dependencies>
 	
 	<properties>
-		<jetty.version>6.1.4</jetty.version>
 		<libresubs.war.name>latestLibresubs</libresubs.war.name>
 		<libresubs.applet.name>subFinder.jar</libresubs.applet.name>
 	</properties>
