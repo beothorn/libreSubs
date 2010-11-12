@@ -29,7 +29,7 @@ public class DroppedFilesProcessor implements DropFileListener {
 	public void droppedFiles(final List<File> files) {
 
 		final ActionForDroppedFilesResolver actionForDroppedFiles = new ActionForDroppedFilesResolver(
-				files);
+				files, outputListener);
 
 		tryToDownloadSubtitlesForVideos(actionForDroppedFiles
 				.getVideosToDownloadSubtitles());

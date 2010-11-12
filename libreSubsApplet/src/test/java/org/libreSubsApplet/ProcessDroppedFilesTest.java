@@ -17,7 +17,18 @@ public class ProcessDroppedFilesTest {
 		final List<File> droppedList = new ArrayList<File>();
 		droppedList.add(videoFile);
 		
-		final ActionForDroppedFilesResolver actionForDroppedFilesResolver = new ActionForDroppedFilesResolver(droppedList);
+		final ActionForDroppedFilesResolver actionForDroppedFilesResolver = new ActionForDroppedFilesResolver(droppedList, new OutputListener(){
+			@Override
+			public void error(final String error) {
+				//do nothing
+			}
+
+			@Override
+			public void info(final String info) {
+				//do nothing
+			}
+			
+		});
 		final List<File> filesToDownload = actionForDroppedFilesResolver.getVideosToDownloadSubtitles();
 		Assert.assertEquals(droppedList.toString(), filesToDownload.toString());
 	}
@@ -30,7 +41,18 @@ public class ProcessDroppedFilesTest {
 		droppedList.add(videoFile);
 		droppedList.add(subtitleFile);
 		
-		final ActionForDroppedFilesResolver actionForDroppedFilesResolver = new ActionForDroppedFilesResolver(droppedList);
+		final ActionForDroppedFilesResolver actionForDroppedFilesResolver = new ActionForDroppedFilesResolver(droppedList,new OutputListener(){
+			@Override
+			public void error(final String error) {
+				//do nothing
+			}
+
+			@Override
+			public void info(final String info) {
+				//do nothing
+			}
+			
+		});
 		final List<VideoWithSubtitle> filesToUpload = actionForDroppedFilesResolver.getFilesToUpload();
 		Assert.assertEquals(1, filesToUpload.size());
 		final VideoWithSubtitle videoWithSubtitle = filesToUpload.get(0);
