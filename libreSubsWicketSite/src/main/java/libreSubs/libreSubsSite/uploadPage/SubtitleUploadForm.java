@@ -5,7 +5,7 @@ import java.io.File;
 import libreSubs.libreSubsSite.WicketApplication;
 
 import org.apache.wicket.markup.html.form.DropDownChoice;
-import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.form.upload.FileUpload;
 import org.apache.wicket.markup.html.form.upload.FileUploadField;
@@ -20,7 +20,7 @@ import org.libreSubsCommons.SHA1Utils;
  * Form for uploads.
  */
 @SuppressWarnings("serial")
-public class SubtitleUploadForm extends Form<String> {
+public class SubtitleUploadForm extends StatelessForm<String> {
 
 	private static final int MAX_SUB_SIZE = 200;
 	private final FileUploadField fileUploadField;

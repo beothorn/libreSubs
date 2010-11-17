@@ -8,7 +8,7 @@ import libreSubs.libreSubsSite.wicketComponents.DeployJava;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.DropDownChoice;
-import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.model.CompoundPropertyModel;
@@ -69,7 +69,8 @@ public class HomePage extends WebPage {
 	@SuppressWarnings("serial")
 	private void addSubtitleSearchForm() {
 		downloadParameters = new DownloadSubParameters();
-		final Form<String> form = new Form<String>("inputForm",
+		final StatelessForm<String> form = new StatelessForm<String>(
+				"inputForm",
 				new CompoundPropertyModel<String>(downloadParameters)) {
 			@Override
 			protected void onSubmit() {
