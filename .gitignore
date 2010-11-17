@@ -8,5 +8,6 @@ libreSubsWicketSite/target
 **/.project
 **/.classpath
 **/*.class
+buildWar.xml
 
 
