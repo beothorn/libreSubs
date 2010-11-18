@@ -2,7 +2,8 @@ package libreSubs.libreSubsSite;
 
 import libreSubs.libreSubsSite.downloadPage.DownloadSubParameters;
 import libreSubs.libreSubsSite.downloadPage.DownloadSubtitle;
-import libreSubs.libreSubsSite.uploadPage.UploadSubtitle;
+import libreSubs.libreSubsSite.editPage.EditSubtitlePage;
+import libreSubs.libreSubsSite.uploadPage.UploadSubtitlePage;
 import libreSubs.libreSubsSite.wicketComponents.DeployJava;
 
 import org.apache.wicket.markup.html.WebPage;
@@ -10,7 +11,7 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.request.target.basic.RedirectRequestTarget;
 import org.libreSubsCommons.Language;
@@ -20,7 +21,6 @@ public class HomePage extends WebPage {
 
 	private DownloadSubParameters downloadParameters;
 
-	@SuppressWarnings("serial")
 	public HomePage() {
 
 		addSubtitleFinderApplet();
@@ -29,14 +29,9 @@ public class HomePage extends WebPage {
 
 		add(new Label("siteBaseURL", WicketApplication.getBasePath()));
 
-		add(new Link<String>("uploadSub"){
-
-			@Override
-			public void onClick() {
-				setResponsePage(UploadSubtitle.class);
-			}
-			
-		});
+		
+		add(new BookmarkablePageLink<String>("uploadSub", UploadSubtitlePage.class));
+		add(new BookmarkablePageLink<String>("editSub", EditSubtitlePage.class));
 	}
 
 	private void addSubtitleFinderApplet() {

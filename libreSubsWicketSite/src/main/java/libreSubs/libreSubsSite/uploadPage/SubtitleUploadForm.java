@@ -38,8 +38,8 @@ public class SubtitleUploadForm extends StatelessForm<String> {
 		fileUploadField = new FileUploadField("fileInput");
 		setMaxSize(Bytes.kilobytes(MAX_SUB_SIZE));
 
-		sha1Field = new TextField<String>("sha1");
-		localeSelection = new DropDownChoice<String>("localeSelect", Language
+		sha1Field = new TextField<String>("id");
+		localeSelection = new DropDownChoice<String>("lang", Language
 				.getLanguagesAsStringList());
 
 		add(fileUploadField);
@@ -49,19 +49,19 @@ public class SubtitleUploadForm extends StatelessForm<String> {
 
 	@Override
 	protected void onSubmit() {
-		if (formProperties.sha1 == null) {
+		if (formProperties.id == null) {
 			info("SHA1 dos primeiros "
 					+ SHA1Utils.getPartialSHA1SizeAsHumanReadable()
 					+ " devem ser informados.");
 		}
 
-		if (!Language.isValidLanguage(formProperties.localeSelect)) {
+		if (!Language.isValidLanguage(formProperties.lang)) {
 			info("Idioma inválido.");
 			return;
 		}
 
-		if (WicketApplication.subtitleExists(formProperties.sha1,
-				formProperties.localeSelect)) {
+		if (WicketApplication.subtitleExists(formProperties.id,
+				formProperties.lang)) {
 			info("Legenda já existe.");
 			return;
 		}
@@ -87,7 +87,7 @@ public class SubtitleUploadForm extends StatelessForm<String> {
 			}
 
 			WicketApplication.addSubtitleFromFileAndDeleteIt(
-					formProperties.sha1, formProperties.localeSelect, newFile);
+					formProperties.id, formProperties.lang, newFile);
 			info("Arquivo Enviado");
 		} else {
 			info("Arquivo inválido.");
