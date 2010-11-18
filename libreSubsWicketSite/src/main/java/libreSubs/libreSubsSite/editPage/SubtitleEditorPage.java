@@ -5,6 +5,7 @@ package libreSubs.libreSubsSite.editPage;
 import libreSubs.libreSubsSite.ErrorPage;
 import libreSubs.libreSubsSite.SubParameters;
 import libreSubs.libreSubsSite.WicketApplication;
+import libreSubs.libreSubsSite.menuPanel.MenuPanel;
 
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.RestartResponseException;
@@ -58,6 +59,7 @@ public class SubtitleEditorPage extends WebPage {
 			});
 		}
 		
+		add(new MenuPanel("menu"));
 		add(new Label("id", id));
 		add(new Label("lang", lang));
 		add(new FeedbackPanel("saveFeedback"));
@@ -70,7 +72,7 @@ public class SubtitleEditorPage extends WebPage {
 			@Override
 			protected void onSubmit() {
 				WicketApplication.changeContentsForSubtitle(id,lang,subParameters.content);
-				info("Saved");
+				info("Legenda alterada");
 			}
 		};
 		

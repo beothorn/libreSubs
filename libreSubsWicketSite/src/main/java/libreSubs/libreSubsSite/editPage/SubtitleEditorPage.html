@@ -3,19 +3,20 @@
         <title>LibreSubs</title>
     </head>
     <body>
-        <strong>LibreSubs</strong>
+        <div wicket:id="menu"/>
         
         <span wicket:id="id">Sha1</span>.<span wicket:id="lang">lang</span>
         
-		<div>
-        	<span wicket:id="saveFeedback"/>
-     	</div>
         
 		<form wicket:id="editForm">
 			<textarea wicket:id="content" rows="30" cols="180">Aqui o usuário edita as legendas.</textarea>
 			<br/>
 			<input type="submit" value="Salvar edição"/>
 		</form>
+		
+		<div>
+        	<span wicket:id="saveFeedback"/>
+     	</div>
 		
     </body>
 </html>

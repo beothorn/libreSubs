@@ -1,6 +1,7 @@
 package libreSubs.libreSubsSite.uploadPage;
 
 import libreSubs.libreSubsSite.SubParameters;
+import libreSubs.libreSubsSite.menuPanel.MenuPanel;
 
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
@@ -12,6 +13,7 @@ public class UploadSubtitlePage extends WebPage {
 	
 	public UploadSubtitlePage() {
 		setStatelessHint(true);
+		add(new MenuPanel("menu"));
 		add(new Label("message", "Fazer upload de legenda"));
 
 		final SubtitleUploadForm simpleUploadForm = new SubtitleUploadForm(

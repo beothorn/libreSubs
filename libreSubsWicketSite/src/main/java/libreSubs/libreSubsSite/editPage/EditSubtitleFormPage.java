@@ -1,6 +1,7 @@
 package libreSubs.libreSubsSite.editPage;
 
 import libreSubs.libreSubsSite.SubParameters;
+import libreSubs.libreSubsSite.menuPanel.MenuPanel;
 
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.markup.html.WebPage;
@@ -34,6 +35,7 @@ public class EditSubtitleFormPage extends WebPage {
 				setResponsePage(new SubtitleEditorPage(pageParameters));
 			}
 		};
+		add(new MenuPanel("menu"));
 		form.add(new TextField<String>("id"));
 		form.add(new DropDownChoice<String>("lang", Language
 				.getLanguagesAsStringList()));
