@@ -2,6 +2,7 @@ package libreSubs.libreSubsSite.uploadPage;
 
 import java.io.File;
 
+import libreSubs.libreSubsSite.SubParameters;
 import libreSubs.libreSubsSite.WicketApplication;
 
 import org.apache.wicket.markup.html.form.DropDownChoice;
@@ -26,16 +27,16 @@ public class SubtitleUploadForm extends StatelessForm<String> {
 	private final FileUploadField fileUploadField;
 	private final TextField<String> sha1Field;
 	private final DropDownChoice<String> localeSelection;
-	private final SubtitleUploadFormModelProperties formProperties;
+	private final SubParameters formProperties;
 
 	public SubtitleUploadForm(
 			final String name,
-			final SubtitleUploadFormModelProperties subtitleUploadFormModelProperties) {
+			final SubParameters subtitleUploadFormModelProperties) {
 		super(name, new CompoundPropertyModel<String>(
 				subtitleUploadFormModelProperties));
 		this.formProperties = subtitleUploadFormModelProperties;
 		setMultiPart(true);
-		fileUploadField = new FileUploadField("fileInput");
+		fileUploadField = new FileUploadField("fileName");
 		setMaxSize(Bytes.kilobytes(MAX_SUB_SIZE));
 
 		sha1Field = new TextField<String>("id");
@@ -66,7 +67,7 @@ public class SubtitleUploadForm extends StatelessForm<String> {
 			return;
 		}
 
-		if (formProperties.fileInput == null) {
+		if (formProperties.fileName == null) {
 			info("Arquivo deve ser informado.");
 		}
 

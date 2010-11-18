@@ -3,9 +3,11 @@ package libreSubs.libreSubsSite.editPage;
 
 
 import libreSubs.libreSubsSite.ErrorPage;
+import libreSubs.libreSubsSite.SubParameters;
 import libreSubs.libreSubsSite.WicketApplication;
 
 import org.apache.wicket.PageParameters;
+import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
@@ -16,45 +18,44 @@ import org.libreSubsCommons.SubtitleResourceResolver;
 import org.wicketstuff.annotation.mount.MountPath;
 
 @MountPath(path = "editSrtPage")
-public class EditSubtitlePage extends WebPage {
+public class SubtitleEditorPage extends WebPage {
 	
 	
 	String subtitle;
+	SubParameters subParameters;
 
 	@SuppressWarnings("serial")
-	public EditSubtitlePage(final PageParameters parameters) {
+	public SubtitleEditorPage(final PageParameters parameters) {
 		final CharSequence idParam = parameters.getCharSequence(SubtitleResourceResolver.idParameter);
 		if(idParam == null){
-			setResponsePage(new ErrorPage() {				
+			throw new RestartResponseException(new ErrorPage() {				
 				@Override
 				protected String errorMessage() {
 					return "Parametro "+SubtitleResourceResolver.idParameter+" não foi passado.";
 				}
-			});
-			return;
+			}); 
 		}
-		final CharSequence langParam = parameters.getCharSequence(SubtitleResourceResolver.langParameter);
+		
+		final CharSequence langParam = parameters.getCharSequence(SubtitleResourceResolver.langParameter); 
 		if(langParam == null){
-			setResponsePage(new ErrorPage() {				
+			throw new RestartResponseException(new ErrorPage() {				
 				@Override
 				protected String errorMessage() {
 					return "Parametro "+SubtitleResourceResolver.langParameter+" não foi passado.";
 				}
 			});
-			return;
 		}
 		
 		final String id = idParam.toString();
 		final String lang = langParam.toString();
 		
 		if(!WicketApplication.subtitleExists(id, lang)){
-			setResponsePage(new ErrorPage() {				
+			throw new RestartResponseException(new ErrorPage() {				
 				@Override
 				protected String errorMessage() {
 					return "Legenda não existe.";
 				}
 			});
-			return;
 		}
 		
 		add(new Label("id", id));
@@ -63,16 +64,18 @@ public class EditSubtitlePage extends WebPage {
 		
 		subtitle = WicketApplication.getSubtitleOrNull(id, lang);
 		
-		final Form<String> editForm = new Form<String>("editForm"){
+		subParameters = new SubParameters();
+		final Form<String> editForm = new Form<String>("editForm",new CompoundPropertyModel<String>(
+				subParameters)){
 			@Override
 			protected void onSubmit() {
+				WicketApplication.changeContentsForSubtitle(id,lang,subParameters.content);
 				info("Saved");
 			}
 		};
 		
 		add(editForm);
-		final TextArea<String> editSubtitleTextArea = new TextArea<String>("subtitle",new CompoundPropertyModel<String>(
-				subtitle));
+		final TextArea<String> editSubtitleTextArea = new TextArea<String>("content");
 		editForm.add(editSubtitleTextArea);
 	}	
 

@@ -1,5 +1,7 @@
 package libreSubs.libreSubsSite.uploadPage;
 
+import libreSubs.libreSubsSite.SubParameters;
+
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
@@ -13,7 +15,7 @@ public class UploadSubtitlePage extends WebPage {
 		add(new Label("message", "Fazer upload de legenda"));
 
 		final SubtitleUploadForm simpleUploadForm = new SubtitleUploadForm(
-				"simpleUpload", new SubtitleUploadFormModelProperties());
+				"simpleUpload", new SubParameters());
 
 		// Create feedback panels
 		final FeedbackPanel uploadFeedback = new FeedbackPanel("uploadFeedback");

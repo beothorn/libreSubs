@@ -50,5 +50,13 @@ public class SubtitlesRepositoryHandler {
 		final Language lang = Language.valueOf(language);
 		subtitlesBase.addSubtitle(partialSHA1, lang, content);
 	}
+	
+	public void changeContentsForSubitle(final String id, final String lang, final String content) throws IOException{
+		if(!subtitleExists(id, lang)){
+			throw new RuntimeException("Subtitle doesn't exist: id"+id+" lang"+lang);
+		}
+		final SubtitleKey subtitleKey = createKeyOrNull(id, lang);
+		subtitlesBase.changeContentsForSubtitle(content, subtitleKey);
+	}
 
 }

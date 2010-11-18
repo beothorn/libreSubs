@@ -1,8 +1,7 @@
 package libreSubs.libreSubsSite;
 
-import libreSubs.libreSubsSite.downloadPage.DownloadSubParameters;
 import libreSubs.libreSubsSite.downloadPage.DownloadSubtitle;
-import libreSubs.libreSubsSite.editPage.EditSubtitlePage;
+import libreSubs.libreSubsSite.editPage.EditSubtitleFormPage;
 import libreSubs.libreSubsSite.uploadPage.UploadSubtitlePage;
 import libreSubs.libreSubsSite.wicketComponents.DeployJava;
 
@@ -19,7 +18,7 @@ import org.libreSubsCommons.SubtitleResourceResolver;
 
 public class HomePage extends WebPage {
 
-	private DownloadSubParameters downloadParameters;
+	private SubParameters downloadParameters;
 
 	public HomePage() {
 
@@ -28,10 +27,9 @@ public class HomePage extends WebPage {
 		addSubtitleSearchForm();
 
 		add(new Label("siteBaseURL", WicketApplication.getBasePath()));
-
 		
 		add(new BookmarkablePageLink<String>("uploadSub", UploadSubtitlePage.class));
-		add(new BookmarkablePageLink<String>("editSub", EditSubtitlePage.class));
+		add(new BookmarkablePageLink<String>("editSub", EditSubtitleFormPage.class));
 	}
 
 	private void addSubtitleFinderApplet() {
@@ -63,7 +61,7 @@ public class HomePage extends WebPage {
 
 	@SuppressWarnings("serial")
 	private void addSubtitleSearchForm() {
-		downloadParameters = new DownloadSubParameters();
+		downloadParameters = new SubParameters();
 		final StatelessForm<String> form = new StatelessForm<String>(
 				"inputForm",
 				new CompoundPropertyModel<String>(downloadParameters)) {
@@ -79,20 +77,20 @@ public class HomePage extends WebPage {
 						+ "?"
 						+ idParam
 						+ "="
-						+ downloadParameters.sha1
+						+ downloadParameters.id
 						+ "&"
 						+ langParam
 						+ "="
-						+ downloadParameters.localeSelect
+						+ downloadParameters.lang
 						+ "&" + fileParam + "=" + downloadParameters.fileName;
 				getRequestCycle().setRequestTarget(
 						new RedirectRequestTarget(subRequestURL));
 			}
 		};
 		add(form);
-		form.add(new TextField<String>("sha1"));
+		form.add(new TextField<String>("id"));
 		form.add(new TextField<String>("fileName"));
-		form.add(new DropDownChoice<String>("localeSelect", Language
+		form.add(new DropDownChoice<String>("lang", Language
 				.getLanguagesAsStringList()));
 	}
 
