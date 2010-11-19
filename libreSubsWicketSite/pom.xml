@@ -66,6 +66,7 @@
 					<target>1.6</target>
 					<optimize>true</optimize>
 					<debug>true</debug>
+				    <encoding>utf-8</encoding>
 				</configuration>
 			</plugin>
 			<plugin>

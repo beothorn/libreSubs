@@ -11,9 +11,10 @@ import org.eclipse.jgit.lib.RepositoryBuilder;
 
 public class GitRepoHandler {
 	
-	private Repository repo;
-
+	private final Git git;
+	
 	public GitRepoHandler(final File parentDir) {
+		final Repository repo;
 		final File gitFolder = new File(parentDir,".git");
 		try {
 			repo = new RepositoryBuilder().setGitDir(gitFolder).build();
@@ -29,10 +30,10 @@ public class GitRepoHandler {
 				throw new RuntimeException("Error creating git repo", e);
 			}	
 		}
+		git = new Git(repo);
 	}
 
 	public void commit() {
-		final Git git = new Git(repo);
 		final AddCommand addCommand = git.add();
 		addCommand.addFilepattern(".");
 		try {
@@ -47,9 +48,17 @@ public class GitRepoHandler {
 		try {
 			commitCommand.call();
 		} catch (final Exception e) {
-			//TODO: dangerous runtime
+			//TODO: change all runtimes to log
 			throw new RuntimeException("Excecide", e);
 		}
+		
 	}
+	
+//	public String getLog(final File file){
+//		final LogCommand log = git.log();
+//		log.add(start)();
+//		
+//		return null;
+//	}
 
 }

@@ -84,6 +84,7 @@ public class WicketApplication extends WebApplication
 
 	@Override
 	protected void init() {
+		getRequestCycleSettings().setResponseRequestEncoding("UTF-8");
 		setupSubtitleRepository();
 		scanForWicketAnnotations();
 		addAppletsFolderToPublicResources();

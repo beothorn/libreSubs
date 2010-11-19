@@ -32,7 +32,8 @@ public class SubtitleEditorPage extends WebPage {
 			throw new RestartResponseException(new ErrorPage() {				
 				@Override
 				protected String errorMessage() {
-					return "Parametro "+SubtitleResourceResolver.idParameter+" n√£o foi passado.";
+					return "Parametro " + SubtitleResourceResolver.idParameter
+							+ " n„o foi passado.";
 				}
 			}); 
 		}
@@ -42,7 +43,9 @@ public class SubtitleEditorPage extends WebPage {
 			throw new RestartResponseException(new ErrorPage() {				
 				@Override
 				protected String errorMessage() {
-					return "Parametro "+SubtitleResourceResolver.langParameter+" n√£o foi passado.";
+					return "Parametro "
+							+ SubtitleResourceResolver.langParameter
+							+ " n„o foi passado.";
 				}
 			});
 		}
@@ -54,7 +57,7 @@ public class SubtitleEditorPage extends WebPage {
 			throw new RestartResponseException(new ErrorPage() {				
 				@Override
 				protected String errorMessage() {
-					return "Legenda n√£o existe.";
+					return "Legenda n„o existe.";
 				}
 			});
 		}
