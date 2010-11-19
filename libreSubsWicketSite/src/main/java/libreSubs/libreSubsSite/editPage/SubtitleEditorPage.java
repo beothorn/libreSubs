@@ -77,6 +77,7 @@ public class SubtitleEditorPage extends WebPage {
 		};
 		
 		add(editForm);
+		subParameters.content = subtitle;
 		final TextArea<String> editSubtitleTextArea = new TextArea<String>("content");
 		editForm.add(editSubtitleTextArea);
 	}	

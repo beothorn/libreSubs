@@ -10,15 +10,20 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.libreSubsCommons.Language;
 import org.libreSubsEngine.subtitleRepository.SubtitleRepositoryLocation;
+import org.libreSubsEngine.subtitleRepository.git.GitRepoHandler;
 
 public class SubtitlesRepository {
 
 	private final Map<SubtitleKey, Subtitle> subtitles;
 	private final SubtitleRepositoryLocation repositoryLocation;
+	private final GitRepoHandler gitRepoHandler;
 
-	public SubtitlesRepository(final SubtitleRepositoryLocation baseDir) {		
+	public SubtitlesRepository(final SubtitleRepositoryLocation baseDir){		
 		this.repositoryLocation = baseDir;
 		subtitles = new LinkedHashMap<SubtitleKey, Subtitle>();
+		
+		gitRepoHandler = new GitRepoHandler(baseDir.getBaseDir());
+		
 	}
 
 	void addSubtitle(final PartialSHA1 videoID, final Language language,final String content) throws IOException {
@@ -79,6 +84,7 @@ public class SubtitlesRepository {
 	public void changeContentsForSubtitle(final String newContent, final SubtitleKey subtitleKey) throws IOException {
 		final Subtitle subtitle = subtitles.get(subtitleKey);
 		subtitle.setContent(newContent);
+		commit();
 	}
 
 	public String listSubtitles() {
@@ -98,6 +104,10 @@ public class SubtitlesRepository {
 		if(key == null)
 			return false;
 		return subtitles.containsKey(key);
+	}
+
+	public void commit() {
+		gitRepoHandler.commit();
 	}
 
 }

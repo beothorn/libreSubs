@@ -12,6 +12,7 @@ public class SubtitleRepositoryLoader {
 	public SubtitleRepositoryLoader(final SubtitlesRepository subtitlesRepository) throws IOException {
 		this.subtitlesBase = subtitlesRepository;
 		loadAllFiles(subtitlesRepository.getBaseDir());
+		subtitlesBase.commit();
 	}
 	
 	private void loadAllFiles(final File dir) throws IOException{
@@ -21,7 +22,8 @@ public class SubtitleRepositoryLoader {
 		for (final String fileName : list) {
 			final File child = new File(dir,fileName);
 			if(child.isDirectory()){
-				loadAllFiles(child);
+				if(!child.getName().startsWith("."))
+					loadAllFiles(child);
 			}else{
 				addStrFile(child);
 			}
