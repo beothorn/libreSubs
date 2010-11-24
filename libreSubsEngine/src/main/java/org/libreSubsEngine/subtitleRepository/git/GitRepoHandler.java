@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import org.eclipse.jgit.api.AddCommand;
 import org.eclipse.jgit.api.CommitCommand;
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.lib.ObjectId;
 import org.eclipse.jgit.lib.PersonIdent;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.lib.RepositoryBuilder;
@@ -109,13 +110,17 @@ public class GitRepoHandler {
 			for (final RevCommit revCommit : call) {
 				final PersonIdent committerIdent = revCommit.getCommitterIdent();
 				final String commiterName = committerIdent.getName();
+				
 				final int commitTime = revCommit.getCommitTime();
 				final long milissecondsSinceEpoch = (commitTime)*1000L;
 				final Date commitDate = new Date(milissecondsSinceEpoch);
-				final String shortMessage = revCommit.getShortMessage();
 				final SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy hh:mm");
 				final String formatedDate = formatter.format(commitDate);
-				stringBuffer.append(commiterName+" "+formatedDate+" "+shortMessage+"\n");
+				
+				final ObjectId id = revCommit.getId();
+				
+				final String shortMessage = revCommit.getShortMessage();
+				stringBuffer.append("Nome: "+commiterName+" Data: "+formatedDate+" Mensagem: "+shortMessage+" Id: "+id+"\n");
 				i++;
 				if(i>=lastNCommits){
 					return stringBuffer.toString();
