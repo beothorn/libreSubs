@@ -6,7 +6,6 @@ import junit.framework.Assert;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.libreSubsEngine.subtitleRepository.repository.SubtitleRepositoryLoader;
 import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepository;
 import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepositoryHandler;
 import org.libreSubsEngine.testUtils.TempRepositoryRepo;
@@ -20,7 +19,6 @@ public class SubtitleResourceHandlerTest {
 	
 	private SubtitlesRepository loadSubtitleBase() throws IOException {
 		final SubtitlesRepository subtitlesBase = new SubtitlesRepository(tempRepositoryCreator);
-		new SubtitleRepositoryLoader(subtitlesBase);
 		return subtitlesBase;
 	}
 	

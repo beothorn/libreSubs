@@ -14,7 +14,6 @@ import org.apache.wicket.settings.IResourceSettings;
 import org.apache.wicket.util.resource.locator.ResourceStreamLocator;
 import org.libreSubsEngine.subtitleRepository.SubtitleDefaultRepository;
 import org.libreSubsEngine.subtitleRepository.SubtitleRepositoryLocation;
-import org.libreSubsEngine.subtitleRepository.repository.SubtitleRepositoryLoader;
 import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepository;
 import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepositoryHandler;
 import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
@@ -111,11 +110,6 @@ public class WicketApplication extends WebApplication
 		final SubtitleRepositoryLocation subtitleDefaultRepository = new SubtitleDefaultRepository();
 		final SubtitlesRepository subtitlesRepository = new SubtitlesRepository(
 				subtitleDefaultRepository);
-		try {
-			new SubtitleRepositoryLoader(subtitlesRepository);
-		} catch (final IOException e) {
-			throw new RuntimeException(e);
-		}
 
 		WicketApplication.subtitles = new SubtitlesRepositoryHandler(
 				subtitlesRepository);

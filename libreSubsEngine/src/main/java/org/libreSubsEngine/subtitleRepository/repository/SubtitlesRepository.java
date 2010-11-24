@@ -10,20 +10,26 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.libreSubsCommons.Language;
 import org.libreSubsEngine.subtitleRepository.SubtitleRepositoryLocation;
+import org.libreSubsEngine.subtitleRepository.fileUtils.RepositoryScanner;
+import org.libreSubsEngine.subtitleRepository.fileUtils.RepositoryScannerListener;
 import org.libreSubsEngine.subtitleRepository.git.GitRepoHandler;
 
-public class SubtitlesRepository {
+public class SubtitlesRepository implements RepositoryScannerListener{
 
 	private final Map<SubtitleKey, Subtitle> subtitles;
 	private final SubtitleRepositoryLocation repositoryLocation;
 	private final GitRepoHandler gitRepoHandler;
-
-	public SubtitlesRepository(final SubtitleRepositoryLocation baseDir){		
-		this.repositoryLocation = baseDir;
+	
+	public SubtitlesRepository(final SubtitleRepositoryLocation repoLocation){		
+		this.repositoryLocation = repoLocation;
 		subtitles = new LinkedHashMap<SubtitleKey, Subtitle>();
-		
-		gitRepoHandler = new GitRepoHandler(baseDir.getBaseDir());
-		
+		final File repoDir = repoLocation.getBaseDir();
+		try {
+			RepositoryScanner.scan(this, repoDir);
+		} catch (final IOException e) {
+			throw new RuntimeException("Error loading reposiory",e);
+		}
+		gitRepoHandler = new GitRepoHandler(repoDir);
 	}
 
 	void addSubtitle(final PartialSHA1 videoID, final Language language,final String content) throws IOException {
@@ -36,25 +42,25 @@ public class SubtitlesRepository {
 		final String fileName = videoIDAsString + "." + language;
 		final File subtitleFile = new File(srtDir, fileName);
 		if(subtitleFile.exists())
-			throw new RuntimeException("File already exists");
+			throw new IOException("File already exists");
 		else
 			subtitleFile.createNewFile();
 		
 		FileUtils.writeStringToFile(subtitleFile, content);
-		addSubtitleFromFileWithBaseName(subtitleFile);
+		gitRepoHandler.addFile(subtitleFile);
+		loadSubtitleFromRepositoryDecomposeName(subtitleFile);
 	}
 	
-	void addSubtitleFromFileWithBaseName(final File srtFile) throws IOException {
+	private void loadSubtitleFromRepositoryDecomposeName(final File srtFile) throws IOException {
 		final String videoID = StringUtils.substringBeforeLast(srtFile.getName(), ".");
 		final String language = StringUtils.substringAfterLast(srtFile.getName(), ".");
 		final PartialSHA1 videoSHA1 = new PartialSHA1(videoID);
-		addSubtitleToBaseOnMemory(videoSHA1, language, srtFile);
+		loadSubtitleFromRepository(videoSHA1, language, srtFile);
 	}
 
-	private void addSubtitleToBaseOnMemory(final PartialSHA1 videoSHA1,final String language,final File srtFile
+	private void loadSubtitleFromRepository(final PartialSHA1 videoSHA1,final String language,final File srtFile
 			) throws IOException {
 		final String srtFileContent = FileUtils.readFileToString(srtFile);
-		
 		final SubtitleKey subtitleKey = new SubtitleKey(Language.valueOf(language), videoSHA1);
 		final Subtitle subtitle = new Subtitle(srtFileContent, srtFile);
 		subtitles.put(subtitleKey, subtitle);
@@ -84,7 +90,7 @@ public class SubtitlesRepository {
 	public void changeContentsForSubtitle(final String newContent, final SubtitleKey subtitleKey) throws IOException {
 		final Subtitle subtitle = subtitles.get(subtitleKey);
 		subtitle.setContent(newContent);
-		commit();
+		commitAnonymously();
 	}
 
 	public String listSubtitles() {
@@ -106,8 +112,17 @@ public class SubtitlesRepository {
 		return subtitles.containsKey(key);
 	}
 
-	public void commit() {
-		gitRepoHandler.commit();
+	public void commitAnonymously() {
+		gitRepoHandler.commitAnonymously();
+	}
+
+	@Override
+	public void addFile(final File child) {
+		try {
+			loadSubtitleFromRepositoryDecomposeName(child);
+		} catch (final IOException e) {
+			throw new RuntimeException("Error opening file from reposiory",e);
+		}
 	}
 
 }

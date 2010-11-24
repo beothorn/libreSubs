@@ -6,7 +6,6 @@ import java.net.URL;
 
 import org.apache.commons.io.FileUtils;
 import org.libreSubsEngine.subtitleRepository.SubtitleRepositoryLocation;
-import org.libreSubsEngine.subtitleRepository.repository.SubtitleRepositoryLoader;
 import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepository;
 
 public class TempRepositoryRepo implements SubtitleRepositoryLocation {
@@ -47,7 +46,6 @@ public class TempRepositoryRepo implements SubtitleRepositoryLocation {
 
 	private void loadSubtitleBase() throws IOException {
 		subtitlesBase = new SubtitlesRepository(this);
-		new SubtitleRepositoryLoader(subtitlesBase);
 	}
 
 	public SubtitlesRepository getSubRepo() {
