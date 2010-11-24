@@ -2,6 +2,7 @@ package libreSubs.libreSubsSite.menuPanel;
 
 import libreSubs.libreSubsSite.HomePage;
 import libreSubs.libreSubsSite.editPage.EditSubtitleFormPage;
+import libreSubs.libreSubsSite.recentChanges.RecentChangesPage;
 import libreSubs.libreSubsSite.uploadPage.UploadSubtitlePage;
 
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
@@ -17,6 +18,8 @@ public class MenuPanel extends Panel {
 				UploadSubtitlePage.class));
 		add(new BookmarkablePageLink<String>("editSub",
 				EditSubtitleFormPage.class));
+		add(new BookmarkablePageLink<String>("recentChanges",
+				RecentChangesPage.class));
 	}
 
 }
