@@ -125,4 +125,8 @@ public class SubtitlesRepository implements RepositoryScannerListener{
 		}
 	}
 
+	public String getLastNCommits(final int i) {
+		return gitRepoHandler.getLog(i);
+	}
+
 }

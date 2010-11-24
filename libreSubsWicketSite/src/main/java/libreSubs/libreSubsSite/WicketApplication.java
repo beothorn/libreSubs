@@ -62,6 +62,10 @@ public class WicketApplication extends WebApplication
 		
 	}
 
+	public static String getCommitLog() {
+		return subtitles.getLastNCommits(10);
+	}
+
 	public static String getSubtitleOrNull(final String id, final String lang) {
 		return subtitles.getSubtitleOrNull(id, lang);
 	}
@@ -120,7 +124,4 @@ public class WicketApplication extends WebApplication
 		resourceSettings.addResourceFolder("/applets");
 		resourceSettings.setResourceStreamLocator(new ResourceStreamLocator());
 	}
-
-
-
 }

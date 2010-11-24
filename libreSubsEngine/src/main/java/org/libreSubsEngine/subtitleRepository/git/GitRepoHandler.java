@@ -2,12 +2,16 @@ package org.libreSubsEngine.subtitleRepository.git;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 import org.eclipse.jgit.api.AddCommand;
 import org.eclipse.jgit.api.CommitCommand;
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.lib.PersonIdent;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.lib.RepositoryBuilder;
+import org.eclipse.jgit.revwalk.RevCommit;
 
 public class GitRepoHandler {
 	
@@ -96,4 +100,31 @@ public class GitRepoHandler {
 		commitWith(DEFAULT_NAME, DEFAULT_EMAIL, "Added file "+file.getName());
 	}
 	
+	public String getLog(final int lastNCommits){
+		final StringBuffer stringBuffer = new StringBuffer();
+		Iterable<RevCommit> call;
+		try {
+			call = git.log().call();
+			int i = 0;
+			for (final RevCommit revCommit : call) {
+				final PersonIdent committerIdent = revCommit.getCommitterIdent();
+				final String commiterName = committerIdent.getName();
+				final int commitTime = revCommit.getCommitTime();
+				final long milissecondsSinceEpoch = (commitTime)*1000L;
+				final Date commitDate = new Date(milissecondsSinceEpoch);
+				final String shortMessage = revCommit.getShortMessage();
+				final SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy hh:mm");
+				final String formatedDate = formatter.format(commitDate);
+				stringBuffer.append(commiterName+" "+formatedDate+" "+shortMessage+"\n");
+				i++;
+				if(i>=lastNCommits){
+					return stringBuffer.toString();
+				}
+			}
+		} catch (final Exception e) {
+			e.printStackTrace();
+		}
+		return stringBuffer.toString();
+	}
+
 }

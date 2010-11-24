@@ -59,4 +59,8 @@ public class SubtitlesRepositoryHandler {
 		subtitlesBase.changeContentsForSubtitle(content, subtitleKey);
 	}
 
+	public String getLastNCommits(final int i) {
+		return subtitlesBase.getLastNCommits(i);
+	}
+
 }

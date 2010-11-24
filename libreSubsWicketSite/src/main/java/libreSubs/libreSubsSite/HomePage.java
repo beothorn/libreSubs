@@ -6,6 +6,7 @@ import libreSubs.libreSubsSite.wicketComponents.DeployJava;
 
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.basic.MultiLineLabel;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.markup.html.form.TextField;
@@ -52,7 +53,7 @@ public class HomePage extends WebPage {
 	}
 
 	private void addSubtitlesListPrintForDebug() {
-		add(new Label("message", "SubList: "
+		add(new MultiLineLabel("message", "SubList: "
 				+ WicketApplication.listSubtitles()));
 	}
 
