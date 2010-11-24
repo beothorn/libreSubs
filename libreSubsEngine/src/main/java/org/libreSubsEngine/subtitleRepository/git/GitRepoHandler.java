@@ -96,7 +96,7 @@ public class GitRepoHandler {
 		ifFileIsNotVersionedCry(filePath);
 		final String filePattern = filePath.replace(parentDirPath+"/", "");
 		
-		addFile(filePattern);//JGit does not support Fileglobs :( , commit all dir
+		addFile(filePattern);
 		commitWith(DEFAULT_NAME, DEFAULT_EMAIL, "Added file "+file.getName());
 	}
 	
