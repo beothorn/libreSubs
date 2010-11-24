@@ -19,6 +19,7 @@ public class HomePage extends WebPage {
 	private SubParameters downloadParameters;
 
 	public HomePage() {
+		setStatelessHint(true);
 		add(new MenuPanel("menu"));
 
 		addSubtitleFinderApplet();

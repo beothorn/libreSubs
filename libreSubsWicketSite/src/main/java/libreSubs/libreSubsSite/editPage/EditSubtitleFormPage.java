@@ -20,6 +20,7 @@ public class EditSubtitleFormPage extends WebPage {
 	
 	@SuppressWarnings("serial")
 	public EditSubtitleFormPage() {
+		setStatelessHint(true);
 		downloadParameters = new SubParameters();
 		final StatelessForm<String> form = new StatelessForm<String>(
 				"editorCallForm",

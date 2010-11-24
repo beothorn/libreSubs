@@ -27,6 +27,7 @@ public class SubtitleEditorPage extends WebPage {
 
 	@SuppressWarnings("serial")
 	public SubtitleEditorPage(final PageParameters parameters) {
+		setStatelessHint(true);
 		final CharSequence idParam = parameters.getCharSequence(SubtitleResourceResolver.idParameter);
 		if(idParam == null){
 			throw new RestartResponseException(new ErrorPage() {				
