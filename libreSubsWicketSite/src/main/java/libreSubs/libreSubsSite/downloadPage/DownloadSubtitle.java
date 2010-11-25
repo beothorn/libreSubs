@@ -5,6 +5,7 @@ import libreSubs.libreSubsSite.WicketApplication;
 import org.apache.wicket.markup.html.DynamicWebResource;
 import org.apache.wicket.protocol.http.WebResponse;
 import org.libreSubsCommons.Language;
+import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepositoryHandler;
 
 @SuppressWarnings("serial")
 public class DownloadSubtitle extends DynamicWebResource {
@@ -36,7 +37,11 @@ public class DownloadSubtitle extends DynamicWebResource {
 					+ " não é suportado.");
 		}
 
-		final String subtitle = WicketApplication.getSubtitleOrNull(parameters
+		final SubtitlesRepositoryHandler subtitlesRepositoryHandler = WicketApplication
+				.getSubtitlesRepositoryHandler();
+
+		final String subtitle = subtitlesRepositoryHandler.getSubtitleOrNull(
+				parameters
 				.getId(), language);
 
 		if (subtitle == null) {
@@ -79,7 +84,10 @@ public class DownloadSubtitle extends DynamicWebResource {
 		final boolean isLackingParameters = !parameters
 				.hasAllObrigatoryParameters();
 		final boolean languageUnknown = !Language.isValidLanguage(language);
-		final boolean subtitleDoesnExist = !WicketApplication.subtitleExists(
+		final SubtitlesRepositoryHandler subtitlesRepositoryHandler = WicketApplication
+				.getSubtitlesRepositoryHandler();
+		final boolean subtitleDoesnExist = !subtitlesRepositoryHandler
+				.subtitleExists(
 				parameters.getId(), language);
 
 		return isLackingParameters || languageUnknown || subtitleDoesnExist;

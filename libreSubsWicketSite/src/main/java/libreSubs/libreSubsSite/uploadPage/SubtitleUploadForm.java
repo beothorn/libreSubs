@@ -1,10 +1,12 @@
 package libreSubs.libreSubsSite.uploadPage;
 
 import java.io.File;
+import java.io.IOException;
 
 import libreSubs.libreSubsSite.SubParameters;
 import libreSubs.libreSubsSite.WicketApplication;
 
+import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.markup.html.form.TextField;
@@ -16,6 +18,7 @@ import org.apache.wicket.util.file.Folder;
 import org.apache.wicket.util.lang.Bytes;
 import org.libreSubsCommons.Language;
 import org.libreSubsCommons.SHA1Utils;
+import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepositoryHandler;
 
 /**
  * Form for uploads.
@@ -61,7 +64,9 @@ public class SubtitleUploadForm extends StatelessForm<String> {
 			return;
 		}
 
-		if (WicketApplication.subtitleExists(formProperties.id,
+		final SubtitlesRepositoryHandler subtitlesRepositoryHandler = WicketApplication
+				.getSubtitlesRepositoryHandler();
+		if (subtitlesRepositoryHandler.subtitleExists(formProperties.id,
 				formProperties.lang)) {
 			info("Legenda já existe.");
 			return;
@@ -84,11 +89,21 @@ public class SubtitleUploadForm extends StatelessForm<String> {
 				newFile.createNewFile();
 				upload.writeTo(newFile);
 			} catch (final Exception e) {
-				throw new IllegalStateException("Unable to write file");
+				info("Erro ao salvar legenda na base");
+				Logger.getLogger(SubtitleUploadForm.class).error(
+						"Erro ao salvar legenda na base", e);
+				return;
 			}
 
-			WicketApplication.addSubtitleFromFileAndDeleteIt(
-					formProperties.id, formProperties.lang, newFile);
+			try {
+				subtitlesRepositoryHandler.addSubtitleFromFileAndDeleteIt(
+						formProperties.id, formProperties.lang, newFile);
+			} catch (final IOException e) {
+				info("Erro ao adicionar legenda a base");
+				Logger.getLogger(SubtitleUploadForm.class).error(
+						"Erro ao adicionar legenda a base", e);
+				return;
+			}
 			info("Arquivo Enviado");
 		} else {
 			info("Arquivo inválido.");

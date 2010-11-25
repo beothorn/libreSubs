@@ -2,11 +2,15 @@ package libreSubs.libreSubsSite.editPage;
 
 
 
+import java.io.IOException;
+
 import libreSubs.libreSubsSite.ErrorPage;
 import libreSubs.libreSubsSite.SubParameters;
 import libreSubs.libreSubsSite.WicketApplication;
 import libreSubs.libreSubsSite.menuPanel.MenuPanel;
+import libreSubs.libreSubsSite.uploadPage.SubtitleUploadForm;
 
+import org.apache.log4j.Logger;
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.markup.html.WebPage;
@@ -16,6 +20,7 @@ import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.libreSubsCommons.SubtitleResourceResolver;
+import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepositoryHandler;
 import org.wicketstuff.annotation.mount.MountPath;
 
 @MountPath(path = "editSrtPage")
@@ -28,6 +33,8 @@ public class SubtitleEditorPage extends WebPage {
 	@SuppressWarnings("serial")
 	public SubtitleEditorPage(final PageParameters parameters) {
 		setStatelessHint(true);
+
+
 		final CharSequence idParam = parameters.getCharSequence(SubtitleResourceResolver.idParameter);
 		if(idParam == null){
 			throw new RestartResponseException(new ErrorPage() {				
@@ -54,7 +61,10 @@ public class SubtitleEditorPage extends WebPage {
 		final String id = idParam.toString();
 		final String lang = langParam.toString();
 		
-		if(!WicketApplication.subtitleExists(id, lang)){
+		final SubtitlesRepositoryHandler subtitlesRepositoryHandler = WicketApplication
+				.getSubtitlesRepositoryHandler();
+
+		if (!subtitlesRepositoryHandler.subtitleExists(id, lang)) {
 			throw new RestartResponseException(new ErrorPage() {				
 				@Override
 				protected String errorMessage() {
@@ -68,14 +78,22 @@ public class SubtitleEditorPage extends WebPage {
 		add(new Label("lang", lang));
 		add(new FeedbackPanel("saveFeedback"));
 		
-		subtitle = WicketApplication.getSubtitleOrNull(id, lang);
+		subtitle = subtitlesRepositoryHandler.getSubtitleOrNull(id, lang);
 		
 		subParameters = new SubParameters();
 		final Form<String> editForm = new Form<String>("editForm",new CompoundPropertyModel<String>(
 				subParameters)){
 			@Override
 			protected void onSubmit() {
-				WicketApplication.changeContentsForSubtitle(id,lang,subParameters.content);
+				try {
+					subtitlesRepositoryHandler.changeContentsForSubitle(id,
+							lang, subParameters.content);
+				} catch (final IOException e) {
+					info("Erro ao enviar legenda");
+					Logger.getLogger(SubtitleUploadForm.class).error(
+							"Erro ao enviar legenda", e);
+					return;
+				}
 				info("Legenda alterada");
 			}
 		};

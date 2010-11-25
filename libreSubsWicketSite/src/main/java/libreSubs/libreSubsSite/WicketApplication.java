@@ -1,8 +1,5 @@
 package libreSubs.libreSubsSite;
 
-import java.io.File;
-import java.io.IOException;
-
 import libreSubs.libreSubsSite.downloadPage.DownloadSubtitle;
 
 import org.apache.wicket.Request;
@@ -31,43 +28,8 @@ public class WicketApplication extends WebApplication
 	{
 	}
 
-	public static String listSubtitles() {
-		return subtitles.listSubtitles();
-	}
-
-	public static boolean subtitleExists(final String id, final String language) {
-		return subtitles.subtitleExists(id, language);
-	}
-	
-
-	public static void addSubtitleFromFileAndDeleteIt(final String sha1,
-			final String localeSelect, final File newFile) {
-		try {
-			subtitles.addSubtitleFromFileAndDeleteIt(sha1, localeSelect,
-					newFile);
-		} catch (final IOException e) {
-			throw new RuntimeException(
-					"Error ocurred when trying to add subtitle to base.", e);
-		}
-	}
-	
-	public static void changeContentsForSubtitle(final String id, final String lang,
-			final String subtitle) {
-		try {
-			subtitles.changeContentsForSubitle(id, lang, subtitle);
-		}catch (final IOException e) {
-			throw new RuntimeException(
-					"Error ocurred when trying to change subtitle from base.", e);
-		}
-		
-	}
-
-	public static String getCommitLog() {
-		return subtitles.getLastNCommits(10);
-	}
-
-	public static String getSubtitleOrNull(final String id, final String lang) {
-		return subtitles.getSubtitleOrNull(id, lang);
+	public static SubtitlesRepositoryHandler getSubtitlesRepositoryHandler() {
+		return subtitles;
 	}
 
 	public static String getBasePath() {

@@ -14,6 +14,7 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.request.target.basic.RedirectRequestTarget;
 import org.libreSubsCommons.Language;
 import org.libreSubsCommons.SubtitleResourceResolver;
+import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepositoryHandler;
 
 public class HomePage extends WebPage {
 
@@ -53,8 +54,10 @@ public class HomePage extends WebPage {
 	}
 
 	private void addSubtitlesListPrintForDebug() {
+		final SubtitlesRepositoryHandler subtitlesRepositoryHandler = WicketApplication
+				.getSubtitlesRepositoryHandler();
 		add(new MultiLineLabel("message", "SubList: "
-				+ WicketApplication.listSubtitles()));
+				+ subtitlesRepositoryHandler.listSubtitles()));
 	}
 
 	@SuppressWarnings("serial")
