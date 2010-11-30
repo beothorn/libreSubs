@@ -38,9 +38,22 @@ public class DroppedFilesProcessor implements DropFileListener {
 
 	private void uploadFiles(final List<VideoWithSubtitle> filesToUpload) {
 		for (final VideoWithSubtitle videoWithSubtitle : filesToUpload) {
-			outputListener.error("Upload ainda não foi implementado "
-					+ videoWithSubtitle);
+			showUploadNotImplementedMessage(videoWithSubtitle);
 		}
+	}
+
+	private void showUploadNotImplementedMessage(
+			final VideoWithSubtitle videoWithSubtitle) {
+		final String shaHex; 
+		try {
+			shaHex = SHA1Utils.getPartialSHA1ForFile(videoWithSubtitle.getVideo());
+		} catch (final IOException e1) {
+			outputListener.error("Erro calculando SHA1; " + e1.getMessage());
+			return;
+		}
+		outputListener.error("Upload ainda não foi implementado pelo applet.");
+		outputListener.error("Use a página de upload com este id: "
+				+ shaHex);
 	}
 
 	private void tryToDownloadSubtitlesForVideos(
