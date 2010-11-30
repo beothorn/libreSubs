@@ -21,24 +21,35 @@ public class ActionForDroppedFilesResolver {
 		final List<File> videoFiles = new ArrayList<File>();
 		final List<File> subtitlesFiles = new ArrayList<File>();
 		for (final File file : droppedList) {
-			final String extension = FilenameUtils.getExtension(file.getName()).toLowerCase();
-			if(Arrays.asList(videoFilesExtensions).contains(extension)){
-				videoFiles.add(file);
-			}else if(extension.equals(SUBTITLE_EXTENSION)){
-				subtitlesFiles.add(file);
-			}else{
-				outputListener.error(file.getName()+" arquivo com extensão desconhecida.");
-				outputListener.error("Extensões suportadas: "+videoFilesExtensionsString);
-			}
+			sortFiles(outputListener, videoFiles, subtitlesFiles, file);
 		}
 		
 		for (final File videoFile : videoFiles) {
-			final File sub = getSubtitleForVideoOnSubtitleListOrNull(videoFile, subtitlesFiles);
-			if(sub == null){
-				videosWithoutSubtitles.add(videoFile);
-			}else{
-				filesToUpload.add(new VideoWithSubtitle(videoFile, sub));
-			}
+			matchVideosWithSubtitles(subtitlesFiles, videoFile);
+		}
+	}
+
+	private void matchVideosWithSubtitles(final List<File> subtitlesFiles,
+			final File videoFile) {
+		final File sub = getSubtitleForVideoOnSubtitleListOrNull(videoFile, subtitlesFiles);
+		if(sub == null){
+			videosWithoutSubtitles.add(videoFile);
+		}else{
+			filesToUpload.add(new VideoWithSubtitle(videoFile, sub));
+		}
+	}
+
+	private void sortFiles(final OutputListener outputListener,
+			final List<File> videoFiles, final List<File> subtitlesFiles,
+			final File file) {
+		final String extension = FilenameUtils.getExtension(file.getName()).toLowerCase();
+		if(Arrays.asList(videoFilesExtensions).contains(extension)){
+			videoFiles.add(file);
+		}else if(extension.equals(SUBTITLE_EXTENSION)){
+			subtitlesFiles.add(file);
+		}else{
+			outputListener.error(file.getName()+" arquivo com extensão desconhecida.");
+			outputListener.error("Extensões suportadas: "+videoFilesExtensionsString);
 		}
 	}
 
