@@ -1,9 +1,11 @@
 package org.libreSubsApplet;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 import javax.swing.JApplet;
 import javax.swing.JTextArea;
+import javax.swing.border.LineBorder;
 
 import org.libreSubsApplet.dropFile.DropFilesTarget;
 import org.libreSubsCommons.SubtitleResourceResolver;
@@ -19,6 +21,7 @@ public class MainApplet extends JApplet implements OutputListener{
 		
 		stringBucketLabel = new JTextArea();
 		stringBucketLabel.setEditable(false);
+		stringBucketLabel.setBorder(new LineBorder(Color.BLACK));
         
 		final DropFilesTarget dropFilesTarget = new DropFilesTarget();
 		
