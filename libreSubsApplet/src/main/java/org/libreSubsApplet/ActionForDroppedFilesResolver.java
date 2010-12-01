@@ -2,7 +2,6 @@ package org.libreSubsApplet;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.libreSubsApplet.utils.IOUtils;
@@ -12,8 +11,6 @@ public class ActionForDroppedFilesResolver {
 	private static final String SUBTITLE_EXTENSION = "srt";
 	private final List<File> videosWithoutSubtitles;
 	private final List<VideoWithSubtitle> filesToUpload;
-	private final static String videoFilesExtensionsString = "mpeg,mpg,avi,mov,wmv,rm,rmvb,mp4,3gp,ogm,ogg,mkv,asf";
-	private final static String[] videoFilesExtensions = videoFilesExtensionsString.split(",");
 	
 	public ActionForDroppedFilesResolver(final List<File> droppedList, final OutputListener outputListener) {
 		videosWithoutSubtitles = new ArrayList<File>();
@@ -43,13 +40,10 @@ public class ActionForDroppedFilesResolver {
 			final List<File> videoFiles, final List<File> subtitlesFiles,
 			final File file) {
 		final String extension = IOUtils.getExtension(file.getName()).toLowerCase();
-		if(Arrays.asList(videoFilesExtensions).contains(extension)){
-			videoFiles.add(file);
-		}else if(extension.equals(SUBTITLE_EXTENSION)){
+		if(extension.equals(SUBTITLE_EXTENSION)){
 			subtitlesFiles.add(file);
-		}else{
-			outputListener.error(file.getName()+" arquivo com extensão desconhecida.");
-			outputListener.error("Extensões suportadas: "+videoFilesExtensionsString);
+		}else {
+			videoFiles.add(file);
 		}
 	}
 

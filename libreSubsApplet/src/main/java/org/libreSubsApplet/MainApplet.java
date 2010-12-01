@@ -5,6 +5,9 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Locale;
 
 import javax.swing.DefaultListCellRenderer;
@@ -48,7 +51,8 @@ public class MainApplet extends JApplet implements OutputListener{
 
 	private JComboBox createLanguageChooser(
 			final DroppedFilesProcessor dropFileListener) {
-		final JComboBox languageChooser = new JComboBox(Locale.getAvailableLocales());
+		
+		final JComboBox languageChooser = new JComboBox(getSortedAvailableLocales());
 		languageChooser.setRenderer(new DefaultListCellRenderer(){
 			@Override
 			public Component getListCellRendererComponent(final JList list,
@@ -70,6 +74,25 @@ public class MainApplet extends JApplet implements OutputListener{
 		languageChooser.setSelectedItem(Locale.getDefault());
 		
 		return languageChooser;
+	}
+
+	private Object[] getSortedAvailableLocales() {
+		final Locale[] sortedAvailableLocales = Locale.getAvailableLocales();
+		final Comparator<Locale> localeComparator = new Comparator<Locale>() {
+		    public int compare( final Locale l1, final Locale l2 ) {  
+		        final String l1DisplayName = l1.getDisplayName();
+				final String l2DisplayName = l2.getDisplayName();
+				return l1DisplayName.compareTo(l2DisplayName); 
+		    }
+		};
+		Arrays.sort(sortedAvailableLocales,localeComparator);
+		final ArrayList<Locale> validLocales = new ArrayList<Locale>();
+		for (final Locale locale : sortedAvailableLocales) {
+			if(!locale.getCountry().isEmpty()){
+				validLocales.add(locale);
+			}
+		}
+		return validLocales.toArray();
 	}
 
 	private DroppedFilesProcessor createDroppedFileProcessor() {
