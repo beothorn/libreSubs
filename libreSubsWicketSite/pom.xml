@@ -87,7 +87,7 @@
 						<configuration>
 							<tasks>
 								<copy
-									file="../libreSubsApplet/target/libreSubsApplet-${project.version}-jar-with-dependencies.jar"
+									file="../libreSubsApplet/target/libreSubsApplet-${project.version}.jar"
 									tofile="${project.build.directory}/applets/${libresubs.applet.name}" />
 							</tasks>
 						</configuration>
