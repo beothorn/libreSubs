@@ -84,7 +84,7 @@ public class DroppedFilesProcessor implements DropFileListener {
 		final DownloadedContent downloadedContent;
 
 		try {
-			downloadedContent = downloadAdressForString(subtitleUrl);
+			downloadedContent = downloadFromURLToString(subtitleUrl);
 			if (downloadedContent.isError()) {
 				final String niceErrorMsg = "Ocorreu um erro ao tentar baixar a legenda: "+ downloadedContent.getContent();
 				outputListener.error(niceErrorMsg);
@@ -110,7 +110,7 @@ public class DroppedFilesProcessor implements DropFileListener {
 		}
 	}
 
-	private DownloadedContent downloadAdressForString(final String address)
+	private DownloadedContent downloadFromURLToString(final String address)
 			throws IOException {
 		final URL url = new URL(address);
 		final URLConnection conn = url.openConnection();
