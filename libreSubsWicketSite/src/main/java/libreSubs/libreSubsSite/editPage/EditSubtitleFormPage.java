@@ -9,8 +9,8 @@ import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.libreSubsApplet.utils.SubtitleResourceResolver;
 import org.libreSubsCommons.Language;
-import org.libreSubsCommons.SubtitleResourceResolver;
 import org.wicketstuff.annotation.mount.MountPath;
 
 @MountPath(path = "edit")

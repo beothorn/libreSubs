@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.apache.commons.io.FilenameUtils;
+import org.libreSubsApplet.utils.IOUtils;
 
 public class ActionForDroppedFilesResolver {
 
@@ -42,7 +42,7 @@ public class ActionForDroppedFilesResolver {
 	private void sortFiles(final OutputListener outputListener,
 			final List<File> videoFiles, final List<File> subtitlesFiles,
 			final File file) {
-		final String extension = FilenameUtils.getExtension(file.getName()).toLowerCase();
+		final String extension = IOUtils.getExtension(file.getName()).toLowerCase();
 		if(Arrays.asList(videoFilesExtensions).contains(extension)){
 			videoFiles.add(file);
 		}else if(extension.equals(SUBTITLE_EXTENSION)){
@@ -55,9 +55,9 @@ public class ActionForDroppedFilesResolver {
 
 	private File getSubtitleForVideoOnSubtitleListOrNull(final File videoFile,
 			final List<File> subtitlesFiles) {
-		final String videoName = FilenameUtils.getBaseName(videoFile.getAbsolutePath()).toLowerCase();
+		final String videoName = IOUtils.getBaseName(videoFile.getAbsolutePath()).toLowerCase();
 		for (final File sub : subtitlesFiles) {
-			final String subName = FilenameUtils.getBaseName(sub.getAbsolutePath()).toLowerCase();
+			final String subName = IOUtils.getBaseName(sub.getAbsolutePath()).toLowerCase();
 			if(videoName.equals(subName)){
 				return sub;
 			}

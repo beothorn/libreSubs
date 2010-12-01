@@ -12,8 +12,8 @@ import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.request.target.basic.RedirectRequestTarget;
+import org.libreSubsApplet.utils.SubtitleResourceResolver;
 import org.libreSubsCommons.Language;
-import org.libreSubsCommons.SubtitleResourceResolver;
 import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepositoryHandler;
 
 public class HomePage extends WebPage {

@@ -16,8 +16,8 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.util.file.Files;
 import org.apache.wicket.util.file.Folder;
 import org.apache.wicket.util.lang.Bytes;
+import org.libreSubsApplet.utils.IOUtils;
 import org.libreSubsCommons.Language;
-import org.libreSubsCommons.SHA1Utils;
 import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepositoryHandler;
 
 /**
@@ -55,7 +55,7 @@ public class SubtitleUploadForm extends StatelessForm<String> {
 	protected void onSubmit() {
 		if (formProperties.id == null) {
 			info("SHA1 dos primeiros "
-					+ SHA1Utils.getPartialSHA1SizeAsHumanReadable()
+					+ IOUtils.getPartialSHA1SizeAsHumanReadable()
 					+ " devem ser informados.");
 		}
 

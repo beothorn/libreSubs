@@ -2,7 +2,7 @@ package libreSubs.libreSubsSite.downloadPage;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.wicket.util.value.ValueMap;
-import org.libreSubsCommons.SubtitleResourceResolver;
+import org.libreSubsApplet.utils.SubtitleResourceResolver;
 
 public class SubRequestParameters {
 

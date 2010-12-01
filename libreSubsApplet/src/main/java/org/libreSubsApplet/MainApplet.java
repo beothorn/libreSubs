@@ -2,19 +2,21 @@ package org.libreSubsApplet;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Locale;
 
+import javax.swing.DefaultListCellRenderer;
 import javax.swing.JApplet;
 import javax.swing.JComboBox;
+import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.LineBorder;
 
 import org.libreSubsApplet.dropFile.DropFilesTarget;
-import org.libreSubsCommons.Language;
-import org.libreSubsCommons.SubtitleResourceResolver;
+import org.libreSubsApplet.utils.SubtitleResourceResolver;
 
 @SuppressWarnings("serial")
 public class MainApplet extends JApplet implements OutputListener{
@@ -46,20 +48,26 @@ public class MainApplet extends JApplet implements OutputListener{
 
 	private JComboBox createLanguageChooser(
 			final DroppedFilesProcessor dropFileListener) {
-		final JComboBox languageChooser = new JComboBox(Language.values());
-		
+		final JComboBox languageChooser = new JComboBox(Locale.getAvailableLocales());
+		languageChooser.setRenderer(new DefaultListCellRenderer(){
+			@Override
+			public Component getListCellRendererComponent(final JList list,
+					final Object value, final int index, final boolean isSelected,
+					final boolean cellHasFocus) {
+				final Component listCellRendererComponent = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+				setText(((Locale)value).getDisplayName());
+				return listCellRendererComponent;
+			}
+		});
 		languageChooser.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(final ActionEvent e) {
-				final Language language = (Language)languageChooser.getSelectedItem();
-				dropFileListener.setLanguage(language);
+				final Locale language = (Locale)languageChooser.getSelectedItem();
+				dropFileListener.setLanguage(language.toString());
 			}
 		});
 		
-		final String userLanguage = Locale.getDefault().toString();
-		if(Language.isValidLanguage(userLanguage)){
-			languageChooser.setSelectedItem(Language.valueOf(userLanguage));
-		}
+		languageChooser.setSelectedItem(Locale.getDefault());
 		
 		return languageChooser;
 	}
@@ -67,7 +75,7 @@ public class MainApplet extends JApplet implements OutputListener{
 	private DroppedFilesProcessor createDroppedFileProcessor() {
 		final String srtProviderURL = getSrtProviderUrl();
 		final SubtitleResourceResolver srtSource = new SubtitleResourceResolver(srtProviderURL);
-		final DroppedFilesProcessor dropFileListener = new DroppedFilesProcessor(srtSource, this, Language.pt_BR);
+		final DroppedFilesProcessor dropFileListener = new DroppedFilesProcessor(srtSource, this, Locale.getDefault().toString());
 		return dropFileListener;
 	}
 

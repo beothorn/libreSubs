@@ -1,4 +1,5 @@
-package org.libreSubsCommons;
+package org.libreSubsApplet.utils;
+
 
 
 public class SubtitleResourceResolver {
@@ -13,9 +14,9 @@ public class SubtitleResourceResolver {
 		this.urlParameter = urlParameter;
 	}
 
-	public String resolve(final String id, final Language lang, final String file) {
+	public String resolve(final String id, final String lang, final String file) {
 		String resolved = urlParameter.replace("%"+idParameter, id);;
-		resolved = resolved.replace("%"+langParameter, lang.toString());
+		resolved = resolved.replace("%"+langParameter, lang);
 		resolved = resolved.replace("%"+fileParameter, file);		
 		return resolved;
 	}

@@ -109,17 +109,5 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
-		<dependency>
-			<groupId>commons-io</groupId>
-			<artifactId>commons-io</artifactId>
-			<version>2.0</version>
-			<type>jar</type>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>libreSubs</groupId>
-			<artifactId>libreSubsCommons</artifactId>
-			<version>${project.version}</version>
-		</dependency>
 	</dependencies>
 </project>

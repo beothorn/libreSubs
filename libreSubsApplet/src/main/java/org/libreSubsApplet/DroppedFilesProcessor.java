@@ -6,22 +6,19 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
 
-import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.io.IOUtils;
 import org.libreSubsApplet.dropFile.DropFileListener;
-import org.libreSubsCommons.FileUtils;
-import org.libreSubsCommons.Language;
-import org.libreSubsCommons.SHA1Utils;
-import org.libreSubsCommons.SubtitleResourceResolver;
+import org.libreSubsApplet.utils.IOUtils;
+import org.libreSubsApplet.utils.SHA1CalculationException;
+import org.libreSubsApplet.utils.SubtitleResourceResolver;
 
 public class DroppedFilesProcessor implements DropFileListener {
 
 	private final SubtitleResourceResolver subtitleSource;
 	private final OutputListener outputListener;
-	private Language subtitleLanguage;
+	private String subtitleLanguage;
 
 	public DroppedFilesProcessor(final SubtitleResourceResolver subtitleSource,
-			final OutputListener outputListener, final Language subtitleLanguage) {
+			final OutputListener outputListener, final String subtitleLanguage) {
 		this.subtitleSource = subtitleSource;
 		this.outputListener = outputListener;
 		this.subtitleLanguage = subtitleLanguage;
@@ -48,9 +45,9 @@ public class DroppedFilesProcessor implements DropFileListener {
 			final VideoWithSubtitle videoWithSubtitle) {
 		final String shaHex; 
 		try {
-			shaHex = SHA1Utils.getPartialSHA1ForFile(videoWithSubtitle.getVideo());
-		} catch (final IOException e1) {
-			outputListener.error("Erro calculando SHA1; " + e1.getMessage());
+			shaHex = IOUtils.getPartialSHA1ForFile(videoWithSubtitle.getVideo());
+		} catch (final SHA1CalculationException e) {
+			outputListener.error("Erro calculando SHA1; " + e.getMessage());
 			return;
 		}
 		outputListener.error("Upload ainda não foi implementado pelo applet.");
@@ -70,15 +67,15 @@ public class DroppedFilesProcessor implements DropFileListener {
 		final String shaHex;
 		
 		try {
-			shaHex = SHA1Utils.getPartialSHA1ForFile(video);
-		} catch (final IOException e1) {
+			shaHex = IOUtils.getPartialSHA1ForFile(video);
+		} catch (final SHA1CalculationException e1) {
 			outputListener.error("Erro calculando SHA1; " + e1.getMessage());
 			return;
 		}
 
 		final String fileName = video.getName();
-		final String parent = video.getParent();
-		final String newStrFileName = FilenameUtils.removeExtension(fileName)+ ".srt";
+		final File parent = video.getParentFile();
+		final String newStrFileName = IOUtils.removeExtension(fileName)+ ".srt";
 		final String subtitleUrl = subtitleSource.resolve(shaHex, getLanguage(), newStrFileName);
 		
 		outputListener.info("Arquivo: " + fileName + " - SHA1: " + shaHex);
@@ -100,9 +97,9 @@ public class DroppedFilesProcessor implements DropFileListener {
 			return;
 		}
 
-		final File srtFile = FileUtils.createFileOrCry(parent, newStrFileName);
+		final File srtFile = new File(parent, newStrFileName);
 		try {
-			org.apache.commons.io.FileUtils.writeStringToFile(srtFile,
+			IOUtils.writeStringToFile(srtFile,
 					downloadedContent.getContent());
 			outputListener.info("Legenda salva com sucesso");
 		} catch (final IOException e) {
@@ -118,15 +115,15 @@ public class DroppedFilesProcessor implements DropFileListener {
 		final URL url = new URL(address);
 		final URLConnection conn = url.openConnection();
 		final String contentType = conn.getContentType();
-		final String content = IOUtils.toString(conn.getInputStream());
+		final String content = IOUtils.convertStreamToString(conn.getInputStream());
 		return new DownloadedContent(content, contentType);
 	}
 
-	public void setLanguage(final Language language) {
+	public void setLanguage(final String language) {
 		this.subtitleLanguage = language;
 	}
 
-	public Language getLanguage() {
+	public String getLanguage() {
 		return subtitleLanguage;
 	}
 
