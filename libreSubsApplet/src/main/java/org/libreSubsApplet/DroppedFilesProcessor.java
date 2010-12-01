@@ -18,11 +18,13 @@ public class DroppedFilesProcessor implements DropFileListener {
 
 	private final SubtitleResourceResolver subtitleSource;
 	private final OutputListener outputListener;
+	private Language subtitleLanguage;
 
 	public DroppedFilesProcessor(final SubtitleResourceResolver subtitleSource,
-			final OutputListener outputListener) {
+			final OutputListener outputListener, final Language subtitleLanguage) {
 		this.subtitleSource = subtitleSource;
 		this.outputListener = outputListener;
+		this.subtitleLanguage = subtitleLanguage;
 	}
 
 	@Override
@@ -76,24 +78,25 @@ public class DroppedFilesProcessor implements DropFileListener {
 
 		final String fileName = video.getName();
 		final String parent = video.getParent();
-		final String newStrFileName = FilenameUtils.removeExtension(fileName)
-				+ ".srt";
+		final String newStrFileName = FilenameUtils.removeExtension(fileName)+ ".srt";
+		final String subtitleUrl = subtitleSource.resolve(shaHex, getLanguage(), newStrFileName);
+		
 		outputListener.info("Arquivo: " + fileName + " - SHA1: " + shaHex);
+		outputListener.info("Url: "+subtitleUrl);
 
 		final DownloadedContent downloadedContent;
 
 		try {
-			downloadedContent = downloadAdressForString(subtitleSource.resolve(
-					shaHex, Language.pt_BR, newStrFileName));
+			downloadedContent = downloadAdressForString(subtitleUrl);
 			if (downloadedContent.isError()) {
-				outputListener
-						.error("Ocorreu um erro ao tentar baixar a legenda: "
-								+ downloadedContent.getContent());
+				final String niceErrorMsg = "Ocorreu um erro ao tentar baixar a legenda: "+ downloadedContent.getContent();
+				outputListener.error(niceErrorMsg);
 				return;
 			}
 		} catch (final Exception e) {
-			outputListener.error("Ocorreu um erro ao tentar baixar a legenda: "
-					+ e.getMessage());
+			final String exceptionErrorMsg = "Ocorreu um erro ao tentar baixar a legenda: "
+					+ e.getMessage();
+			outputListener.error(exceptionErrorMsg);
 			return;
 		}
 
@@ -117,6 +120,14 @@ public class DroppedFilesProcessor implements DropFileListener {
 		final String contentType = conn.getContentType();
 		final String content = IOUtils.toString(conn.getInputStream());
 		return new DownloadedContent(content, contentType);
+	}
+
+	public void setLanguage(final Language language) {
+		this.subtitleLanguage = language;
+	}
+
+	public Language getLanguage() {
+		return subtitleLanguage;
 	}
 
 }
