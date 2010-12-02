@@ -1,10 +1,10 @@
 package libreSubs.libreSubsSite.downloadPage;
 
 import libreSubs.libreSubsSite.WicketApplication;
+import libreSubs.libreSubsSite.util.Language;
 
 import org.apache.wicket.markup.html.DynamicWebResource;
 import org.apache.wicket.protocol.http.WebResponse;
-import org.libreSubsCommons.Language;
 import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepositoryHandler;
 
 @SuppressWarnings("serial")

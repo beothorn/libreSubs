@@ -15,7 +15,7 @@ import org.apache.wicket.PageParameters;
 import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
@@ -26,15 +26,11 @@ import org.wicketstuff.annotation.mount.MountPath;
 @MountPath(path = "editSrtPage")
 public class SubtitleEditorPage extends WebPage {
 	
-	
 	String subtitle;
 	SubParameters subParameters;
 
 	@SuppressWarnings("serial")
 	public SubtitleEditorPage(final PageParameters parameters) {
-		setStatelessHint(true);
-
-
 		final CharSequence idParam = parameters.getCharSequence(SubtitleResourceResolver.idParameter);
 		if(idParam == null){
 			throw new RestartResponseException(new ErrorPage() {				
@@ -81,7 +77,9 @@ public class SubtitleEditorPage extends WebPage {
 		subtitle = subtitlesRepositoryHandler.getSubtitleOrNull(id, lang);
 		
 		subParameters = new SubParameters();
-		final Form<String> editForm = new Form<String>("editForm",new CompoundPropertyModel<String>(
+		final StatelessForm<String> editForm = new StatelessForm<String>(
+				"editForm",
+				new CompoundPropertyModel<String>(
 				subParameters)){
 			@Override
 			protected void onSubmit() {

@@ -1,5 +1,6 @@
 package libreSubs.libreSubsSite;
 
+import libreSubs.libreSubsSite.commons.LanguageChooserDropDown;
 import libreSubs.libreSubsSite.downloadPage.DownloadSubtitle;
 import libreSubs.libreSubsSite.menuPanel.MenuPanel;
 import libreSubs.libreSubsSite.wicketComponents.DeployJava;
@@ -7,13 +8,11 @@ import libreSubs.libreSubsSite.wicketComponents.DeployJava;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.basic.MultiLineLabel;
-import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.request.target.basic.RedirectRequestTarget;
 import org.libreSubsApplet.utils.SubtitleResourceResolver;
-import org.libreSubsCommons.Language;
 import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepositoryHandler;
 
 public class HomePage extends WebPage {
@@ -91,8 +90,7 @@ public class HomePage extends WebPage {
 		add(form);
 		form.add(new TextField<String>("id"));
 		form.add(new TextField<String>("fileName"));
-		form.add(new DropDownChoice<String>("lang", Language
-				.getLanguagesAsStringList()));
+		form.add(new LanguageChooserDropDown("lang"));
 	}
 
 }

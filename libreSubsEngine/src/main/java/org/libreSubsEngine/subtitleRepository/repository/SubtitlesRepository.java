@@ -8,7 +8,6 @@ import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
-import org.libreSubsCommons.Language;
 import org.libreSubsEngine.subtitleRepository.SubtitleRepositoryLocation;
 import org.libreSubsEngine.subtitleRepository.fileUtils.RepositoryScanner;
 import org.libreSubsEngine.subtitleRepository.fileUtils.RepositoryScannerListener;
@@ -32,7 +31,7 @@ public class SubtitlesRepository implements RepositoryScannerListener{
 		gitRepoHandler = new GitRepoHandler(repoDir);
 	}
 
-	void addSubtitle(final PartialSHA1 videoID, final Language language,final String content) throws IOException {
+	void addSubtitle(final PartialSHA1 videoID, final String language,final String content) throws IOException {
 		final String videoIDAsString = videoID.toString();
 		final String strDirName = videoIDAsString.substring(0, 2);
 		final File srtDir = new File(repositoryLocation.getBaseDir(), strDirName);
@@ -61,12 +60,12 @@ public class SubtitlesRepository implements RepositoryScannerListener{
 	private void loadSubtitleFromRepository(final PartialSHA1 videoSHA1,final String language,final File srtFile
 			) throws IOException {
 		final String srtFileContent = FileUtils.readFileToString(srtFile);
-		final SubtitleKey subtitleKey = new SubtitleKey(Language.valueOf(language), videoSHA1);
+		final SubtitleKey subtitleKey = new SubtitleKey(language, videoSHA1);
 		final Subtitle subtitle = new Subtitle(srtFileContent, srtFile);
 		subtitles.put(subtitleKey, subtitle);
 	}
 
-	public String getSubtitleContentsFromVideoIDAndLanguageOrNull(final Language language,
+	public String getSubtitleContentsFromVideoIDAndLanguageOrNull(final String language,
 			final PartialSHA1 videoID) throws IOException {
 		final SubtitleKey subtitleKey = new SubtitleKey(language, videoID);
 		return getSubtitleContentsForKeyOrNull(subtitleKey);
@@ -82,7 +81,7 @@ public class SubtitlesRepository implements RepositoryScannerListener{
 		return content;
 	}
 
-	public void changeContentsForSubtitle(final String newContent, final Language language,
+	public void changeContentsForSubtitle(final String newContent, final String language,
 			final PartialSHA1 videoID) throws IOException {
 		changeContentsForSubtitle(newContent, new SubtitleKey(language, videoID) );
 	}

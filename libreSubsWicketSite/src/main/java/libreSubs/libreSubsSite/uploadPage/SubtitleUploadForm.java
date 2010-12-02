@@ -5,9 +5,10 @@ import java.io.IOException;
 
 import libreSubs.libreSubsSite.SubParameters;
 import libreSubs.libreSubsSite.WicketApplication;
+import libreSubs.libreSubsSite.commons.LanguageChooserDropDown;
+import libreSubs.libreSubsSite.util.Language;
 
 import org.apache.log4j.Logger;
-import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.form.upload.FileUpload;
@@ -17,7 +18,6 @@ import org.apache.wicket.util.file.Files;
 import org.apache.wicket.util.file.Folder;
 import org.apache.wicket.util.lang.Bytes;
 import org.libreSubsApplet.utils.IOUtils;
-import org.libreSubsCommons.Language;
 import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepositoryHandler;
 
 /**
@@ -29,7 +29,6 @@ public class SubtitleUploadForm extends StatelessForm<String> {
 	private static final int MAX_SUB_SIZE = 200;
 	private final FileUploadField fileUploadField;
 	private final TextField<String> sha1Field;
-	private final DropDownChoice<String> localeSelection;
 	private final SubParameters formProperties;
 
 	public SubtitleUploadForm(
@@ -43,12 +42,11 @@ public class SubtitleUploadForm extends StatelessForm<String> {
 		setMaxSize(Bytes.kilobytes(MAX_SUB_SIZE));
 
 		sha1Field = new TextField<String>("id");
-		localeSelection = new DropDownChoice<String>("lang", Language
-				.getLanguagesAsStringList());
+
 
 		add(fileUploadField);
 		add(sha1Field);
-		add(localeSelection);
+		add(new LanguageChooserDropDown("lang"));
 	}
 
 	@Override

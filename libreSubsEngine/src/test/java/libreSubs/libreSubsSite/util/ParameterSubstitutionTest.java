@@ -1,10 +1,9 @@
-package org.libreSubsApplet;
+package libreSubs.libreSubsSite.util;
 
 import junit.framework.Assert;
 
 import org.junit.Test;
 import org.libreSubsApplet.utils.SubtitleResourceResolver;
-import org.libreSubsCommons.Language;
 
 public class ParameterSubstitutionTest {
 
@@ -21,7 +20,7 @@ public class ParameterSubstitutionTest {
 		final SubtitleResourceResolver subtitleResourceResolver = new SubtitleResourceResolver(
 				urlParameter);
 		final String id = "42";
-		final Language lang = Language.pt_BR;
+		final String lang = "pt_BR";
 		final String file = "foo";
 		final String resolved = subtitleResourceResolver
 				.resolve(id, lang.toString(), file);
@@ -30,5 +29,4 @@ public class ParameterSubstitutionTest {
 						"http://www.lucass.is-a-geek.com:8080/latestLibresubs/?id=42&lang=pt_BR&file=foo",
 						resolved);
 	}
-
 }

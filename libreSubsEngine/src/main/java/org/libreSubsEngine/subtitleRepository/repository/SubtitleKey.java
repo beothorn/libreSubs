@@ -1,13 +1,12 @@
 package org.libreSubsEngine.subtitleRepository.repository;
 
-import org.libreSubsCommons.Language;
 
 public class SubtitleKey {
 	
-	private final Language language;
+	private final String language;
 	private final PartialSHA1 videoID;	
 
-	public SubtitleKey(final Language language, final PartialSHA1 videoID) {
+	public SubtitleKey(final String language, final PartialSHA1 videoID) {
 		this.language = language;
 		this.videoID = videoID;
 	}
@@ -23,7 +22,7 @@ public class SubtitleKey {
 	
 	@Override
 	public int hashCode() {
-		return (videoID.toString()+language.name()).hashCode();
+		return (videoID.toString()+language).hashCode();
 	}
 	
 	@Override
