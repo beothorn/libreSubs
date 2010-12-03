@@ -16,9 +16,9 @@ import org.eclipse.jgit.revwalk.RevCommit;
 
 public class GitRepoHandler {
 	
-	private static final String DEFAULT_COMMIT_MESSAGE = "Anonymous commit";
-	private static final String DEFAULT_EMAIL = "jhon@doe.com";
-	private static final String DEFAULT_NAME = "Anon";
+	public static final String DEFAULT_COMMIT_MESSAGE = "Anonymous commit";
+	public static final String DEFAULT_EMAIL = "noemail@non.no";
+	public static final String DEFAULT_NAME = "Anon";
 	private final Git git;
 	private Repository repo;
 	private final String parentDirPath;
@@ -31,8 +31,8 @@ public class GitRepoHandler {
 		
 		try {
 			repo = new RepositoryBuilder().setGitDir(gitFolder).build();
-		} catch (final IOException e1) {
-			throw new RuntimeException("Error loading git repo", e1);
+		} catch (final IOException e) {
+			throw new RuntimeException("Error loading git repo", e);
 		}
 		
 		git = new Git(repo);
@@ -68,21 +68,13 @@ public class GitRepoHandler {
 		}
 	}
 
-	public void commitAnonymously() {
-		final String commiterName = DEFAULT_NAME;
-		final String commiterEmail = DEFAULT_EMAIL;
-		final String commitMessage = DEFAULT_COMMIT_MESSAGE;
-		
-		commitWith(commiterName, commiterEmail, commitMessage);		
-	}
-
 	private void ifFileIsNotVersionedCry(final String filePath) {
 		if(!filePath.contains(parentDirPath)){
 			throw new RuntimeException("File is not on repository file:"+filePath+" repo:"+parentDirPath);
 		}
 	}
 
-	private void commitWith(final String commiterName, final String commiterEmail,
+	public void commitWith(final String commiterName, final String commiterEmail,
 			final String commitMessage) {
 		try{
 			final CommitCommand commitCommand = git.commit();

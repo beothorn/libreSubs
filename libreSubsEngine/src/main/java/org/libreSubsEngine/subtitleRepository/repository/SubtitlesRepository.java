@@ -86,10 +86,15 @@ public class SubtitlesRepository implements RepositoryScannerListener{
 		changeContentsForSubtitle(newContent, new SubtitleKey(language, videoID) );
 	}
 	
-	public void changeContentsForSubtitle(final String newContent, final SubtitleKey subtitleKey) throws IOException {
+	public void changeContentsForSubtitle( final String newContent, final SubtitleKey subtitleKey) throws IOException {
+		final String empty = "";
+		changeContentsForSubtitle(empty,empty,empty, newContent,subtitleKey);
+	}
+	
+	public void changeContentsForSubtitle(final String commiter,final String email,final String message, final String newContent, final SubtitleKey subtitleKey) throws IOException {
 		final Subtitle subtitle = subtitles.get(subtitleKey);
 		subtitle.setContent(newContent);
-		commitAnonymously();
+		commitAs(commiter,email,message);
 	}
 
 	public String listSubtitles() {
@@ -111,8 +116,20 @@ public class SubtitlesRepository implements RepositoryScannerListener{
 		return subtitles.containsKey(key);
 	}
 
-	public void commitAnonymously() {
-		gitRepoHandler.commitAnonymously();
+	public void commitAs(final String commiter,final String email, final String message) {
+		String commiterName = commiter;
+		if(commiterName == null || commiterName.isEmpty()){
+			commiterName = GitRepoHandler.DEFAULT_NAME; 
+		}
+		final String commiterEmail = email;
+		if(commiterEmail == null || commiterEmail.isEmpty()){
+			commiterName = GitRepoHandler.DEFAULT_EMAIL; 
+		}
+		String commiterMessage = message;
+		if(commiterMessage == null || commiterMessage.isEmpty()){
+			commiterMessage = GitRepoHandler.DEFAULT_COMMIT_MESSAGE; 
+		}
+		gitRepoHandler.commitWith(commiterName, commiterEmail, message);
 	}
 
 	@Override

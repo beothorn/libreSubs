@@ -50,12 +50,12 @@ public class SubtitlesRepositoryHandler {
 		subtitlesBase.addSubtitle(partialSHA1, language, content);
 	}
 	
-	public void changeContentsForSubitle(final String id, final String lang, final String content) throws IOException{
+	public void changeContentsForSubitle(final String commiter,final String email,final String message,final String id, final String lang, final String content) throws IOException{
 		if(!subtitleExists(id, lang)){
 			throw new RuntimeException("Subtitle doesn't exist: id"+id+" lang"+lang);
 		}
 		final SubtitleKey subtitleKey = createKeyOrNull(id, lang);
-		subtitlesBase.changeContentsForSubtitle(content, subtitleKey);
+		subtitlesBase.changeContentsForSubtitle(commiter,email, message, content, subtitleKey);
 	}
 
 	public String getLastNCommits(final int i) {

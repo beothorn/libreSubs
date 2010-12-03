@@ -2,22 +2,17 @@ package libreSubs.libreSubsSite.editPage;
 
 
 
-import java.io.IOException;
-
 import libreSubs.libreSubsSite.ErrorPage;
 import libreSubs.libreSubsSite.SubParameters;
 import libreSubs.libreSubsSite.WicketApplication;
 import libreSubs.libreSubsSite.menuPanel.MenuPanel;
-import libreSubs.libreSubsSite.uploadPage.SubtitleUploadForm;
 
-import org.apache.log4j.Logger;
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.markup.html.form.TextArea;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.libreSubsApplet.utils.SubtitleResourceResolver;
 import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepositoryHandler;
@@ -29,8 +24,9 @@ public class SubtitleEditorPage extends WebPage {
 	String subtitle;
 	SubParameters subParameters;
 
-	@SuppressWarnings("serial")
 	public SubtitleEditorPage(final PageParameters parameters) {
+		setStatelessHint(true);
+
 		final CharSequence idParam = parameters.getCharSequence(SubtitleResourceResolver.idParameter);
 		if(idParam == null){
 			throw new RestartResponseException(new ErrorPage() {				
@@ -56,7 +52,15 @@ public class SubtitleEditorPage extends WebPage {
 		
 		final String id = idParam.toString();
 		final String lang = langParam.toString();
+		final String message = "";
 		
+		buildPage(id, lang, message);
+	}
+
+	@SuppressWarnings("serial")
+	private void buildPage(final String id, final String lang,
+			final String message) {
+		add(new Label("message", message));
 		final SubtitlesRepositoryHandler subtitlesRepositoryHandler = WicketApplication
 				.getSubtitlesRepositoryHandler();
 
@@ -72,7 +76,6 @@ public class SubtitleEditorPage extends WebPage {
 		add(new MenuPanel("menu"));
 		add(new Label("id", id));
 		add(new Label("lang", lang));
-		add(new FeedbackPanel("saveFeedback"));
 		
 		subtitle = subtitlesRepositoryHandler.getSubtitleOrNull(id, lang);
 		
@@ -83,16 +86,7 @@ public class SubtitleEditorPage extends WebPage {
 				subParameters)){
 			@Override
 			protected void onSubmit() {
-				try {
-					subtitlesRepositoryHandler.changeContentsForSubitle(id,
-							lang, subParameters.content);
-				} catch (final IOException e) {
-					info("Erro ao enviar legenda");
-					Logger.getLogger(SubtitleUploadForm.class).error(
-							"Erro ao enviar legenda", e);
-					return;
-				}
-				info("Legenda alterada");
+				setResponsePage(new CommitPage(id, lang, subParameters.content));
 			}
 		};
 		
@@ -100,6 +94,11 @@ public class SubtitleEditorPage extends WebPage {
 		subParameters.content = subtitle;
 		final TextArea<String> editSubtitleTextArea = new TextArea<String>("content");
 		editForm.add(editSubtitleTextArea);
+	}
+
+	public SubtitleEditorPage(final String id, final String lang,
+			final String message) {
+		buildPage(id, lang, message);
 	}	
 
 }
