@@ -1,22 +1,29 @@
 package libreSubs.libreSubsSite.uploadPage;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
+import org.apache.wicket.PageParameters;
+import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.protocol.http.WebRequest;
 import org.apache.wicket.protocol.http.servlet.MultipartServletWebRequest;
-import org.apache.wicket.util.lang.Bytes;
-import org.apache.wicket.util.upload.FileUploadException;
+import org.apache.wicket.util.upload.FileItem;
+import org.wicketstuff.annotation.mount.MountPath;
 
-public class UploadServlet extends MultipartServletWebRequest {
+@MountPath(path = "upload")
+public class UploadServlet extends WebPage {
 
-	public UploadServlet(final HttpServletRequest request, final Bytes maxSize)
-			throws FileUploadException {
-		super(request, maxSize);
-	}
+	public UploadServlet(PageParameters pageParameters) {
+		if (pageParameters.size() <= 0) {
+			final MultipartServletWebRequest multipartWebRequest = (MultipartServletWebRequest) ((WebRequest) getRequest())
+					.newMultipartWebRequest(getApplication()
+							.getApplicationSettings()
+							.getDefaultMaximumUploadSize());
+			getRequestCycle().setRequest(multipartWebRequest);
+			pageParameters = new PageParameters(
+					multipartWebRequest.getParameterMap());
 
-	@Override
-	protected void onUploadCompleted() {
-		// TODO Auto-generated method stub
-		throw new RuntimeException("Method not impelemented");
+			final Map<String, FileItem> files = multipartWebRequest.getFiles();
+		}
 	}
 
 }

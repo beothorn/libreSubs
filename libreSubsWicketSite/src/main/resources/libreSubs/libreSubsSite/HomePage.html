@@ -32,5 +32,18 @@
         <p>
         <span wicket:id="message">lista de legendas</span>
         </p> 
+        
+        
+        
+        <center>File upload test</center>
+		<br>
+		<form method="post" enctype="multipart/form-data" action="http://127.0.0.1:8081/upload">
+			<input type="file" size=20 name="fname">
+			SHA1:<br/>
+        	<input name="id" type="text" size="40"/><br/>
+        	Nome do Arquivo:<br/>
+        	<input name="fileName" type="text" size="80"/><br/>
+        	<input type="submit" value="Enviar" />
+        </form>
     </body>
 </html>
