@@ -1,10 +1,10 @@
 package libreSubs.libreSubsSite.downloadPage;
 
 import libreSubs.libreSubsSite.WicketApplication;
-import libreSubs.libreSubsSite.util.Language;
 
 import org.apache.wicket.markup.html.DynamicWebResource;
 import org.apache.wicket.protocol.http.WebResponse;
+import org.libreSubsApplet.utils.LocaleUtil;
 import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepositoryHandler;
 
 @SuppressWarnings("serial")
@@ -32,7 +32,7 @@ public class DownloadSubtitle extends DynamicWebResource {
 		}
 
 		final String language = parameters.getLanguage();
-		if (!Language.isValidLanguage(language)) {
+		if (!LocaleUtil.isValidLanguage(language)) {
 			return new ErrorResourceState("O idioma " + language
 					+ " não é suportado.");
 		}
@@ -83,7 +83,7 @@ public class DownloadSubtitle extends DynamicWebResource {
 		final String language = parameters.getLanguage();
 		final boolean isLackingParameters = !parameters
 				.hasAllObrigatoryParameters();
-		final boolean languageUnknown = !Language.isValidLanguage(language);
+		final boolean languageUnknown = !LocaleUtil.isValidLanguage(language);
 		final SubtitlesRepositoryHandler subtitlesRepositoryHandler = WicketApplication
 				.getSubtitlesRepositoryHandler();
 		final boolean subtitleDoesnExist = !subtitlesRepositoryHandler

@@ -6,7 +6,6 @@ import java.io.IOException;
 import libreSubs.libreSubsSite.SubParameters;
 import libreSubs.libreSubsSite.WicketApplication;
 import libreSubs.libreSubsSite.commons.LanguageChooserDropDown;
-import libreSubs.libreSubsSite.util.Language;
 
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.form.StatelessForm;
@@ -18,6 +17,7 @@ import org.apache.wicket.util.file.Files;
 import org.apache.wicket.util.file.Folder;
 import org.apache.wicket.util.lang.Bytes;
 import org.libreSubsApplet.utils.IOUtils;
+import org.libreSubsApplet.utils.LocaleUtil;
 import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepositoryHandler;
 
 /**
@@ -57,7 +57,7 @@ public class SubtitleUploadForm extends StatelessForm<String> {
 					+ " devem ser informados.");
 		}
 
-		if (!Language.isValidLanguage(formProperties.lang)) {
+		if (!LocaleUtil.isValidLanguage(formProperties.lang)) {
 			info("Idioma inválido.");
 			return;
 		}

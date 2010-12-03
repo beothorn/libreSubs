@@ -19,10 +19,14 @@ public class LocaleUtil {
 		Arrays.sort(sortedAvailableLocales,localeComparator);
 		final ArrayList<Locale> validLocales = new ArrayList<Locale>();
 		for (final Locale locale : sortedAvailableLocales) {
-			if(!locale.getCountry().isEmpty()){
+			if(isValidLanguage(locale.toString())){
 				validLocales.add(locale);
 			}
 		}
 		return validLocales.toArray(new Locale[0]);
+	}
+	
+	public static boolean isValidLanguage(final String language) {
+		return language.matches("[a-z]{2}_[A-Z]{2}");
 	}
 }

@@ -17,8 +17,4 @@ public class Language {
 		}
 		return Arrays.asList(availableLocalesNames);
 	}
-
-	public static boolean isValidLanguage(final String language) {
-		return language.matches("[a-z]{2}_[A-Z]{2}");
-	}
 }

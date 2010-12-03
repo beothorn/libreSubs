@@ -3,9 +3,8 @@ package org.libreSubsEngine.subtitleRepository.repository;
 import java.io.File;
 import java.io.IOException;
 
-import libreSubs.libreSubsSite.util.Language;
-
 import org.apache.commons.io.FileUtils;
+import org.libreSubsApplet.utils.LocaleUtil;
 
 public class SubtitlesRepositoryHandler {
 
@@ -16,7 +15,7 @@ public class SubtitlesRepositoryHandler {
 	}
 
 	public boolean isValidLanguage(final String language) {
-		return Language.isValidLanguage(language);
+		return LocaleUtil.isValidLanguage(language);
 	}
 
 	public String getSubtitleOrNull(final String id, final String lang) {
@@ -33,7 +32,7 @@ public class SubtitlesRepositoryHandler {
 	}
 
 	private SubtitleKey createKeyOrNull(final String id, final String lang) {
-		if(!Language.isValidLanguage(lang)){
+		if(!LocaleUtil.isValidLanguage(lang)){
 			return null;
 		}
 		final SubtitleKey subtitleKey = new SubtitleKey(lang, new PartialSHA1(id));
