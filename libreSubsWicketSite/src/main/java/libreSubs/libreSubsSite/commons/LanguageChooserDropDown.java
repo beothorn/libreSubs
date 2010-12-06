@@ -14,6 +14,5 @@ public class LanguageChooserDropDown extends DropDownChoice<Locale> {
 				.getSortedAvailableLocales()),
 				new LocaleChoiceRenderer());
 		setNullValid(false);
-
 	}
 }

@@ -1,10 +1,8 @@
 package libreSubs.libreSubsSite.uploadPage;
 
 import java.io.File;
-import java.io.IOException;
 
 import libreSubs.libreSubsSite.SubParameters;
-import libreSubs.libreSubsSite.WicketApplication;
 import libreSubs.libreSubsSite.commons.LanguageChooserDropDown;
 
 import org.apache.log4j.Logger;
@@ -16,9 +14,6 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.util.file.Files;
 import org.apache.wicket.util.file.Folder;
 import org.apache.wicket.util.lang.Bytes;
-import org.libreSubsApplet.utils.IOUtils;
-import org.libreSubsApplet.utils.LocaleUtil;
-import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepositoryHandler;
 
 /**
  * Form for uploads.
@@ -43,7 +38,6 @@ public class SubtitleUploadForm extends StatelessForm<String> {
 
 		sha1Field = new TextField<String>("id");
 
-
 		add(fileUploadField);
 		add(sha1Field);
 		add(new LanguageChooserDropDown("lang"));
@@ -51,36 +45,14 @@ public class SubtitleUploadForm extends StatelessForm<String> {
 
 	@Override
 	protected void onSubmit() {
-		if (formProperties.id == null) {
-			info("SHA1 dos primeiros "
-					+ IOUtils.getPartialSHA1SizeAsHumanReadable()
-					+ " devem ser informados.");
-		}
-
-		if (!LocaleUtil.isValidLanguage(formProperties.lang)) {
-			info("Idioma inválido.");
-			return;
-		}
-
-		final SubtitlesRepositoryHandler subtitlesRepositoryHandler = WicketApplication
-				.getSubtitlesRepositoryHandler();
-		if (subtitlesRepositoryHandler.subtitleExists(formProperties.id,
-				formProperties.lang)) {
-			info("Legenda já existe.");
-			return;
-		}
-
-		if (formProperties.fileName == null) {
-			info("Arquivo deve ser informado.");
-		}
-
+		final SubtitleUploader subtitleUploader = new SubtitleUploader();
 		final FileUpload upload = fileUploadField.getFileUpload();
 		if (upload != null) {
 			// Create a new file
 			final File newFile = new File(getUploadFolder(), upload
 					.getClientFileName());
 
-			// Check new file, delete if it allready existed
+			// Check new file, delete if it already existed
 			checkFileExists(newFile);
 			try {
 				// Save to new file
@@ -94,15 +66,11 @@ public class SubtitleUploadForm extends StatelessForm<String> {
 			}
 
 			try {
-				subtitlesRepositoryHandler.addSubtitleFromFileAndDeleteIt(
-						formProperties.id, formProperties.lang, newFile);
-			} catch (final IOException e) {
-				info("Erro ao adicionar legenda a base");
-				Logger.getLogger(SubtitleUploadForm.class).error(
-						"Erro ao adicionar legenda a base", e);
-				return;
+				subtitleUploader.upload(formProperties.id, formProperties.lang,
+						newFile);
+			} catch (final SubtitleUploadingException e) {
+				info(e.getMessage());
 			}
-			info("Arquivo Enviado");
 		} else {
 			info("Arquivo inválido.");
 		}

@@ -41,8 +41,8 @@ public class SubtitlesRepositoryHandler {
 
 	public void addSubtitleFromFileAndDeleteIt(final String id, final String language, final File srtFile) throws IOException {
 		final String content = FileUtils.readFileToString(srtFile);
-		srtFile.delete();
 		addSubtitle(id, language, content);		
+		srtFile.delete();
 	}
 	
 	public void addSubtitle(final String id, final String language, final String content) throws IOException {		
