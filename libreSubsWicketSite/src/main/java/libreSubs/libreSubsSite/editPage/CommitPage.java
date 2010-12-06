@@ -8,7 +8,6 @@ import libreSubs.libreSubsSite.menuPanel.MenuPanel;
 import libreSubs.libreSubsSite.uploadPage.SubtitleUploadForm;
 
 import org.apache.log4j.Logger;
-import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.markup.html.form.TextField;
@@ -45,12 +44,7 @@ public class CommitPage extends WebPage {
 		} catch (final IOException e) {
 			Logger.getLogger(SubtitleUploadForm.class).error(
 					"Erro ao enviar legenda", e);
-			throw new RestartResponseException(new ErrorPage() {
-				@Override
-				protected String errorMessage() {
-					return "Erro ao enviar legenda";
-				}
-			});
+			ErrorPage.redirectToError("Erro ao enviar legenda");
 		}
 	}
 	

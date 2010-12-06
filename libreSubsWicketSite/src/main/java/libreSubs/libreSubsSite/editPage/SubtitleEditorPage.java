@@ -8,7 +8,6 @@ import libreSubs.libreSubsSite.WicketApplication;
 import libreSubs.libreSubsSite.menuPanel.MenuPanel;
 
 import org.apache.wicket.PageParameters;
-import org.apache.wicket.RestartResponseException;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.StatelessForm;
@@ -29,25 +28,16 @@ public class SubtitleEditorPage extends WebPage {
 
 		final CharSequence idParam = parameters.getCharSequence(SubtitleResourceResolver.idParameter);
 		if(idParam == null){
-			throw new RestartResponseException(new ErrorPage() {				
-				@Override
-				protected String errorMessage() {
-					return "Parametro " + SubtitleResourceResolver.idParameter
-							+ " não foi passado.";
-				}
-			}); 
+			ErrorPage.redirectToError("Parametro "
+					+ SubtitleResourceResolver.idParameter
+					+ " não foi passado.");
 		}
 		
 		final CharSequence langParam = parameters.getCharSequence(SubtitleResourceResolver.langParameter); 
 		if(langParam == null){
-			throw new RestartResponseException(new ErrorPage() {				
-				@Override
-				protected String errorMessage() {
-					return "Parametro "
-							+ SubtitleResourceResolver.langParameter
-							+ " não foi passado.";
-				}
-			});
+			ErrorPage.redirectToError("Parametro "
+					+ SubtitleResourceResolver.langParameter
+					+ " não foi passado.");
 		}
 		
 		final String id = idParam.toString();
@@ -65,12 +55,7 @@ public class SubtitleEditorPage extends WebPage {
 				.getSubtitlesRepositoryHandler();
 
 		if (!subtitlesRepositoryHandler.subtitleExists(id, lang)) {
-			throw new RestartResponseException(new ErrorPage() {				
-				@Override
-				protected String errorMessage() {
-					return "Legenda não existe.";
-				}
-			});
+			ErrorPage.redirectToError("Legenda não existe.");
 		}
 		
 		add(new MenuPanel("menu"));

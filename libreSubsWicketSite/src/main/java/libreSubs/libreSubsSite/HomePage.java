@@ -25,7 +25,7 @@ public class HomePage extends WebPage {
 
 		addSubtitleFinderApplet();
 		addSubtitlesListPrintForDebug();
-		addSubtitleSearchForm();
+		addSubtitleDownloadForm();
 
 		add(new Label("siteBaseURL", WicketApplication.getBasePath()));
 	}
@@ -60,7 +60,7 @@ public class HomePage extends WebPage {
 	}
 
 	@SuppressWarnings("serial")
-	private void addSubtitleSearchForm() {
+	private void addSubtitleDownloadForm() {
 		downloadParameters = new SubParameters();
 		final StatelessForm<String> form = new StatelessForm<String>(
 				"inputForm",
