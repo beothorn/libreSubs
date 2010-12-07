@@ -17,7 +17,6 @@ import javax.swing.border.LineBorder;
 
 import org.libreSubsApplet.dropFile.DropFilesTarget;
 import org.libreSubsApplet.utils.LocaleUtil;
-import org.libreSubsApplet.utils.SubtitlePost;
 import org.libreSubsApplet.utils.SubtitleResourceResolver;
 
 @SuppressWarnings("serial")
@@ -78,9 +77,8 @@ public class MainApplet extends JApplet implements OutputListener{
 	}
 
 	private DroppedFilesProcessor createDroppedFileProcessor() {
-		final SubtitleResourceResolver srtSource = new SubtitleResourceResolver(getDownloadUrl());
-		final SubtitlePost srtPost = new SubtitlePost(getUploadUrl());
-		final DroppedFilesProcessor dropFileListener = new DroppedFilesProcessor(srtSource,srtPost, this, Locale.getDefault().toString());
+		final SubtitleResourceResolver srtSource = new SubtitleResourceResolver(getDownloadUrl(), getUploadUrl());
+		final DroppedFilesProcessor dropFileListener = new DroppedFilesProcessor(srtSource, this, Locale.getDefault().toString());
 		return dropFileListener;
 	}
 

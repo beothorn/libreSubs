@@ -10,8 +10,11 @@ public class SubtitleResourceResolver {
 	public static String langParameter = "lang";
 	public static String fileParameter = "file";
 
-	public SubtitleResourceResolver(final String urlParameter) {
-		this.urlParameter = urlParameter;
+	private final String uploadUrl;
+
+	public SubtitleResourceResolver(final String downloadUrl, final String uploadUrl) {
+		this.urlParameter = downloadUrl;
+		this.uploadUrl = uploadUrl;
 	}
 
 	public String resolve(final String id, final String lang, final String file) {
@@ -19,6 +22,10 @@ public class SubtitleResourceResolver {
 		resolved = resolved.replace("%"+langParameter, lang);
 		resolved = resolved.replace("%"+fileParameter, file);		
 		return resolved;
+	}
+
+	public String getUploadUrl() {
+		return uploadUrl;
 	}
 
 }

@@ -4,35 +4,41 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.libreSubsApplet.utils.Downloader;
 import org.libreSubsApplet.utils.IOUtils;
+import org.libreSubsApplet.utils.Uploader;
 
 public class ActionForDroppedFilesResolver {
 
 	private static final String SUBTITLE_EXTENSION = "srt";
-	private final List<File> videosWithoutSubtitles;
-	private final List<VideoWithSubtitle> filesToUpload;
+	private final Downloader downloader;
+	private final Uploader uploader;
 	
-	public ActionForDroppedFilesResolver(final List<File> droppedList, final OutputListener outputListener) {
-		videosWithoutSubtitles = new ArrayList<File>();
-		filesToUpload = new ArrayList<VideoWithSubtitle>();
+	public ActionForDroppedFilesResolver(final List<File> droppedList,final Downloader downloader, final Uploader uploader,final OutputListener outputListener) {
+		this.downloader = downloader;
+		this.uploader = uploader;
 		final List<File> videoFiles = new ArrayList<File>();
 		final List<File> subtitlesFiles = new ArrayList<File>();
-		for (final File fileOrDir : droppedList) {
-			sortFiles(outputListener, videoFiles, subtitlesFiles, fileOrDir);
-		}
-		
-		for (final File videoFile : videoFiles) {
-			matchVideosWithSubtitles(subtitlesFiles, videoFile);
-		}
+		new Thread(){
+			@Override
+			public void run() {				
+				for (final File fileOrDir : droppedList) {
+					sortFiles(outputListener, videoFiles, subtitlesFiles, fileOrDir);
+				}
+				for (final File videoFile : videoFiles) {
+					downloadAndUploadSubtitles(outputListener, subtitlesFiles, videoFile);
+				}
+			};
+		}.start();
 	}
 
-	private void matchVideosWithSubtitles(final List<File> subtitlesFiles,
+	private void downloadAndUploadSubtitles(final OutputListener outputListener, final List<File> subtitlesFiles,
 			final File videoFile) {
 		final File sub = getSubtitleForVideoOnSubtitleListOrNull(videoFile, subtitlesFiles);
 		if(sub == null){
-			videosWithoutSubtitles.add(videoFile);
+			downloader.download(outputListener, videoFile);
 		}else{
-			filesToUpload.add(new VideoWithSubtitle(videoFile, sub));
+			uploader.upload(outputListener,new VideoWithSubtitle(videoFile, sub));
 		}
 	}
 
@@ -65,13 +71,4 @@ public class ActionForDroppedFilesResolver {
 		}
 		return null;
 	}
-
-	public List<File> getVideosToDownloadSubtitles() {
-		return videosWithoutSubtitles;
-	}
-
-	public List<VideoWithSubtitle> getFilesToUpload() {
-		return filesToUpload;
-	}
-
 }
