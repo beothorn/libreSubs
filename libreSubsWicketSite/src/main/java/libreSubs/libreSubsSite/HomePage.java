@@ -36,8 +36,7 @@ public class HomePage extends WebPage {
 		div.addParameter("download", DownloadSubtitle
 				.getDownloadURLPath()
 				+ "?" + idParam + "=%id&" + langParam + "=%lang");
-		div.addParameter("upload", UploadPage.getUploadURLPath() + "?"
-				+ idParam + "=%id&" + langParam + "=%lang");
+		div.addParameter("upload", UploadPage.getUploadURLPath());
 		div.setMinimalVersion("1.6");
 		add(div);
 	}
