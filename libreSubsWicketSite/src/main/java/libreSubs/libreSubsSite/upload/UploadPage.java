@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import libreSubs.libreSubsSite.ErrorPage;
+import libreSubs.libreSubsSite.WicketApplication;
 
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.markup.html.WebPage;
@@ -75,7 +76,7 @@ public class UploadPage extends WebPage {
 	}
 
 	public static String getUploadURLPath() {
-		return RESOURCE_NAME;
+		return WicketApplication.getBasePath() + RESOURCE_NAME;
 	}
 
 }
