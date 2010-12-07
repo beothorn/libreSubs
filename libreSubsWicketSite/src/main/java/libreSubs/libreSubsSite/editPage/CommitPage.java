@@ -5,7 +5,6 @@ import java.io.IOException;
 import libreSubs.libreSubsSite.ErrorPage;
 import libreSubs.libreSubsSite.WicketApplication;
 import libreSubs.libreSubsSite.menuPanel.MenuPanel;
-import libreSubs.libreSubsSite.uploadPage.SubtitleUploadForm;
 
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.WebPage;
@@ -42,7 +41,7 @@ public class CommitPage extends WebPage {
 					lang,
 					content);
 		} catch (final IOException e) {
-			Logger.getLogger(SubtitleUploadForm.class).error(
+			Logger.getLogger(CommitPage.class).error(
 					"Erro ao enviar legenda", e);
 			ErrorPage.redirectToError("Erro ao enviar legenda");
 		}

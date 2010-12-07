@@ -45,6 +45,9 @@ public class IOUtils {
 	}
 
 	public static String removeExtension(final String fileName) {
+		if(!fileName.contains(".")){
+			return fileName;
+		}
 		return fileName.substring(0, fileName.lastIndexOf('.'));
 	}
 

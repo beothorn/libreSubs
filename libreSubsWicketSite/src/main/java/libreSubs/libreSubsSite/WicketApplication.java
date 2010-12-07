@@ -1,6 +1,6 @@
 package libreSubs.libreSubsSite;
 
-import libreSubs.libreSubsSite.downloadPage.DownloadSubtitle;
+import libreSubs.libreSubsSite.download.DownloadSubtitle;
 
 import org.apache.wicket.Request;
 import org.apache.wicket.RequestCycle;

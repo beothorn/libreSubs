@@ -1,4 +1,4 @@
-package libreSubs.libreSubsSite.uploadPage;
+package libreSubs.libreSubsSite.upload;
 
 @SuppressWarnings("serial")
 public class SubtitleUploadingException extends Exception {

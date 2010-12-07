@@ -17,8 +17,8 @@ public class ActionForDroppedFilesResolver {
 		filesToUpload = new ArrayList<VideoWithSubtitle>();
 		final List<File> videoFiles = new ArrayList<File>();
 		final List<File> subtitlesFiles = new ArrayList<File>();
-		for (final File file : droppedList) {
-			sortFiles(outputListener, videoFiles, subtitlesFiles, file);
+		for (final File fileOrDir : droppedList) {
+			sortFiles(outputListener, videoFiles, subtitlesFiles, fileOrDir);
 		}
 		
 		for (final File videoFile : videoFiles) {
@@ -38,12 +38,19 @@ public class ActionForDroppedFilesResolver {
 
 	private void sortFiles(final OutputListener outputListener,
 			final List<File> videoFiles, final List<File> subtitlesFiles,
-			final File file) {
-		final String extension = IOUtils.getExtension(file.getName()).toLowerCase();
+			final File fileOrDir) {
+		if(fileOrDir.isDirectory()){
+			final File[] filesInDir = fileOrDir.listFiles();
+			for (final File file : filesInDir) {
+				sortFiles(outputListener,videoFiles,subtitlesFiles,file);
+			}
+			return;
+		}
+		final String extension = IOUtils.getExtension(fileOrDir.getName()).toLowerCase();
 		if(extension.equals(SUBTITLE_EXTENSION)){
-			subtitlesFiles.add(file);
+			subtitlesFiles.add(fileOrDir);
 		}else {
-			videoFiles.add(file);
+			videoFiles.add(fileOrDir);
 		}
 	}
 

@@ -7,22 +7,16 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 
 
-public abstract class ErrorPage extends WebPage {
+public class ErrorPage extends WebPage {
 	
 	public static void redirectToError(final String errorMessage) {
-		throw new RestartResponseException(new ErrorPage() {
-			@Override
-			protected String errorMessage() {
-				return errorMessage;
-			}
-		});
+		throw new RestartResponseException(new ErrorPage(errorMessage));
 	}
 
-	private ErrorPage() {
+	public ErrorPage(final String error) {
 		add(new MenuPanel("menu"));
-		add(new Label("error",errorMessage()));
+		add(new Label("error", error));
 	}
 	
-	protected abstract String errorMessage(); 
 
 }

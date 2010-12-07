@@ -1,4 +1,4 @@
-package libreSubs.libreSubsSite.uploadPage;
+package libreSubs.libreSubsSite.upload;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,7 +28,7 @@ public class SubtitleUploader {
 					subtitle);
 		} catch (final IOException e) {
 			final String error = "Erro ao adicionar legenda a base";
-			Logger.getLogger(SubtitleUploadForm.class).error(
+			Logger.getLogger(SubtitleUploader.class).error(
 					error, e);
 			throw new SubtitleUploadingException(
 					error);

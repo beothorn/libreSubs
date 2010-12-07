@@ -1,4 +1,4 @@
-package libreSubs.libreSubsSite.downloadPage;
+package libreSubs.libreSubsSite.download;
 
 import libreSubs.libreSubsSite.WicketApplication;
 
@@ -10,7 +10,7 @@ import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepositoryHand
 @SuppressWarnings("serial")
 public class DownloadSubtitle extends DynamicWebResource {
 
-	public static final String RESOURCE_NAME = "downloadSrt";
+	public static final String RESOURCE_NAME = "download";
 	
 	public DownloadSubtitle() {
 		setCacheable(false);

@@ -1,4 +1,4 @@
-package libreSubs.libreSubsSite.uploadPage;
+package libreSubs.libreSubsSite.upload;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,6 +18,7 @@ import org.wicketstuff.annotation.mount.MountPath;
 public class UploadPage extends WebPage {
 
 	private static final Bytes MAX_SUB_SIZE = Bytes.kilobytes(200);
+	public static final String RESOURCE_NAME = "upload";
 
 	public UploadPage(final PageParameters pageParameters) {
 		if (pageParameters.size() <= 0) {
@@ -73,5 +74,8 @@ public class UploadPage extends WebPage {
 		}
 	}
 
+	public static String getUploadURLPath() {
+		return RESOURCE_NAME;
+	}
 
 }
