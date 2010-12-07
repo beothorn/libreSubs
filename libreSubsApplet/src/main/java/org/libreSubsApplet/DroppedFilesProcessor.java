@@ -9,6 +9,7 @@ import java.util.List;
 import org.libreSubsApplet.dropFile.DropFileListener;
 import org.libreSubsApplet.utils.IOUtils;
 import org.libreSubsApplet.utils.SHA1CalculationException;
+import org.libreSubsApplet.utils.SubtitlePost;
 import org.libreSubsApplet.utils.SubtitleResourceResolver;
 
 public class DroppedFilesProcessor implements DropFileListener {
@@ -16,10 +17,12 @@ public class DroppedFilesProcessor implements DropFileListener {
 	private final SubtitleResourceResolver subtitleSource;
 	private final OutputListener outputListener;
 	private String subtitleLanguage;
+	private final SubtitlePost subtitlePost;
 
 	public DroppedFilesProcessor(final SubtitleResourceResolver subtitleSource,
-			final OutputListener outputListener, final String subtitleLanguage) {
+			final SubtitlePost subtitlePost, final OutputListener outputListener, final String subtitleLanguage) {
 		this.subtitleSource = subtitleSource;
+		this.subtitlePost = subtitlePost;
 		this.outputListener = outputListener;
 		this.subtitleLanguage = subtitleLanguage;
 	}
@@ -51,10 +54,12 @@ public class DroppedFilesProcessor implements DropFileListener {
 			outputListener.error("Erro calculando SHA1; " + e.getMessage());
 			return;
 		}
-		outputListener.error("Para arquivo: "+video.getName());
-		outputListener.error("Upload ainda não foi implementado pelo applet.");
-		outputListener.error("Use a página de upload com este id: "
-				+ shaHex);
+		try {
+			subtitlePost.postSubtitle(shaHex,getLanguage(),videoWithSubtitle.getSubtitle());
+		} catch (final IOException e) {
+			outputListener.error(e.getMessage());
+		}
+		outputListener.info("Legenda de " + video.getName() + " enviada.");
 	}
 
 	private void tryToDownloadSubtitlesForVideos(
@@ -65,7 +70,6 @@ public class DroppedFilesProcessor implements DropFileListener {
 	}
 
 	private void tryToDownloadSubtitleForVideo(final File video) {
-		outputListener.info("Baixando legenda para " + video.getName());
 		final String shaHex;
 		
 		try {
@@ -79,21 +83,18 @@ public class DroppedFilesProcessor implements DropFileListener {
 		final File parent = video.getParentFile();
 		final String newStrFileName = IOUtils.removeExtension(fileName)+ ".srt";
 		final String subtitleUrl = subtitleSource.resolve(shaHex, getLanguage(), newStrFileName);
-		
-		outputListener.info("Arquivo: " + fileName + " - SHA1: " + shaHex);
-		outputListener.info("Url: "+subtitleUrl);
 
 		final DownloadedContent downloadedContent;
 
 		try {
 			downloadedContent = downloadFromURLToString(subtitleUrl);
 			if (downloadedContent.isError()) {
-				final String niceErrorMsg = "Ocorreu um erro ao tentar baixar a legenda: "+ downloadedContent.getContent();
+				final String niceErrorMsg = "Ocorreu um erro ao tentar baixar a legenda de "+fileName+" : "+ downloadedContent.getContent();
 				outputListener.error(niceErrorMsg);
 				return;
 			}
 		} catch (final Exception e) {
-			final String exceptionErrorMsg = "Ocorreu um erro ao tentar baixar a legenda: "
+			final String exceptionErrorMsg = "Ocorreu um erro ao tentar baixar a legenda de "+fileName+" : "
 					+ e.getMessage();
 			outputListener.error(exceptionErrorMsg);
 			return;
@@ -103,7 +104,7 @@ public class DroppedFilesProcessor implements DropFileListener {
 		try {
 			IOUtils.writeStringToFile(srtFile,
 					downloadedContent.getContent());
-			outputListener.info("Legenda salva com sucesso");
+			outputListener.info("Legenda de "+fileName+" salva com sucesso");
 		} catch (final IOException e) {
 			srtFile.delete();
 			outputListener

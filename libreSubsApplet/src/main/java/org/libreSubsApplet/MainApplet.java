@@ -17,6 +17,7 @@ import javax.swing.border.LineBorder;
 
 import org.libreSubsApplet.dropFile.DropFilesTarget;
 import org.libreSubsApplet.utils.LocaleUtil;
+import org.libreSubsApplet.utils.SubtitlePost;
 import org.libreSubsApplet.utils.SubtitleResourceResolver;
 
 @SuppressWarnings("serial")
@@ -46,7 +47,7 @@ public class MainApplet extends JApplet implements OutputListener{
 		info("arraste o arquivo de vídeo e o arquivo srt aqui.");
 		info("O arquivo .srt deve ter o mesmo nome do arquivo de vídeo.");
 		info("Se você arrastar um diretório ele será escaneado, fazendo upload das legendas que tiverem um arquivo");
-		info("com o mesmo nome e download para os arquivos que não tivrem legenda.");
+		info("com o mesmo nome e download para os arquivos que não tiverem legenda.");
 	}
 
 	private JComboBox createLanguageChooser(
@@ -77,9 +78,9 @@ public class MainApplet extends JApplet implements OutputListener{
 	}
 
 	private DroppedFilesProcessor createDroppedFileProcessor() {
-		final String srtProviderURL = getDownloadUrl();
-		final SubtitleResourceResolver srtSource = new SubtitleResourceResolver(srtProviderURL);
-		final DroppedFilesProcessor dropFileListener = new DroppedFilesProcessor(srtSource, this, Locale.getDefault().toString());
+		final SubtitleResourceResolver srtSource = new SubtitleResourceResolver(getDownloadUrl());
+		final SubtitlePost srtPost = new SubtitlePost(getUploadUrl());
+		final DroppedFilesProcessor dropFileListener = new DroppedFilesProcessor(srtSource,srtPost, this, Locale.getDefault().toString());
 		return dropFileListener;
 	}
 
@@ -107,7 +108,7 @@ public class MainApplet extends JApplet implements OutputListener{
         final String srtProviderURL = getParameter("upload");
 		
 		if(srtProviderURL==null){
-			return "http://127.0.0.1:8081/upload?id=%id&lang=%lang";
+			return "http://127.0.0.1:8081/upload";
 		}
         return srtProviderURL;
     }
