@@ -114,10 +114,16 @@ public class MainApplet extends JApplet implements OutputListener{
 	@Override
 	public void info(final String info) {
 		stringBucketLabel.append(info+"\n");
+		scrollDown();
+	}
+
+	private void scrollDown() {
+		stringBucketLabel.setCaretPosition(stringBucketLabel.getDocument().getLength());
 	}
 
 	@Override
 	public void error(final String error) {
 		stringBucketLabel.append(error+"\n");
+		scrollDown();
 	}
 }

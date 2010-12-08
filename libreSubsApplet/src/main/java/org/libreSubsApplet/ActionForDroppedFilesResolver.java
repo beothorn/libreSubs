@@ -2,6 +2,7 @@ package org.libreSubsApplet;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.libreSubsApplet.utils.Downloader;
@@ -11,6 +12,7 @@ import org.libreSubsApplet.utils.Uploader;
 public class ActionForDroppedFilesResolver {
 
 	private static final String SUBTITLE_EXTENSION = "srt";
+	private final static String[] VIDEO_EXTENSIONS = "mpeg,mpg,avi,mov,wmv,rm,rmvb,mp4,3gp,ogm,ogg,mkv,asf".split(",");
 	private final Downloader downloader;
 	private final Uploader uploader;
 	
@@ -21,13 +23,15 @@ public class ActionForDroppedFilesResolver {
 		final List<File> subtitlesFiles = new ArrayList<File>();
 		new Thread(){
 			@Override
-			public void run() {				
+			public void run() {
+				outputListener.info("Processando "+droppedList);
 				for (final File fileOrDir : droppedList) {
 					sortFiles(outputListener, videoFiles, subtitlesFiles, fileOrDir);
 				}
 				for (final File videoFile : videoFiles) {
 					downloadAndUploadSubtitles(outputListener, subtitlesFiles, videoFile);
 				}
+				outputListener.info("Terminado");
 			};
 		}.start();
 	}
@@ -52,11 +56,13 @@ public class ActionForDroppedFilesResolver {
 			}
 			return;
 		}
-		final String extension = IOUtils.getExtension(fileOrDir.getName()).toLowerCase();
+		final File file = fileOrDir;
+		final String extension = IOUtils.getExtension(file.getName()).toLowerCase();
 		if(extension.equals(SUBTITLE_EXTENSION)){
-			subtitlesFiles.add(fileOrDir);
+			subtitlesFiles.add(file);
 		}else {
-			videoFiles.add(fileOrDir);
+			if(Arrays.binarySearch(VIDEO_EXTENSIONS, extension)>=0)
+				videoFiles.add(file);
 		}
 	}
 
