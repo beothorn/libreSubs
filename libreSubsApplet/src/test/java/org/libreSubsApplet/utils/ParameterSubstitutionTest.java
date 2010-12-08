@@ -1,4 +1,4 @@
-package libreSubs.libreSubsSite.util;
+package org.libreSubsApplet.utils;
 
 import junit.framework.Assert;
 
@@ -18,7 +18,7 @@ public class ParameterSubstitutionTest {
 				+ langParam	+ "=%" + langParam
 				+ "&" + fileParam + "=%" + fileParam;
 		final SubtitleResourceResolver subtitleResourceResolver = new SubtitleResourceResolver(
-				urlParameter);
+				urlParameter, null);
 		final String id = "42";
 		final String lang = "pt_BR";
 		final String file = "foo";

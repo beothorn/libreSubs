@@ -10,6 +10,7 @@ import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Random;
 
 /**
@@ -96,55 +97,6 @@ public class ClientHttpRequest {
     this(new URL(urlString));
   }
 
-
-  private void postCookies() {
-    final StringBuffer cookieList = new StringBuffer();
-
-    for (final Iterator i = cookies.entrySet().iterator(); i.hasNext();) {
-      final Map.Entry entry = (Map.Entry)(i.next());
-      cookieList.append(entry.getKey().toString() + "=" + entry.getValue());
-
-      if (i.hasNext()) {
-        cookieList.append("; ");
-      }
-    }
-    if (cookieList.length() > 0) {
-      connection.setRequestProperty("Cookie", cookieList.toString());
-    }
-  }
-
-  /**
-   * adds a cookie to the requst
-   * @param name cookie name
-   * @param value cookie value
-   * @throws IOException
-   */
-  public void setCookie(final String name, final String value) throws IOException {
-    cookies.put(name, value);
-  }
-
-  /**
-   * adds cookies to the request
-   * @param cookies the cookie "name-to-value" map
-   * @throws IOException
-   */
-  public void setCookies(final Map cookies) throws IOException {
-    if (cookies == null) return;
-    this.cookies.putAll(cookies);
-  }
-
-  /**
-   * adds cookies to the request
-   * @param cookies array of cookie names and values (cookies[2*i] is a name, cookies[2*i + 1] is a value)
-   * @throws IOException
-   */
-  public void setCookies(final String[] cookies) throws IOException {
-    if (cookies == null) return;
-    for (int i = 0; i < cookies.length - 1; i+=2) {
-      setCookie(cookies[i], cookies[i+1]);
-    }
-  }
-
   private void writeName(final String name) throws IOException {
     newline();
     write("Content-Disposition: form-data; name=\"");
@@ -168,7 +120,6 @@ public class ClientHttpRequest {
   private static void pipe(final InputStream in, final OutputStream out) throws IOException {
     byte[] buf = new byte[500000];
     int nread;
-    final int navailable;
     int total = 0;
     synchronized (in) {
       while((nread = in.read(buf, 0, buf.length)) >= 0) {
@@ -195,7 +146,7 @@ public class ClientHttpRequest {
     write('"');
     newline();
     write("Content-Type: ");
-    String type = connection.guessContentTypeFromName(filename);
+    String type = URLConnection.guessContentTypeFromName(filename);
     if (type == null) type = "application/octet-stream";
     writeln(type);
     newline();
@@ -232,10 +183,10 @@ public class ClientHttpRequest {
    * @param parameters "name-to-value" map of parameters; if a value is a file, the file is uploaded, otherwise it is stringified and sent in the request
    * @throws IOException
    */
-  public void setParameters(final Map parameters) throws IOException {
+  public void setParameters(final Map<String,String> parameters) throws IOException {
     if (parameters == null) return;
-    for (final Iterator i = parameters.entrySet().iterator(); i.hasNext();) {
-      final Map.Entry entry = (Map.Entry)i.next();
+    for (final Iterator<Entry<String, String>> i = parameters.entrySet().iterator(); i.hasNext();) {
+      final Entry<String, String> entry = i.next();
       setParameter(entry.getKey().toString(), entry.getValue());
     }
   }
@@ -271,7 +222,7 @@ public class ClientHttpRequest {
    * @throws IOException
    * @see setParameters
    */
-  public InputStream post(final Map parameters) throws IOException {
+  public InputStream post(final Map<String,String> parameters) throws IOException {
     setParameters(parameters);
     return post();
   }
@@ -288,35 +239,6 @@ public class ClientHttpRequest {
     return post();
   }
 
-  /**
-   * posts the requests to the server, with all the cookies and parameters that were added before (if any), and with cookies and parameters that are passed in the arguments
-   * @param cookies request cookies
-   * @param parameters request parameters
-   * @return input stream with the server response
-   * @throws IOException
-   * @see setParameters
-   * @see setCookies
-   */
-  public InputStream post(final Map cookies, final Map parameters) throws IOException {
-    setCookies(cookies);
-    setParameters(parameters);
-    return post();
-  }
-
-  /**
-   * posts the requests to the server, with all the cookies and parameters that were added before (if any), and with cookies and parameters that are passed in the arguments
-   * @param cookies request cookies
-   * @param parameters request parameters
-   * @return input stream with the server response
-   * @throws IOException
-   * @see setParameters
-   * @see setCookies
-   */
-  public InputStream post(final String[] cookies, final Object[] parameters) throws IOException {
-    setCookies(cookies);
-    setParameters(parameters);
-    return post();
-  }
 
   /**
    * post the POST request to the server, with the specified parameter
@@ -389,7 +311,7 @@ public class ClientHttpRequest {
    * @throws IOException
    * @see setParameters
    */
-  public static InputStream post(final URL url, final Map parameters) throws IOException {
+  public static InputStream post(final URL url, final Map<String,String> parameters) throws IOException {
     return new ClientHttpRequest(url).post(parameters);
   }
 
@@ -402,32 +324,6 @@ public class ClientHttpRequest {
    */
   public static InputStream post(final URL url, final Object[] parameters) throws IOException {
     return new ClientHttpRequest(url).post(parameters);
-  }
-
-  /**
-   * posts a new request to specified URL, with cookies and parameters that are passed in the argument
-   * @param cookies request cookies
-   * @param parameters request parameters
-   * @return input stream with the server response
-   * @throws IOException
-   * @see setCookies
-   * @see setParameters
-   */
-  public static InputStream post(final URL url, final Map cookies, final Map parameters) throws IOException {
-    return new ClientHttpRequest(url).post(cookies, parameters);
-  }
-
-  /**
-   * posts a new request to specified URL, with cookies and parameters that are passed in the argument
-   * @param cookies request cookies
-   * @param parameters request parameters
-   * @return input stream with the server response
-   * @throws IOException
-   * @see setCookies
-   * @see setParameters
-   */
-  public static InputStream post(final URL url, final String[] cookies, final Object[] parameters) throws IOException {
-    return new ClientHttpRequest(url).post(cookies, parameters);
   }
 
   /**

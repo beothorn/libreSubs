@@ -38,7 +38,7 @@ public class Uploader {
 		} catch (final IOException e) {
 			outputListener.error(e.getMessage());
 		}
-		outputListener.info("Legenda de " + video.getName() + " enviada.");
+		outputListener.info("Legenda de " + video.getName() + " enviada. Id: "+shaHex);
 	}
 
 	public void setSubtitleLanguage(final String subtitleLanguage) {

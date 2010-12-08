@@ -23,7 +23,7 @@ import org.libreSubsApplet.utils.SubtitleResourceResolver;
 public class MainApplet extends JApplet implements OutputListener{
 
 	private JTextArea stringBucketLabel;
-
+	
 	@Override
 	public void init() {
 		setLayout(new BorderLayout());
