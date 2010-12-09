@@ -1,16 +1,25 @@
-package libreSubs.libreSubsSite.download;
+package libreSubs.libreSubsSite;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.wicket.util.value.ValueMap;
 import org.libreSubsApplet.utils.SubtitleResourceResolver;
 
-public class SubRequestParameters {
+public class CommonsParameters {
 
 	private final String id;
 	private final String language;
 	private final String file;
+	private final boolean isCommandLine;
 
-	public SubRequestParameters(final ValueMap parameters) {
+	public CommonsParameters(final ValueMap parameters) {
+		final Object commandLineParamValue = parameters.get(SubtitleResourceResolver.commandLineParameter);
+
+		if (commandLineParamValue == null) {
+			isCommandLine = false;
+		} else {
+			isCommandLine = true;
+		}
+
 		final CharSequence idParamValue = parameters
 				.getCharSequence(SubtitleResourceResolver.idParameter);
 
@@ -62,6 +71,10 @@ public class SubRequestParameters {
 
 	public String getFile() {
 		return file;
+	}
+
+	public boolean isCommandLine() {
+		return isCommandLine;
 	}
 
 }

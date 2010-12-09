@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import libreSubs.libreSubsSite.ErrorPage;
+import libreSubs.libreSubsSite.TextResource;
 import libreSubs.libreSubsSite.WicketApplication;
 
 import org.apache.wicket.PageParameters;
@@ -31,9 +32,15 @@ public class UploadPage extends WebPage {
 			@SuppressWarnings("unchecked")
 			final PageParameters postParameters = new PageParameters(
 					multipartWebRequest.getParameterMap());
+			
+			
 
-			final Object idParam = postParameters.get("id");
-			final Object langParam = postParameters.get("lang");
+			
+			new TextResource(
+					"Os seguintes parâmetros devem ser informados: ");
+
+			final Object idParam = postParameters.getCharSequence("id");
+			final Object langParam = postParameters.getCharSequence("lang");
 
 			if (idParam == null) {
 				ErrorPage.redirectToError("Sha1 precisa ser informado.");

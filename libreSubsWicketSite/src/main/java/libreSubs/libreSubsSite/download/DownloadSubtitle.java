@@ -1,7 +1,10 @@
 package libreSubs.libreSubsSite.download;
 
+import libreSubs.libreSubsSite.CommonsParameters;
+import libreSubs.libreSubsSite.TextResource;
 import libreSubs.libreSubsSite.WicketApplication;
 
+import org.apache.wicket.RequestCycle;
 import org.apache.wicket.markup.html.DynamicWebResource;
 import org.apache.wicket.protocol.http.WebResponse;
 import org.libreSubsApplet.utils.LocaleUtil;
@@ -22,18 +25,20 @@ public class DownloadSubtitle extends DynamicWebResource {
 
 	@Override
 	protected DynamicWebResource.ResourceState getResourceState() {
-
-		final SubRequestParameters parameters = new SubRequestParameters(
-				getParameters());
+		final RequestCycle cycle = RequestCycle.get();
+		final WebResponse response = (WebResponse)cycle.getResponse();
+		setHeaderForSubtitle(response);
+		
+		final CommonsParameters parameters = new CommonsParameters(getParameters());
 		if (!parameters.hasAllObrigatoryParameters()) {
-			return new ErrorResourceState(
+			return new TextResource(
 					"Os seguintes parâmetros devem ser informados: "
 							+ parameters.getLackingParametersNames());
 		}
 
 		final String language = parameters.getLanguage();
 		if (!LocaleUtil.isValidLanguage(language)) {
-			return new ErrorResourceState("O idioma " + language
+			return new TextResource("O idioma " + language
 					+ " não é suportado.");
 		}
 
@@ -45,7 +50,7 @@ public class DownloadSubtitle extends DynamicWebResource {
 				.getId(), language);
 
 		if (subtitle == null) {
-			return new ErrorResourceState("Legenda não encontrada.");
+			return new TextResource("Legenda não encontrada.");
 		}
 
 		return new ResourceState() {
@@ -62,9 +67,8 @@ public class DownloadSubtitle extends DynamicWebResource {
 		};
 	}
 
-	@Override
-	protected void setHeaders(final WebResponse response) {
-		final SubRequestParameters parameters = new SubRequestParameters(
+	private void setHeaderForSubtitle(final WebResponse response) {
+		final CommonsParameters parameters = new CommonsParameters(
 				getParameters());
 
 		if (subtitleRequestWillFail(parameters)) {
@@ -79,7 +83,7 @@ public class DownloadSubtitle extends DynamicWebResource {
 	}
 
 	private boolean subtitleRequestWillFail(
-			final SubRequestParameters parameters) {
+			final CommonsParameters parameters) {
 		final String language = parameters.getLanguage();
 		final boolean isLackingParameters = !parameters
 				.hasAllObrigatoryParameters();

@@ -10,8 +10,7 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.request.target.basic.RedirectRequestTarget;
-import org.libreSubsApplet.utils.SubtitleResourceResolver;
+import org.apache.wicket.request.target.resource.ResourceStreamRequestTarget;
 import org.wicketstuff.annotation.mount.MountPath;
 
 @MountPath(path = "downloadForm")
@@ -25,7 +24,7 @@ public class DownloadFormPage extends WebPage {
 		addSubtitleDownloadForm();
 		add(new Label("siteBaseURL", WicketApplication.getBasePath()));
 	}
-
+	
 	@SuppressWarnings("serial")
 	private void addSubtitleDownloadForm() {
 		downloadParameters = new SubParameters();
@@ -34,28 +33,9 @@ public class DownloadFormPage extends WebPage {
 						downloadParameters)) {
 			@Override
 			protected void onSubmit() {
-
-				final String idParam = SubtitleResourceResolver.idParameter;
-				final String langParam = SubtitleResourceResolver.langParameter;
-				final String fileParam = SubtitleResourceResolver.fileParameter;
-
-				final String subRequestURL = DownloadSubtitle
-						.getDownloadURLPath()
-						+ "?"
-						+ idParam
-						+ "="
-						+ downloadParameters.id
-						+ "&"
-						+ langParam
-						+ "="
-						+ downloadParameters.lang
-						+ "&"
-						+ fileParam
-						+ "="
-						+ downloadParameters.fileName;
-				getRequestCycle().setRequestTarget(
-						new RedirectRequestTarget(subRequestURL));
+				getRequestCycle().setRequestTarget( new ResourceStreamRequestTarget(new DownloadSubtitle().getResourceStream()) );
 			}
+
 		};
 		add(form);
 		form.add(new TextField<String>("id"));
