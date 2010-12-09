@@ -1,8 +1,9 @@
 package libreSubs.libreSubsSite.download;
 
 import libreSubs.libreSubsSite.CommonsParameters;
-import libreSubs.libreSubsSite.TextResource;
+import libreSubs.libreSubsSite.TextPage;
 import libreSubs.libreSubsSite.WicketApplication;
+import libreSubs.libreSubsSite.text.TextResource;
 
 import org.apache.wicket.RequestCycle;
 import org.apache.wicket.markup.html.DynamicWebResource;
@@ -31,15 +32,22 @@ public class DownloadSubtitle extends DynamicWebResource {
 		
 		final CommonsParameters parameters = new CommonsParameters(getParameters());
 		if (!parameters.hasAllObrigatoryParameters()) {
-			return new TextResource(
-					"Os seguintes parâmetros devem ser informados: "
-							+ parameters.getLackingParametersNames());
+			final String error = "Os seguintes parâmetros devem ser informados: "
+					+ parameters.getLackingParametersNames();
+			if(parameters.isCommandLine()) {
+				return new TextResource(error);
+			} else
+				TextPage.redirectToPageWithText(error);
 		}
 
 		final String language = parameters.getLanguage();
 		if (!LocaleUtil.isValidLanguage(language)) {
-			return new TextResource("O idioma " + language
-					+ " não é suportado.");
+			final String error = "O idioma " + language
+			+ " não é suportado.";
+			if(parameters.isCommandLine()) {
+				return new TextResource(error);
+			} else
+				TextPage.redirectToPageWithText(error);
 		}
 
 		final SubtitlesRepositoryHandler subtitlesRepositoryHandler = WicketApplication
@@ -50,7 +58,11 @@ public class DownloadSubtitle extends DynamicWebResource {
 				.getId(), language);
 
 		if (subtitle == null) {
-			return new TextResource("Legenda não encontrada.");
+			final String error = "Legenda não encontrada.";
+			if(parameters.isCommandLine()) {
+				return new TextResource(error);
+			} else
+				TextPage.redirectToPageWithText(error);
 		}
 
 		return new ResourceState() {

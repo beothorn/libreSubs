@@ -16,12 +16,13 @@ public class Uploader {
 		this.setSubtitleLanguage(subtitleLanguage);
 	}
 
-	private void postSubtitle(final String id, final String lang, final File subtitle) throws IOException {
+	private String postSubtitle(final String id, final String lang, final File subtitle) throws IOException {
 		final ClientHttpRequest clientHttpRequest = new ClientHttpRequest(uploadUrl);
 		clientHttpRequest.setParameter(SubtitleResourceResolver.idParameter, id);
 		clientHttpRequest.setParameter(SubtitleResourceResolver.langParameter, lang);
 		clientHttpRequest.setParameter(SubtitleResourceResolver.fileParameter, subtitle);
-		clientHttpRequest.post();
+		clientHttpRequest.setParameter(SubtitleResourceResolver.commandLineParameter, "true");
+		return IOUtils.convertStreamToString(clientHttpRequest.post());
 	}
 	
 	public void upload(final OutputListener outputListener,final VideoWithSubtitle videoWithSubtitle) {
@@ -34,11 +35,11 @@ public class Uploader {
 			return;
 		}
 		try {
-			postSubtitle(shaHex,getSubtitleLanguage(),videoWithSubtitle.getSubtitle());
+			final String postSubtitleAnswer = postSubtitle(shaHex,getSubtitleLanguage(),videoWithSubtitle.getSubtitle());
+			outputListener.info("Legenda de " + video.getName() + " Id: "+shaHex+" "+postSubtitleAnswer);
 		} catch (final IOException e) {
 			outputListener.error(e.getMessage());
 		}
-		outputListener.info("Legenda de " + video.getName() + " enviada. Id: "+shaHex);
 	}
 
 	public void setSubtitleLanguage(final String subtitleLanguage) {

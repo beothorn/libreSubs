@@ -33,7 +33,7 @@ public class DownloadFormPage extends WebPage {
 						downloadParameters)) {
 			@Override
 			protected void onSubmit() {
-				getRequestCycle().setRequestTarget( new ResourceStreamRequestTarget(new DownloadSubtitle().getResourceStream()) );
+				getRequestCycle().setRequestTarget(new ResourceStreamRequestTarget(new DownloadSubtitle().getResourceStream()));
 			}
 
 		};

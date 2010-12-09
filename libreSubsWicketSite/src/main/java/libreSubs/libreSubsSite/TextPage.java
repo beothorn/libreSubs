@@ -7,15 +7,15 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 
 
-public class ErrorPage extends WebPage {
+public class TextPage extends WebPage {
 	
-	public static void redirectToError(final String errorMessage) {
-		throw new RestartResponseException(new ErrorPage(errorMessage));
+	public static void redirectToPageWithText(final String text) {
+		throw new RestartResponseException(new TextPage(text));
 	}
 
-	public ErrorPage(final String error) {
+	public TextPage(final String text) {
 		add(new MenuPanel("menu"));
-		add(new Label("error", error));
+		add(new Label("text", text));
 	}
 	
 

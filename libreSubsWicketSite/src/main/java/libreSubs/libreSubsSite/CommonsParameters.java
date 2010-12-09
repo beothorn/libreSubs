@@ -8,7 +8,7 @@ public class CommonsParameters {
 
 	private final String id;
 	private final String language;
-	private final String file;
+	private final String fileName;
 	private final boolean isCommandLine;
 
 	public CommonsParameters(final ValueMap parameters) {
@@ -42,21 +42,25 @@ public class CommonsParameters {
 				.getCharSequence(SubtitleResourceResolver.fileParameter);
 
 		if (fileParamValue == null) {
-			file = null;
+			fileName = null;
 		} else {
-			file = fileParamValue.toString();
+			fileName = fileParamValue.toString();
 		}
 	}
 
 	public boolean hasAllObrigatoryParameters() {
-		return (getId() != null) && (getLanguage() != null);
+		if(getId()==null)
+			return false;
+		if(getLanguage()==null)
+			return false;
+		return !getId().isEmpty() && !getLanguage().isEmpty();
 	}
 
 	public String getLackingParametersNames() {
 		String parametersLacking = "";
-		if (getId() == null)
+		if (getId() == null || getId().isEmpty())
 			parametersLacking += SubtitleResourceResolver.idParameter + ",";
-		if (getLanguage() == null)
+		if (getLanguage() == null || getLanguage().isEmpty())
 			parametersLacking += SubtitleResourceResolver.langParameter + ",";
 		return StringUtils.substringBeforeLast(parametersLacking, ",");
 	}
@@ -70,7 +74,7 @@ public class CommonsParameters {
 	}
 
 	public String getFile() {
-		return file;
+		return fileName;
 	}
 
 	public boolean isCommandLine() {

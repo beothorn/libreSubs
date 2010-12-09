@@ -20,7 +20,7 @@ public class SubtitleResourceResolver {
 		String resolved = downloadUrl.replace("%"+idParameter, id);
 		resolved = resolved.replace("%"+langParameter, lang);
 		resolved = resolved.replace("%"+fileParameter, file);		
-		return resolved;
+		return resolved+"&"+commandLineParameter+"=true";
 	}
 
 	public String getUploadUrl() {

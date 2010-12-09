@@ -2,7 +2,7 @@ package libreSubs.libreSubsSite.editPage;
 
 import java.io.IOException;
 
-import libreSubs.libreSubsSite.ErrorPage;
+import libreSubs.libreSubsSite.TextPage;
 import libreSubs.libreSubsSite.WicketApplication;
 import libreSubs.libreSubsSite.menuPanel.MenuPanel;
 
@@ -43,7 +43,7 @@ public class CommitPage extends WebPage {
 		} catch (final IOException e) {
 			Logger.getLogger(CommitPage.class).error(
 					"Erro ao enviar legenda", e);
-			ErrorPage.redirectToError("Erro ao enviar legenda");
+			TextPage.redirectToPageWithText("Erro ao enviar legenda");
 		}
 	}
 	

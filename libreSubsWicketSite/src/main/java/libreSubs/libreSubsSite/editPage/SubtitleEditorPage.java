@@ -2,7 +2,7 @@ package libreSubs.libreSubsSite.editPage;
 
 
 
-import libreSubs.libreSubsSite.ErrorPage;
+import libreSubs.libreSubsSite.TextPage;
 import libreSubs.libreSubsSite.SubParameters;
 import libreSubs.libreSubsSite.WicketApplication;
 import libreSubs.libreSubsSite.menuPanel.MenuPanel;
@@ -28,14 +28,14 @@ public class SubtitleEditorPage extends WebPage {
 
 		final CharSequence idParam = parameters.getCharSequence(SubtitleResourceResolver.idParameter);
 		if(idParam == null){
-			ErrorPage.redirectToError("Parametro "
+			TextPage.redirectToPageWithText("Parametro "
 					+ SubtitleResourceResolver.idParameter
 					+ " não foi passado.");
 		}
 		
 		final CharSequence langParam = parameters.getCharSequence(SubtitleResourceResolver.langParameter); 
 		if(langParam == null){
-			ErrorPage.redirectToError("Parametro "
+			TextPage.redirectToPageWithText("Parametro "
 					+ SubtitleResourceResolver.langParameter
 					+ " não foi passado.");
 		}
@@ -55,7 +55,7 @@ public class SubtitleEditorPage extends WebPage {
 				.getSubtitlesRepositoryHandler();
 
 		if (!subtitlesRepositoryHandler.subtitleExists(id, lang)) {
-			ErrorPage.redirectToError("Legenda não existe.");
+			TextPage.redirectToPageWithText("Legenda não existe.");
 		}
 		
 		add(new MenuPanel("menu"));
