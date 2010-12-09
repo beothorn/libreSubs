@@ -3,7 +3,6 @@ package org.libreSubsApplet.utils;
 import junit.framework.Assert;
 
 import org.junit.Test;
-import org.libreSubsApplet.utils.SubtitleResourceResolver;
 
 public class ParameterSubstitutionTest {
 
@@ -26,7 +25,7 @@ public class ParameterSubstitutionTest {
 				.resolve(id, lang.toString(), file);
 		Assert
 				.assertEquals(
-						"http://www.lucass.is-a-geek.com:8080/latestLibresubs/?id=42&lang=pt_BR&file=foo",
+						"http://www.lucass.is-a-geek.com:8080/latestLibresubs/?id=42&lang=pt_BR&file=foo&commandLine=true",
 						resolved);
 	}
 }
