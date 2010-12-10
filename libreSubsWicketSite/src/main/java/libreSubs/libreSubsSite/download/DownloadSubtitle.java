@@ -1,5 +1,7 @@
 package libreSubs.libreSubsSite.download;
 
+import java.nio.charset.Charset;
+
 import libreSubs.libreSubsSite.CommonsParameters;
 import libreSubs.libreSubsSite.TextPage;
 import libreSubs.libreSubsSite.WicketApplication;
@@ -69,7 +71,7 @@ public class DownloadSubtitle extends DynamicWebResource {
 
 			@Override
 			public byte[] getData() {
-				return subtitle.getBytes();
+				return subtitle.getBytes(Charset.forName("UTF-8"));
 			}
 
 			@Override
