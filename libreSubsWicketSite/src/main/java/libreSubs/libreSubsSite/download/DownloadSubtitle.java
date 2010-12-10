@@ -45,7 +45,7 @@ public class DownloadSubtitle extends DynamicWebResource {
 		final String language = parameters.getLanguage();
 		if (!LocaleUtil.isValidLanguage(language)) {
 			final String error = "O idioma " + language
-			+ " não é suportado.";
+ + " não é suportado.";
 			if(parameters.isCommandLine()) {
 				return new TextResource(error);
 			} else
@@ -71,7 +71,7 @@ public class DownloadSubtitle extends DynamicWebResource {
 
 			@Override
 			public byte[] getData() {
-				return subtitle.getBytes(Charset.forName("UTF-8"));
+				return subtitle.getBytes(Charset.forName("CP1252"));
 			}
 
 			@Override

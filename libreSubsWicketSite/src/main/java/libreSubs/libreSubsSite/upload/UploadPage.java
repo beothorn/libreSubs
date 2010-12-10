@@ -2,6 +2,7 @@ package libreSubs.libreSubsSite.upload;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Map;
 
 import libreSubs.libreSubsSite.CommonsParameters;
@@ -9,6 +10,8 @@ import libreSubs.libreSubsSite.TextPage;
 import libreSubs.libreSubsSite.WicketApplication;
 import libreSubs.libreSubsSite.text.TextWebResource;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.RequestCycle;
 import org.apache.wicket.markup.html.WebPage;
@@ -40,7 +43,8 @@ public class UploadPage extends WebPage {
 			final CommonsParameters parameters = new CommonsParameters(postParameters);
 			
 			if (!parameters.hasAllObrigatoryParameters()) {
-				redirectToMessage(parameters, "Os seguintes parâmetros devem ser informados: "
+				redirectToMessage(parameters,
+						"Os seguintes parâmetros devem ser informados: "
 								+ parameters.getLackingParametersNames());
 				return;
 			}
@@ -63,14 +67,18 @@ public class UploadPage extends WebPage {
 			try {
 				tmpFile = File.createTempFile("libresub", ".tmp");
 			} catch (final IOException e) {
-				redirectToMessage(parameters,"Erro no servidor ao tentar criar arquivo temporário de legenda.");
+				redirectToMessage(parameters,
+						"Erro no servidor ao tentar criar arquivo temporário de legenda.");
 				return;
 			}
 
 			try {
-				fileParam.write(tmpFile);
+				final InputStream is = fileParam.getInputStream();
+				final String data = IOUtils.toString(is, "CP1252");
+				FileUtils.writeStringToFile(tmpFile, data);
 			} catch (final Exception e) {
-				redirectToMessage(parameters,"Erro no servidor ao tentar escrever em arquivo temporário de legenda.");
+				redirectToMessage(parameters,
+						"Erro no servidor ao tentar escrever em arquivo temporário de legenda.");
 				return;
 			}
 
