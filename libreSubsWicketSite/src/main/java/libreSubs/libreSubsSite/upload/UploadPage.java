@@ -77,7 +77,7 @@ public class UploadPage extends WebPage {
 			try {
 				new SubtitleUploader().upload(parameters.getId(), parameters.getLanguage(), tmpFile);
 			} catch (final SubtitleUploadingException e) {
-				TextPage.redirectToPageWithText(e.getMessage());
+				redirectToMessage(parameters,e.getMessage());
 				return;
 			}
 			redirectToMessage(parameters,"Legenda enviada com sucesso.");
