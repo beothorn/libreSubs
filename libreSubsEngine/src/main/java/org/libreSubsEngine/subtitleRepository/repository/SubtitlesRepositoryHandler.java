@@ -3,7 +3,6 @@ package org.libreSubsEngine.subtitleRepository.repository;
 import java.io.File;
 import java.io.IOException;
 
-import org.apache.commons.io.FileUtils;
 import org.libreSubsApplet.utils.LocaleUtil;
 
 public class SubtitlesRepositoryHandler {
@@ -40,12 +39,11 @@ public class SubtitlesRepositoryHandler {
 	}
 
 	public void addSubtitleFromFileAndDeleteIt(final String id, final String language, final File srtFile) throws IOException {
-		final String content = FileUtils.readFileToString(srtFile);
-		addSubtitle(id, language, content);		
+		addSubtitle(id, language, srtFile);		
 		srtFile.delete();
 	}
 	
-	public void addSubtitle(final String id, final String language, final String content) throws IOException {		
+	public void addSubtitle(final String id, final String language, final File content) throws IOException {		
 		final PartialSHA1 partialSHA1 = new PartialSHA1(id);
 		subtitlesBase.addSubtitle(partialSHA1, language, content);
 	}

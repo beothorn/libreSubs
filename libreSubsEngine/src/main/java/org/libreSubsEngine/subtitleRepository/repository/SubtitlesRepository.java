@@ -31,7 +31,7 @@ public class SubtitlesRepository implements RepositoryScannerListener{
 		gitRepoHandler = new GitRepoHandler(repoDir);
 	}
 
-	void addSubtitle(final PartialSHA1 videoID, final String language,final String content) throws IOException {
+	void addSubtitle(final PartialSHA1 videoID, final String language,final File content) throws IOException {
 		final String videoIDAsString = videoID.toString();
 		final String strDirName = videoIDAsString.substring(0, 2);
 		final File srtDir = new File(repositoryLocation.getBaseDir(), strDirName);
@@ -43,9 +43,8 @@ public class SubtitlesRepository implements RepositoryScannerListener{
 		if(subtitleFile.exists())
 			throw new IOException("File already exists");
 		else
-			subtitleFile.createNewFile();
+			FileUtils.copyFile(content, subtitleFile);
 		
-		FileUtils.writeStringToFile(subtitleFile, content);
 		gitRepoHandler.addFile(subtitleFile);
 		loadSubtitleFromRepositoryDecomposeName(subtitleFile);
 	}
