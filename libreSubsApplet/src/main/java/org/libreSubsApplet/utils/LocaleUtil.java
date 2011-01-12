@@ -29,4 +29,11 @@ public class LocaleUtil {
 	public static boolean isValidLanguage(final String language) {
 		return language.matches("[a-z]{2}_[A-Z]{2}");
 	}
+
+	public static String getEncodingForLanguage(final String language) {
+		if(language.toLowerCase().equals("pt_br")){
+			return "cp1252";
+		}
+		return "UTF8";
+	}
 }

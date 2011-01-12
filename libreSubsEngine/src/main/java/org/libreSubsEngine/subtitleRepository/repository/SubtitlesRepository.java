@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
+import org.libreSubsApplet.utils.LocaleUtil;
 import org.libreSubsEngine.subtitleRepository.SubtitleRepositoryLocation;
 import org.libreSubsEngine.subtitleRepository.fileUtils.RepositoryScanner;
 import org.libreSubsEngine.subtitleRepository.fileUtils.RepositoryScannerListener;
@@ -34,7 +35,8 @@ public class SubtitlesRepository implements RepositoryScannerListener{
 	void addSubtitle(final PartialSHA1 videoID, final String language,final String content) throws IOException {
 		final String videoIDAsString = videoID.toString();
 		final String strDirName = videoIDAsString.substring(0, 2);
-		final File srtDir = new File(repositoryLocation.getBaseDir(), strDirName);
+		final File baseDir = repositoryLocation.getBaseDir();
+		final File srtDir = new File(baseDir, strDirName);
 		if(!srtDir.exists()){
 			srtDir.mkdir();
 		}
@@ -51,22 +53,22 @@ public class SubtitlesRepository implements RepositoryScannerListener{
 	}
 	
 	private void loadSubtitleFromRepositoryDecomposeName(final File srtFile) throws IOException {
-		final String videoID = StringUtils.substringBeforeLast(srtFile.getName(), ".");
-		final String language = StringUtils.substringAfterLast(srtFile.getName(), ".");
+		final String fileName = srtFile.getName();
+		final String videoID = StringUtils.substringBeforeLast(fileName, ".");
+		final String language = StringUtils.substringAfterLast(fileName, ".");
 		final PartialSHA1 videoSHA1 = new PartialSHA1(videoID);
 		loadSubtitleFromRepository(videoSHA1, language, srtFile);
 	}
 
-	private void loadSubtitleFromRepository(final PartialSHA1 videoSHA1,final String language,final File srtFile
-			) throws IOException {
-		final String srtFileContent = FileUtils.readFileToString(srtFile);
+	private void loadSubtitleFromRepository(final PartialSHA1 videoSHA1,final String language,final File srtFile) throws IOException {
+		final String encodingForLanguage = LocaleUtil.getEncodingForLanguage(language);
+		final String srtFileContent = FileUtils.readFileToString(srtFile,encodingForLanguage);
 		final SubtitleKey subtitleKey = new SubtitleKey(language, videoSHA1);
 		final Subtitle subtitle = new Subtitle(srtFileContent, srtFile);
 		subtitles.put(subtitleKey, subtitle);
 	}
 
-	public String getSubtitleContentsFromVideoIDAndLanguageOrNull(final String language,
-			final PartialSHA1 videoID) throws IOException {
+	public String getSubtitleContentsFromVideoIDAndLanguageOrNull(final String language,final PartialSHA1 videoID) throws IOException {
 		final SubtitleKey subtitleKey = new SubtitleKey(language, videoID);
 		return getSubtitleContentsForKeyOrNull(subtitleKey);
 	}
@@ -81,8 +83,7 @@ public class SubtitlesRepository implements RepositoryScannerListener{
 		return content;
 	}
 
-	public void changeContentsForSubtitle(final String newContent, final String language,
-			final PartialSHA1 videoID) throws IOException {
+	public void changeContentsForSubtitle(final String newContent, final String language,final PartialSHA1 videoID) throws IOException {
 		changeContentsForSubtitle(newContent, new SubtitleKey(language, videoID) );
 	}
 	
