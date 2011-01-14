@@ -2,7 +2,6 @@ package org.libreSubsApplet;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.libreSubsApplet.utils.Downloader;
@@ -61,8 +60,11 @@ public class ActionForDroppedFilesResolver {
 		if(extension.equals(SUBTITLE_EXTENSION)){
 			subtitlesFiles.add(file);
 		}else {
-			if(Arrays.binarySearch(VIDEO_EXTENSIONS, extension)>=0)
-				videoFiles.add(file);
+			for (final String allowedVideoExtension : VIDEO_EXTENSIONS) {
+				if(extension.equals(allowedVideoExtension)){					
+					videoFiles.add(file);
+				}
+			}
 		}
 	}
 

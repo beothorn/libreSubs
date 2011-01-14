@@ -57,7 +57,6 @@ public class WicketApplication extends WebApplication
 		scanForWicketAnnotations();
 		addAppletsFolderToPublicResources();
 		mountSubRequestResource();
-		mountSharedResource("/style.css", new ResourceReference(HomePage.class, "style.css").getSharedResourceKey());
 	}
 
 	private void mountSubRequestResource() {
