@@ -17,8 +17,8 @@ public class AddSubFromFileTest {
 	@Test
 	public void testAddSubFromFileAndDelete() throws IOException{
 		final File srtFile = File.createTempFile("libreSubsTest", ".srt");		
-		final String expectedContent = "foo";
-		FileUtils.writeStringToFile(srtFile, expectedContent);
+		final String expectedContent = "fooáéí";
+		FileUtils.writeStringToFile(srtFile, expectedContent,"cp1252");
 		final TempRepositoryRepo tempRepo = new TempRepositoryRepo();
 		final SubtitlesRepository subRepo = tempRepo.getSubRepo();
 		final SubtitlesRepositoryHandler subtitlesRepositoryHandler = new SubtitlesRepositoryHandler(subRepo);

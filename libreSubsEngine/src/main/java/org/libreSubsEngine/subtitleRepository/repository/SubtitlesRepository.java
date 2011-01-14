@@ -32,42 +32,6 @@ public class SubtitlesRepository implements RepositoryScannerListener{
 		gitRepoHandler = new GitRepoHandler(repoDir);
 	}
 
-	void addSubtitle(final PartialSHA1 videoID, final String language,final String content) throws IOException {
-		final String videoIDAsString = videoID.toString();
-		final String strDirName = videoIDAsString.substring(0, 2);
-		final File baseDir = repositoryLocation.getBaseDir();
-		final File srtDir = new File(baseDir, strDirName);
-		if(!srtDir.exists()){
-			srtDir.mkdir();
-		}
-		final String fileName = videoIDAsString + "." + language;
-		final File subtitleFile = new File(srtDir, fileName);
-		if(subtitleFile.exists())
-			throw new IOException("File already exists");
-		else
-			subtitleFile.createNewFile();
-		
-		FileUtils.writeStringToFile(subtitleFile, content);
-		gitRepoHandler.addFile(subtitleFile);
-		loadSubtitleFromRepositoryDecomposeName(subtitleFile);
-	}
-	
-	private void loadSubtitleFromRepositoryDecomposeName(final File srtFile) throws IOException {
-		final String fileName = srtFile.getName();
-		final String videoID = StringUtils.substringBeforeLast(fileName, ".");
-		final String language = StringUtils.substringAfterLast(fileName, ".");
-		final PartialSHA1 videoSHA1 = new PartialSHA1(videoID);
-		loadSubtitleFromRepository(videoSHA1, language, srtFile);
-	}
-
-	private void loadSubtitleFromRepository(final PartialSHA1 videoSHA1,final String language,final File srtFile) throws IOException {
-		final String encodingForLanguage = LocaleUtil.getEncodingForLanguage(language);
-		final String srtFileContent = FileUtils.readFileToString(srtFile,encodingForLanguage);
-		final SubtitleKey subtitleKey = new SubtitleKey(language, videoSHA1);
-		final Subtitle subtitle = new Subtitle(srtFileContent, srtFile);
-		subtitles.put(subtitleKey, subtitle);
-	}
-
 	public String getSubtitleContentsFromVideoIDAndLanguageOrNull(final String language,final PartialSHA1 videoID) throws IOException {
 		final SubtitleKey subtitleKey = new SubtitleKey(language, videoID);
 		return getSubtitleContentsForKeyOrNull(subtitleKey);
@@ -86,12 +50,12 @@ public class SubtitlesRepository implements RepositoryScannerListener{
 	public void changeContentsForSubtitle(final String newContent, final String language,final PartialSHA1 videoID) throws IOException {
 		changeContentsForSubtitle(newContent, new SubtitleKey(language, videoID) );
 	}
-	
+
 	public void changeContentsForSubtitle( final String newContent, final SubtitleKey subtitleKey) throws IOException {
 		final String empty = "";
 		changeContentsForSubtitle(empty,empty,empty, newContent,subtitleKey);
 	}
-	
+
 	public void changeContentsForSubtitle(final String commiter,final String email,final String message, final String newContent, final SubtitleKey subtitleKey) throws IOException {
 		final Subtitle subtitle = subtitles.get(subtitleKey);
 		subtitle.setContent(newContent);
@@ -144,6 +108,51 @@ public class SubtitlesRepository implements RepositoryScannerListener{
 
 	public String getLastNCommits(final int i) {
 		return gitRepoHandler.getLog(i);
+	}
+
+	public void addSubtitle(final String id, final String language, final File srtFile) throws IOException {
+		final File strPathOnRepo = getFileFor(id, language);
+		srtFile.renameTo(strPathOnRepo);
+		loadFileToRepo(strPathOnRepo);
+	}
+
+	private void loadFileToRepo(final File subtitleFile) throws IOException {
+		gitRepoHandler.addFile(subtitleFile);
+		loadSubtitleFromRepositoryDecomposeName(subtitleFile);
+	}
+
+	private File getFileFor(final String id, final String language) {
+		final String strDirName = id.substring(0, 2);
+		final File baseDir = repositoryLocation.getBaseDir();
+		final File srtDir = new File(baseDir, strDirName);
+		if(!srtDir.exists()){
+			srtDir.mkdir();
+		}
+		final String fileName = getFilenameForSubtitle(id,
+				language);
+		final File subtitleFile = new File(srtDir, fileName);
+		return subtitleFile;
+	}
+
+	private String getFilenameForSubtitle(final String id, final String language) {
+		final String fileName = id + "." + language;
+		return fileName;
+	}
+	
+	private void loadSubtitleFromRepositoryDecomposeName(final File srtFile) throws IOException {
+		final String fileName = srtFile.getName();
+		final String videoID = StringUtils.substringBeforeLast(fileName, ".");
+		final String language = StringUtils.substringAfterLast(fileName, ".");
+		final PartialSHA1 videoSHA1 = new PartialSHA1(videoID);
+		loadSubtitleFromRepository(videoSHA1, language, srtFile);
+	}
+
+	private void loadSubtitleFromRepository(final PartialSHA1 videoSHA1,final String language,final File srtFile) throws IOException {
+		final String encodingForLanguage = LocaleUtil.getEncodingForLanguage(language);
+		final String srtFileContent = FileUtils.readFileToString(srtFile,encodingForLanguage);
+		final SubtitleKey subtitleKey = new SubtitleKey(language, videoSHA1);
+		final Subtitle subtitle = new Subtitle(srtFileContent, srtFile);
+		subtitles.put(subtitleKey, subtitle);
 	}
 
 }
