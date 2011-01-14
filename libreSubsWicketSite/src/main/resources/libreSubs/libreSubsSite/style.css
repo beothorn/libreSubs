@@ -1,0 +1,37 @@
+ #menu ul
+{
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+
+#menu li
+{
+	font-family: Tahoma; 
+	font-size: 9px;
+	float: left;
+	margin: 0 0.15em;
+}
+
+a:link {
+	color:#b8dc28;
+	text-decoration:none;
+}
+a:visited {
+	color:#b8dc28;
+	text-decoration:none;
+}
+a:hover {
+	color:#b8dc28;
+	text-decoration:underline;
+}
+a:active {
+	color:#b8dc28;
+	text-decoration:underline;
+	background-color:#000000;
+}
+
+
+body{
+	background-color: #555555;
+}

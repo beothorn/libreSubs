@@ -5,8 +5,10 @@ import libreSubs.libreSubsSite.download.DownloadSubtitle;
 import org.apache.wicket.Request;
 import org.apache.wicket.RequestCycle;
 import org.apache.wicket.ResourceReference;
+import org.apache.wicket.SharedResources;
 import org.apache.wicket.protocol.http.RequestUtils;
 import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.settings.IRequestCycleSettings;
 import org.apache.wicket.settings.IResourceSettings;
 import org.apache.wicket.util.resource.locator.ResourceStreamLocator;
 import org.libreSubsEngine.subtitleRepository.SubtitleDefaultRepository;
@@ -49,27 +51,27 @@ public class WicketApplication extends WebApplication
 
 	@Override
 	protected void init() {
-		getRequestCycleSettings().setResponseRequestEncoding("UTF-8");
+		final IRequestCycleSettings requestCycleSettings = getRequestCycleSettings();
+		requestCycleSettings.setResponseRequestEncoding("UTF-8");
 		setupSubtitleRepository();
 		scanForWicketAnnotations();
 		addAppletsFolderToPublicResources();
 		mountSubRequestResource();
+		mountSharedResource("/style.css", new ResourceReference(HomePage.class, "style.css").getSharedResourceKey());
 	}
 
 	private void mountSubRequestResource() {
-		getSharedResources().add(DownloadSubtitle.RESOURCE_NAME,
-				new DownloadSubtitle());
-		mountSharedResource("/" + DownloadSubtitle.RESOURCE_NAME,
-				new ResourceReference(DownloadSubtitle.RESOURCE_NAME)
-				.getSharedResourceKey());
+		final DownloadSubtitle resource = new DownloadSubtitle();
+		final SharedResources sharedResources = getSharedResources();
+		sharedResources.add(DownloadSubtitle.RESOURCE_NAME,resource);
+		final ResourceReference resourceReference = new ResourceReference(DownloadSubtitle.RESOURCE_NAME);
+		final String sharedResourceKey = resourceReference.getSharedResourceKey();
+		mountSharedResource("/" + DownloadSubtitle.RESOURCE_NAME,sharedResourceKey);
 	}
 
 	private void scanForWicketAnnotations() {
-		final String wicketPagesPackage = HOME_PAGE_CLASS.getPackage()
-				.getName();
-		new AnnotatedMountScanner().scanPackage(
-				wicketPagesPackage)
-				.mount(this);
+		final String wicketPagesPackage = HOME_PAGE_CLASS.getPackage().getName();
+		new AnnotatedMountScanner().scanPackage(wicketPagesPackage).mount(this);
 	}
 
 	private void setupSubtitleRepository() {
