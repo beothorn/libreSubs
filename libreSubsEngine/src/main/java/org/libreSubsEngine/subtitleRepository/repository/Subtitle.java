@@ -12,7 +12,7 @@ public class Subtitle {
 
 	public Subtitle(final File srtFile) throws IOException {
 		this.srtFile = srtFile;
-		this.content = FileUtils.readFileToString(srtFile);
+		this.content = FileUtils.readFileToString(srtFile);//TODO: here uses the default plataform encoding :( BUG
 	}
 	
 	public Subtitle(final String content, final File srtFile) throws IOException {
