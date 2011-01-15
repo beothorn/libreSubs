@@ -3,12 +3,17 @@
 	display:inline;
 }
  
+#menu{
+	vertical-align:middle;
+	display:inline;
+}
+ 
 #menu ul
 {
 	list-style: none;
 	padding: 0;
 	display:inline;
-	margin: 10;
+	margin: 0;
 }
 
 #menu li
