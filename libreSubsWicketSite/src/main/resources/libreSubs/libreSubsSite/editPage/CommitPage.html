@@ -3,21 +3,20 @@
         <title>LibreSubs</title>
         <link rel="stylesheet" type="text/css" href="style.css"/>
     </head>  
-    
     <body>
-    
-        <div wicket:id="menu"/>
-         <br/>
-        <h1>Commit</h1>
-        <p>Todos os campos são opcionais</p>
-        <form wicket:id="commitForm">
-        	Nome:<br/>
-        	<input wicket:id="commiter" type="text" size="40"/><br/>
-        	Email:<br/>
-        	<input wicket:id="email" type="text" size="40"/><br/>
-        	Descreva a alteração:<br/>
-        	<input wicket:id="message" type="text" size="140"/><br/>
-        	<input type="submit" value="Commit" />
-    	</form>
+        <wicket:extend>
+	        <br/>
+	        <h1>Commit</h1>
+	        <p>Todos os campos são opcionais</p>
+	        <form wicket:id="commitForm">
+	        	Nome:<br/>
+	        	<input wicket:id="commiter" type="text" size="40"/><br/>
+	        	Email:<br/>
+	        	<input wicket:id="email" type="text" size="40"/><br/>
+	        	Descreva a alteração:<br/>
+	        	<input wicket:id="message" type="text" size="140"/><br/>
+	        	<input type="submit" value="Commit" />
+	    	</form>
+	    </wicket:extend>
     </body>
 </html>

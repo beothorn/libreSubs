@@ -1,19 +1,18 @@
-package libreSubs.libreSubsSite.menuPanel;
+package libreSubs.libreSubsSite;
 
-import libreSubs.libreSubsSite.HomePage;
 import libreSubs.libreSubsSite.download.DownloadFormPage;
 import libreSubs.libreSubsSite.editPage.EditSubtitleFormPage;
 import libreSubs.libreSubsSite.recentChanges.RecentChangesPage;
 import libreSubs.libreSubsSite.upload.UploadFormPage;
 
+import org.apache.wicket.markup.html.CSSPackageResource;
+import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
-import org.apache.wicket.markup.html.panel.Panel;
 
-@SuppressWarnings("serial")
-public class MenuPanel extends Panel {
-
-	public MenuPanel(final String id) {
-		super(id);
+public abstract class BasePage extends WebPage {
+	
+	public BasePage() {
+		add(CSSPackageResource.getHeaderContribution(BasePage.class,"style.css")); 
 		add(new BookmarkablePageLink<String>("home", HomePage.class));
 		add(new BookmarkablePageLink<String>("downloadSub",DownloadFormPage.class));
 		add(new BookmarkablePageLink<String>("uploadSub", UploadFormPage.class));

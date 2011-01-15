@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+<title>Libresubs</title>
+<meta charset="utf-8" />
+</head>
+<body>
+<div id="pagewidth">
+	<div id="wrapper" class="clearfix">
+			<div id="headerArea">
+				<img src="headerIcon.png" alt="Libresubs" id="headerIcon" style=""/>
+					<ul>
+						<li><a href="https://github.com/beothorn/libreSubs">código fonte</a></li>
+						<li><a href="#">pedidos</a></li>
+						<li><a wicket:id="recentChanges" href="../recentChanges/RecentChangesPage.html">últimas alterações</a></li>
+						<li><a wicket:id="editSub" href="../editPage/EditSubtitleFormPage.html">editar</a></li>
+						<li><a wicket:id="uploadSub" href="../upload/UploadFormPage.html">upload</a></li>
+						<li><a wicket:id="downloadSub" href="../download/DownloadFormPage.html.html">download</a></li>	
+						<li><a wicket:id="home" href=".">home</a></li>
+					</ul>
+			</div>
+			<div id="headerBottomLine"></div>
+			<div id="logoArea">
+				<img src="libreSubsLogo.png" alt="Libresubs" style="margin-right:100px;display:inline;"/>
+			</div>
+			<div id="dynamicContent">
+				<wicket:child/>
+			</div>
+	</div>
+</div>
+</body>
+</html>

@@ -12,17 +12,18 @@
     
     <body>
     
-        <div wicket:id="menu"/>
-        <br/>
-        <h1>LibreSubsEditor</h1>
-        <span wicket:id="message"/><br/>
-        <span wicket:id="id">Sha1</span>.<span wicket:id="lang">lang</span>        
-        
-		<form wicket:id="editForm">
-			<input type="submit" value="Salvar"/> <a href="#">Histórico</a>
-			<br/>
-			<textarea wicket:id="content" rows="30" cols="180">Aqui o usuário edita as legendas.</textarea>
-		</form>
+        <wicket:extend>
+	        <br/>
+	        <h1>LibreSubsEditor</h1>
+	        <span wicket:id="message"/><br/>
+	        <span wicket:id="id">Sha1</span>.<span wicket:id="lang">lang</span>        
+	        
+			<form wicket:id="editForm">
+				<input type="submit" value="Salvar"/> <a href="#">Histórico</a>
+				<br/>
+				<textarea wicket:id="content" rows="30" cols="180">Aqui o usuário edita as legendas.</textarea>
+			</form>
+		</wicket:extend>
 		
     </body>
 </html>

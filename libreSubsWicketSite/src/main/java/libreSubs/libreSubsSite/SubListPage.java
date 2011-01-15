@@ -1,17 +1,13 @@
 package libreSubs.libreSubsSite;
 
-import libreSubs.libreSubsSite.menuPanel.MenuPanel;
-
-import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.MultiLineLabel;
 import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepositoryHandler;
 import org.wicketstuff.annotation.mount.MountPath;
 
 @MountPath(path = "subList")
-public class SubListPage extends WebPage {
+public class SubListPage extends BasePage {
 
-	public SubListPage() {
-		add(new MenuPanel("menu"));
+	public SubListPage() {;
 		addSubtitlesListPrintForDebug();
 	}
 

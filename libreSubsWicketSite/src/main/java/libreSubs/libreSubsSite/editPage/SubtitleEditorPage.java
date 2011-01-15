@@ -2,13 +2,12 @@ package libreSubs.libreSubsSite.editPage;
 
 
 
-import libreSubs.libreSubsSite.TextPage;
+import libreSubs.libreSubsSite.BasePage;
 import libreSubs.libreSubsSite.SubParameters;
+import libreSubs.libreSubsSite.TextPage;
 import libreSubs.libreSubsSite.WicketApplication;
-import libreSubs.libreSubsSite.menuPanel.MenuPanel;
 
 import org.apache.wicket.PageParameters;
-import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.markup.html.form.TextArea;
@@ -18,7 +17,7 @@ import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepositoryHand
 import org.wicketstuff.annotation.mount.MountPath;
 
 @MountPath(path = "editSrtPage")
-public class SubtitleEditorPage extends WebPage {
+public class SubtitleEditorPage extends BasePage {
 	
 	String subtitle;
 	SubParameters subParameters;
@@ -58,7 +57,6 @@ public class SubtitleEditorPage extends WebPage {
 			TextPage.redirectToPageWithText("Legenda não existe.");
 		}
 		
-		add(new MenuPanel("menu"));
 		add(new Label("id", id));
 		add(new Label("lang", lang));
 		

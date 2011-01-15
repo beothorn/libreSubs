@@ -2,18 +2,17 @@ package libreSubs.libreSubsSite.editPage;
 
 import java.io.IOException;
 
+import libreSubs.libreSubsSite.BasePage;
 import libreSubs.libreSubsSite.TextPage;
 import libreSubs.libreSubsSite.WicketApplication;
-import libreSubs.libreSubsSite.menuPanel.MenuPanel;
 
 import org.apache.log4j.Logger;
-import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepositoryHandler;
 
-public class CommitPage extends WebPage {
+public class CommitPage extends BasePage {
 
 	private final String id;
 	private final String lang;
@@ -23,7 +22,6 @@ public class CommitPage extends WebPage {
 		this.id = id;
 		this.lang = lang;
 		this.content = content;
-		add(new MenuPanel("menu"));
 		addCommitForm();
 	}
 

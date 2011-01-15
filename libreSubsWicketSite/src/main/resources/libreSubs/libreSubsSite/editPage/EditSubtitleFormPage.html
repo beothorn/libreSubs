@@ -4,19 +4,20 @@
         <link rel="stylesheet" type="text/css" href="style.css"/>
     </head>  
     <body> 
-    	<div wicket:id="menu"/>
-    	 <br/>
-    	<h1>Escolha um arquivo para editar</h1>
-    	
-		<form wicket:id="editorCallForm">
-        	Língua:<br/>
-        	<select wicket:id="lang">
-        		<option>pt_BR</option>
-                <option>en_US</option>
-            </select><br/>
-        	SHA1:<br/>
-        	<input wicket:id="id" type="text" size="40"/><br/>
-        	<input type="submit" value="Editar" />
-    	</form>
+    	<wicket:extend>
+	    	<br/>
+	    	<h1>Escolha um arquivo para editar</h1>
+	    	
+			<form wicket:id="editorCallForm">
+	        	Língua:<br/>
+	        	<select wicket:id="lang">
+	        		<option>pt_BR</option>
+	                <option>en_US</option>
+	            </select><br/>
+	        	SHA1:<br/>
+	        	<input wicket:id="id" type="text" size="40"/><br/>
+	        	<input type="submit" value="Editar" />
+	    	</form>
+	    </wicket:extend>
     </body>
 </html>

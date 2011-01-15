@@ -1,19 +1,16 @@
 package libreSubs.libreSubsSite;
 
 import libreSubs.libreSubsSite.download.DownloadSubtitle;
-import libreSubs.libreSubsSite.menuPanel.MenuPanel;
 import libreSubs.libreSubsSite.upload.UploadPage;
 import libreSubs.libreSubsSite.wicketComponents.DeployJava;
 
-import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.libreSubsApplet.utils.SubtitleResourceResolver;
 
-public class HomePage extends WebPage {
+public class HomePage extends BasePage {
 
 	public HomePage() {
 		setStatelessHint(true);
-		add(new MenuPanel("menu"));
 		addSubtitleFinderApplet();
 		add(new Label("siteBaseURL", WicketApplication.getBasePath()));
 	}
