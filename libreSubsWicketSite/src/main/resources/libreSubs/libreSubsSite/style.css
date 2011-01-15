@@ -5,7 +5,8 @@
  
 #menu{
 	vertical-align:middle;
-	display:inline;
+	float: right;
+	display:inline-block
 }
  
 #menu ul
@@ -21,6 +22,7 @@
 	font-family: Tahoma;
 	font-weight: bold; 
 	font-size: 9px;
+	color:#FFFFFF;
 	float: right;
 	margin: 0 0.15em;
 }
