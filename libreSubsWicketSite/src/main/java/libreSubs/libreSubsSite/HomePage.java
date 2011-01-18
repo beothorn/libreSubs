@@ -23,8 +23,8 @@ public class HomePage extends BasePage {
 		}
 
 		final DeployJava div = new DeployJava("appletDiv");
-		div.setWidth(910);
-		div.setHeight(610);
+		div.setWidth(802);
+		div.setHeight(339);
 		div.setCode("org.libreSubsApplet.MainApplet.class");
 		div.setCodebase(WicketApplication.getBasePath() + "applets");
 		div.setArchive("subFinder.jar");
