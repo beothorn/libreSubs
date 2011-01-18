@@ -8,7 +8,6 @@ import org.apache.wicket.ResourceReference;
 import org.apache.wicket.SharedResources;
 import org.apache.wicket.protocol.http.RequestUtils;
 import org.apache.wicket.protocol.http.WebApplication;
-import org.apache.wicket.settings.IRequestCycleSettings;
 import org.apache.wicket.settings.IResourceSettings;
 import org.apache.wicket.util.resource.locator.ResourceStreamLocator;
 import org.libreSubsEngine.subtitleRepository.SubtitleDefaultRepository;
@@ -51,8 +50,6 @@ public class WicketApplication extends WebApplication
 
 	@Override
 	protected void init() {
-		final IRequestCycleSettings requestCycleSettings = getRequestCycleSettings();
-		requestCycleSettings.setResponseRequestEncoding("UTF-8");
 		setupSubtitleRepository();
 		scanForWicketAnnotations();
 		addAppletsFolderToPublicResources();

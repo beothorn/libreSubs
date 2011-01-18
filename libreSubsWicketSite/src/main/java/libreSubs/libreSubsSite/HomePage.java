@@ -12,7 +12,7 @@ public class HomePage extends BasePage {
 	public HomePage() {
 		setStatelessHint(true);
 		addSubtitleFinderApplet();
-		add(new Label("siteBaseURL", WicketApplication.getBasePath()));
+//		add(new Label("siteBaseURL", WicketApplication.getBasePath()));
 	}
 
 	private void addSubtitleFinderApplet() {
