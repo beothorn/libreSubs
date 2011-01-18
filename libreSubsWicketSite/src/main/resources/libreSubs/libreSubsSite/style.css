@@ -51,6 +51,13 @@ a:active {
 	padding: 6px;
 }
 
+#ballonsBottomLine{
+	background-image: url('ballons.png'); 
+	background-repeat: repeat-x; 
+	background-color: #464646;
+	padding: 6px;
+}
+
 #dynamicContent{
 	background-image: url('background.png'); 
 	background-repeat: repeat-x; 
@@ -81,6 +88,8 @@ html, body{
 #logoArea{
  background-color: #555555;  
  position: relative; 
+ margin:0; 
+ padding:0; 
  } 
  
 /* ******************************************************************** */ 

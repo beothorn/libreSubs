@@ -83,7 +83,7 @@ public class MainApplet extends JApplet implements OutputListener{
 	}
 
 	private JScrollPane createDropFileTextArea(final DroppedFilesProcessor dropFileListener) {
-		stringBucketLabel = new JTextArea();
+		stringBucketLabel = new JTextAreaWithBackground();
 		stringBucketLabel.setEditable(false);
 		stringBucketLabel.setBorder(new LineBorder(Color.BLACK));
 		final JScrollPane scrollPane = new JScrollPane(stringBucketLabel);
