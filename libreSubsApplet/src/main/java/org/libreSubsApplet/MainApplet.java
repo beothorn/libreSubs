@@ -1,7 +1,6 @@
 package org.libreSubsApplet;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,7 +12,6 @@ import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.border.LineBorder;
 
 import org.libreSubsApplet.dropFile.DropFilesTarget;
 import org.libreSubsApplet.utils.LocaleUtil;
@@ -83,9 +81,7 @@ public class MainApplet extends JApplet implements OutputListener{
 	}
 
 	private JScrollPane createDropFileTextArea(final DroppedFilesProcessor dropFileListener) {
-		stringBucketLabel = new JTextAreaWithBackground();
-		stringBucketLabel.setEditable(false);
-		stringBucketLabel.setBorder(new LineBorder(Color.BLACK));
+		stringBucketLabel = new SubtitleDropTextArea();
 		final JScrollPane scrollPane = new JScrollPane(stringBucketLabel);
 		final DropFilesTarget dropFilesTarget = new DropFilesTarget();
 		dropFilesTarget.addDropFileListener(dropFileListener);

@@ -8,15 +8,16 @@ import javax.swing.ImageIcon;
 import javax.swing.JTextArea;
 
 @SuppressWarnings("serial")
-public class JTextAreaWithBackground extends JTextArea {
+public class SubtitleDropTextArea extends JTextArea {
 	
 
 	private final Image image;
 
-	public JTextAreaWithBackground() {
+	public SubtitleDropTextArea() {
 		setOpaque(false);
 		setBorder(null);
-		final URL resource = JTextAreaWithBackground.class.getResource("/applet.png");
+		setEditable(false);
+		final URL resource = SubtitleDropTextArea.class.getResource("/applet.png");
 		final ImageIcon background = new ImageIcon(resource);
 		image = background.getImage();
 	}
