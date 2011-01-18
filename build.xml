@@ -1,0 +1,11 @@
+<project name="buildWar" default="build" basedir=".">
+<target name="build">
+	<exec dir="." executable="mvn">
+		<arg value="clean" />
+		<arg value="package" />
+		<arg value="-Psign" />
+		<arg value="-Dkeystore.path=/home/lucas/libresubs.keystore" />
+		<arg value="-Dkeystore.password=bolada" />
+	</exec>
+</target>
+</project>	
