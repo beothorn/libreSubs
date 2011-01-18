@@ -10,7 +10,6 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.JApplet;
 import javax.swing.JComboBox;
 import javax.swing.JList;
-import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 import org.libreSubsApplet.dropFile.DropFilesTarget;
@@ -31,8 +30,7 @@ public class MainApplet extends JApplet implements OutputListener{
 		final JComboBox languageChooser = createLanguageChooser(dropFileListener);
 		add(languageChooser,BorderLayout.PAGE_START);
 		
-		final JScrollPane scrollPane = createDropFileTextArea(dropFileListener);
-		add(scrollPane,BorderLayout.CENTER);
+		createDropFileTextArea(dropFileListener);
 		
 		printIntroductionText();
 	}
@@ -80,14 +78,12 @@ public class MainApplet extends JApplet implements OutputListener{
 		return dropFileListener;
 	}
 
-	private JScrollPane createDropFileTextArea(final DroppedFilesProcessor dropFileListener) {
+	private void createDropFileTextArea(final DroppedFilesProcessor dropFileListener) {
 		stringBucketLabel = new SubtitleDropTextArea();
-		final JScrollPane scrollPane = new JScrollPane(stringBucketLabel);
-		scrollPane.setBorder(null);
 		final DropFilesTarget dropFilesTarget = new DropFilesTarget();
 		dropFilesTarget.addDropFileListener(dropFileListener);
 		stringBucketLabel.setDropTarget(dropFilesTarget);
-		return scrollPane;
+		add(stringBucketLabel,BorderLayout.CENTER);
 	}
 
     public String getDownloadUrl() {

@@ -3,7 +3,6 @@ package org.libreSubsApplet;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.Rectangle;
-import java.awt.Shape;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
@@ -27,8 +26,7 @@ public class SubtitleDropTextArea extends JTextArea {
 	@Override
 	public void paintComponent (final Graphics g)
     {
-		final Shape clip = g.getClip();
-		final Rectangle visibleArea = clip.getBounds();
+		final Rectangle visibleArea = getVisibleRect();
         g.drawImage(image, visibleArea.x, visibleArea.y, image.getWidth(null), image.getHeight(null), this);
         super.paintComponent(g);
     }
