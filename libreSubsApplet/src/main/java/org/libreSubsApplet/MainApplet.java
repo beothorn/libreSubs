@@ -11,6 +11,9 @@ import javax.swing.JApplet;
 import javax.swing.JComboBox;
 import javax.swing.JList;
 import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 import org.libreSubsApplet.dropFile.DropFilesTarget;
 import org.libreSubsApplet.utils.LocaleUtil;
@@ -23,16 +26,33 @@ public class MainApplet extends JApplet implements OutputListener{
 	
 	@Override
 	public void init() {
+		setLookAndfeel();
+
 		setLayout(new BorderLayout());
-		
 		final DroppedFilesProcessor dropFileListener = createDroppedFileProcessor();
-		
 		final JComboBox languageChooser = createLanguageChooser(dropFileListener);
 		add(languageChooser,BorderLayout.PAGE_START);
-		
 		createDropFileTextArea(dropFileListener);
-		
 		printIntroductionText();
+	}
+
+	private void setLookAndfeel() {
+		try {
+            //
+            // Use the system look and feel for the swing application
+            //
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (final ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (final InstantiationException e) {
+            e.printStackTrace();
+        } catch (final IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (final UnsupportedLookAndFeelException e) {
+            e.printStackTrace();
+        }
+
+        SwingUtilities.updateComponentTreeUI(this);
 	}
 
 	private void printIntroductionText() {
