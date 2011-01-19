@@ -1,6 +1,7 @@
 package org.libreSubsApplet;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,7 +28,7 @@ public class MainApplet extends JApplet implements OutputListener{
 	@Override
 	public void init() {
 		setLookAndfeel();
-
+		setBackground(Color.WHITE);
 		setLayout(new BorderLayout());
 		final DroppedFilesProcessor dropFileListener = createDroppedFileProcessor();
 		final JComboBox languageChooser = createLanguageChooser(dropFileListener);

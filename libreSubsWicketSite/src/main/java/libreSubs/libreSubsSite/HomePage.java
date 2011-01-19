@@ -4,7 +4,9 @@ import libreSubs.libreSubsSite.download.DownloadSubtitle;
 import libreSubs.libreSubsSite.upload.UploadPage;
 import libreSubs.libreSubsSite.wicketComponents.DeployJava;
 
+import org.apache.wicket.ResourceReference;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.image.Image;
 import org.libreSubsApplet.utils.SubtitleResourceResolver;
 
 public class HomePage extends BasePage {
@@ -12,6 +14,7 @@ public class HomePage extends BasePage {
 	public HomePage() {
 		setStatelessHint(true);
 		addSubtitleFinderApplet();
+		add(new Image("appletReflex", new ResourceReference(BasePage.class, "appletReflex.png")));
 //		add(new Label("siteBaseURL", WicketApplication.getBasePath()));
 	}
 
