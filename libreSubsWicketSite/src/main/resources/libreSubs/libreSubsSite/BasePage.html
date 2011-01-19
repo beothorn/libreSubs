@@ -20,29 +20,29 @@
 <body>
 <div id="pagewidth">
 	<div id="wrapper" class="clearfix">
-			<div id="headerArea">
-				<img wicket:id="headerIcon" src="headerIcon.png" alt="Libresubs" id="headerIcon"/>
-					<div id="menu">
-						<ul>
-							<li><a href="https://github.com/beothorn/libreSubs">código fonte</a>|</li>
-							<li><a href="#">pedidos</a>|</li>
-							<li><a wicket:id="recentChanges" href="../recentChanges/RecentChangesPage.html">últimas alterações</a>|</li>
-							<li><a wicket:id="editSub" href="../editPage/EditSubtitleFormPage.html">editar</a>|</li>
-							<li><a wicket:id="uploadSub" href="../upload/UploadFormPage.html">upload</a>|</li>
-							<li><a wicket:id="downloadSub" href="../download/DownloadFormPage.html.html">download</a>|</li>	
-							<li>|<a wicket:id="home" href=".">home</a>|</li>
-						</ul>
-					</div>
+		<div id="headerArea">
+			<img wicket:id="headerIcon" id="headerIcon" src="headerIcon.png" alt="Libresubs"/>
+			<div id="menu">
+				<ul>
+					<li><a href="https://github.com/beothorn/libreSubs">código fonte</a></li>
+					<li><a href="#">pedidos</a>|</li>
+					<li><a wicket:id="recentChanges" href="../recentChanges/RecentChangesPage.html">últimas alterações</a>|</li>
+					<li><a wicket:id="editSub" href="../editPage/EditSubtitleFormPage.html">editar</a>|</li>
+					<li><a wicket:id="uploadSub" href="../upload/UploadFormPage.html">upload</a>|</li>
+					<li><a wicket:id="downloadSub" href="../download/DownloadFormPage.html.html">download</a>|</li>	
+					<li><a wicket:id="home" href=".">home</a>|</li>
+				</ul>
 			</div>
-			<div id="headerBottomLine"></div>
-			<div id="logoArea">
-				<img wicket:id="libreSubsTitle" src="libreSubsTitle.png" alt="Libresubs" style="margin-left:108px;display:inline;"/>
-				<img wicket:id="libreSubsLogo" src="libreSubsLogo.png" alt="Libresubs" style="margin-left:303px;display:inline;"/>
-				<img wicket:id="ballons" src="ballons.png" alt="Libresubs" style="margin:0px;padding:0px;"/>
-			</div>
-			<div id="dynamicContent">
-				<wicket:child/>
-			</div>
+		</div>
+		<div id="headerBottomLine"></div>
+		<div id="logoArea">
+			<img wicket:id="libreSubsTitle" src="libreSubsTitle.png" alt="Libresubs" style="margin-left:108px;display:inline;"/>
+			<img wicket:id="libreSubsLogo" src="libreSubsLogo.png" alt="Libresubs" style="margin-left:303px;display:inline;"/>
+		</div>
+		<div id="logoBottomLine"></div>
+		<div id="dynamicContent">
+			<wicket:child/>
+		</div>
 	</div>
 </div>
 </body>
