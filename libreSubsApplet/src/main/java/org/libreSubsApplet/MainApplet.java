@@ -38,9 +38,6 @@ public class MainApplet extends JApplet implements OutputListener{
 
 	private void setLookAndfeel() {
 		try {
-            //
-            // Use the system look and feel for the swing application
-            //
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
         } catch (final ClassNotFoundException e) {
             e.printStackTrace();
