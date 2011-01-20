@@ -54,13 +54,7 @@ public class WicketApplication extends WebApplication
 		scanForWicketAnnotations();
 		addAppletsFolderToPublicResources();
 		mountSubRequestResource();
-		mountFaviconResource();
-	}
-
-	private void mountFaviconResource() {
-		final ResourceReference faviconReference = new ResourceReference(BasePage.class,"favicon.png");
-		final String sharedResourceKey = faviconReference.getSharedResourceKey();
-		mountSharedResource("/favicon.png",sharedResourceKey);
+		BasePage.registerResources(this);
 	}
 
 	private void mountSubRequestResource() {

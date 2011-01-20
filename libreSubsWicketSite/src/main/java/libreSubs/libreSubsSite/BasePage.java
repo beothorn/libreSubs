@@ -13,15 +13,22 @@ import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
+import org.apache.wicket.protocol.http.WebApplication;
 
 public abstract class BasePage extends WebPage {
+	
+	public static void registerResources(final WebApplication webApplication){
+		final ResourceReference faviconReference = new ResourceReference(BasePage.class,"favicon.png");
+		final String sharedResourceKey = faviconReference.getSharedResourceKey();
+		webApplication.mountSharedResource("/favicon.png",sharedResourceKey);
+	}
 	
 	public BasePage() {
 		add(CSSPackageResource.getHeaderContribution(BasePage.class,"style.css"));
 		add(new HeaderContributor(new IHeaderContributor() {
 			@Override
 			public void renderHead(final IHeaderResponse response) {
-				response.renderString("<link rel=\"shortcut icon\" href=\"/favicon.png\">");
+				response.renderString("<link rel=\"shortcut icon\" href=\"./favicon.png\">");
 			}
 		}));
 		add(new Image("headerIcon", new ResourceReference(BasePage.class, "headerIcon.png")));
