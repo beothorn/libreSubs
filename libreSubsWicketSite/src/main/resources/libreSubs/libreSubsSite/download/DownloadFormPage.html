@@ -6,6 +6,7 @@
     <body>
         <wicket:extend>
 	        <br/>
+	        <h1>Download</h1>
 	        Cole o SHA1 dos primeiros 100k do seu arquivo aqui:
 	        <br/>
 			<form wicket:id="inputForm">
@@ -21,9 +22,6 @@
 	        	<input type="submit" value="Baixar legenda" />
 	    	</form>
 	        <br/>
-	        Ou use o comando:
-	        <br/> 
-	        <i>head SEUARQUIVO -c 100 | sha1sum | xargs wget  <span wicket:id="siteBaseURL">site url</span>downloadSrt?lang=pt_BR&id={} -O destino.srt</i>
 	    </wicket:extend>
     </body>
 </html>
