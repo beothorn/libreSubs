@@ -26,9 +26,6 @@
 		</init-param>
 	</filter>
 
-
-
-
 	<filter-mapping>
 		<filter-name>wicket.libreSubsSite</filter-name>
 		<url-pattern>/*</url-pattern>
