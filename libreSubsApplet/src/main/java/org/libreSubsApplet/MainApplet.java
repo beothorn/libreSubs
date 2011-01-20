@@ -60,7 +60,7 @@ public class MainApplet extends JApplet implements OutputListener{
 		info("arraste o arquivo de vídeo e o arquivo srt aqui.");
 		info("O arquivo .srt deve ter o mesmo nome do arquivo de vídeo.");
 		info("Se você arrastar um diretório ele será escaneado, fazendo upload das legendas que tiverem um arquivo");
-		info("com o mesmo nome e download para os arquivos que não tiverem legenda.");
+		info("com o mesmo nome e download para os arquivos que não tiverem legenda .");
 	}
 
 	private JComboBox createLanguageChooser(

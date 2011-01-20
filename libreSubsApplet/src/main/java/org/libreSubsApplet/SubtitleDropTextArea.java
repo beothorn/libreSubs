@@ -18,6 +18,8 @@ public class SubtitleDropTextArea extends JTextArea {
 		setOpaque(false);
 		setBorder(null);
 		setEditable(false);
+		setLineWrap(true);
+		setWrapStyleWord(true);
 		setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		final URL resource = SubtitleDropTextArea.class.getResource("/applet.png");
 		final ImageIcon background = new ImageIcon(resource);
