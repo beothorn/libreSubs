@@ -3,8 +3,9 @@
 <head>
 <title>Libresubs</title>
 <META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="description" content="Libresubs é um site onde é possível fazer upload e download de legendas só arrastando arquivos. Não é preciso logar! Cada legenda corresponde a um arquivo de vídeo, achar o arquivo certo é simples e sem falsos positivos. Além disso qualquer pessoa pode criar sua versão do site pois o código fonte é GPL.">
+<meta name="keywords" content="legenda, legendas, subtitles, wicket, java, srt, vídeos, seriado, seriados, filme, filmes">
 <script type="text/javascript">
-
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', 'UA-20761766-1']);
   _gaq.push(['_trackPageview']);
@@ -36,12 +37,16 @@
 		</div>
 		<div id="headerBottomLine"></div>
 		<div id="logoArea">
-			<img wicket:id="libreSubsTitle" src="libreSubsTitle.png" alt="Libresubs" style="margin-left:108px;display:inline;"/>
-			<img wicket:id="libreSubsLogo" src="libreSubsLogo.png" alt="Libresubs" style="margin-left:303px;display:inline;"/>
+			<img wicket:id="libreSubsTitle" id="libreSubsTitle" src="libreSubsTitle.png" alt="Libresubs"/>
+			<img wicket:id="libreSubsLogo" id="libreSubsLogo" src="libreSubsLogo.png" alt="Libresubs"/>
 		</div>
 		<div id="logoBottomLine"></div>
 		<div id="dynamicContent">
 			<wicket:child/>
+		</div>
+		<div id="bottomArea">
+			Powered by wicket - Design by: Defiler - Code by: Beothorn<br>
+			Código fonte do site usa a liçensa GPL3
 		</div>
 	</div>
 </div>

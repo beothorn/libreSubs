@@ -50,6 +50,16 @@
 	background-color: #555555;
 }
 
+#libreSubsTitle{
+	margin-left:108px;
+	display:inline;
+}
+
+#libreSubsLogo{
+	margin-left:303px;
+	display:inline;
+}
+
 #headerBottomLine{
 	background-image: url('line.png'); 
 	background-repeat: repeat-x; 
@@ -72,6 +82,15 @@
 
 #dynamicContent applet{
 	text-align: center;
+}
+
+#bottomArea{
+	background-color: #464646;
+	text-align: center;
+	font-family: Tahoma;
+	font-weight: bold; 
+	font-size: 8px;
+	color:#FFFFFF;
 }
 
 /* ******************************************************************** */ 
