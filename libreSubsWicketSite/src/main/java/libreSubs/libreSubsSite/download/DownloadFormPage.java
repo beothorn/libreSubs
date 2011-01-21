@@ -20,7 +20,6 @@ public class DownloadFormPage extends BasePage {
 	public DownloadFormPage() {
 		setStatelessHint(true);
 		addSubtitleDownloadForm();
-		add(new Label("siteBaseURL", WicketApplication.getBasePath()));
 	}
 	
 	@SuppressWarnings("serial")
