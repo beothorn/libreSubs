@@ -19,8 +19,7 @@ public class HomePage extends BasePage {
 	}
 
 	private void addSubtitleFinderApplet() {
-		if (WicketApplication.get().getConfigurationType().equals(
-				WicketApplication.DEVELOPMENT)) {
+		if (WicketApplication.get().getConfigurationType().equals(WicketApplication.DEVELOPMENT)) {
 			add(new Label("appletDiv", "APPLET GOES HERE"));
 			return;
 		}

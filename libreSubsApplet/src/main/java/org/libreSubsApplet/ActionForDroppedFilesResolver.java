@@ -10,6 +10,7 @@ import org.libreSubsApplet.utils.Uploader;
 
 public class ActionForDroppedFilesResolver {
 
+	private static final int MAX_UP_SIZE_IN_BYTES = 200000;
 	private static final String SUBTITLE_EXTENSION = "srt";
 	private final static String[] VIDEO_EXTENSIONS = "mpeg,mpg,avi,mov,wmv,rm,rmvb,mp4,3gp,ogm,ogg,mkv,asf".split(",");
 	private final Downloader downloader;
@@ -41,6 +42,9 @@ public class ActionForDroppedFilesResolver {
 		if(sub == null){
 			downloader.download(outputListener, videoFile);
 		}else{
+			if(sub.length()>MAX_UP_SIZE_IN_BYTES){
+				outputListener.error("O arquivo de legenda é muito grande.");
+			}
 			uploader.upload(outputListener,new VideoWithSubtitle(videoFile, sub));
 		}
 	}
