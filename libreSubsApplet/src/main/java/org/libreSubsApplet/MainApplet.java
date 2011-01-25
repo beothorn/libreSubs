@@ -11,6 +11,7 @@ import javax.swing.DefaultListCellRenderer;
 import javax.swing.JApplet;
 import javax.swing.JComboBox;
 import javax.swing.JList;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -101,7 +102,9 @@ public class MainApplet extends JApplet implements OutputListener{
 		final DropFilesTarget dropFilesTarget = new DropFilesTarget();
 		dropFilesTarget.addDropFileListener(dropFileListener);
 		stringBucketLabel.setDropTarget(dropFilesTarget);
-		add(stringBucketLabel,BorderLayout.CENTER);
+		final JScrollPane scrollpane = new JScrollPane(stringBucketLabel,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		scrollpane.setBorder(null);
+		add(scrollpane,BorderLayout.CENTER);
 	}
 
     public String getDownloadUrl() {
