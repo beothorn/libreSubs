@@ -2,10 +2,8 @@ package libreSubs.libreSubsSite.download;
 
 import libreSubs.libreSubsSite.BasePage;
 import libreSubs.libreSubsSite.SubParameters;
-import libreSubs.libreSubsSite.WicketApplication;
 import libreSubs.libreSubsSite.commons.LanguageChooserDropDown;
 
-import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;

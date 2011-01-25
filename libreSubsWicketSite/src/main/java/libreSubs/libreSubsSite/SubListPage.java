@@ -14,7 +14,8 @@ public class SubListPage extends BasePage {
 	private void addSubtitlesListPrintForDebug() {
 		final SubtitlesRepositoryHandler subtitlesRepositoryHandler = WicketApplication
 				.getSubtitlesRepositoryHandler();
-		add(new MultiLineLabel("message", "SubList: "
-				+ subtitlesRepositoryHandler.listSubtitles()));
+		final String listSubtitles = subtitlesRepositoryHandler.listSubtitles();
+		add(new MultiLineLabel("message", "SubCount: "+listSubtitles.length()+" SubList: \n"
+				+ listSubtitles));
 	}
 }
