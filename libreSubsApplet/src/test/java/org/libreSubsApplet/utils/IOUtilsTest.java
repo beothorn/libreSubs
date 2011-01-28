@@ -6,6 +6,8 @@ import java.net.URL;
 import junit.framework.Assert;
 
 import org.junit.Test;
+import org.subtitleDownloadLogic.utils.IOUtils;
+import org.subtitleDownloadLogic.utils.SHA1CalculationException;
 
 public class IOUtilsTest {
 	

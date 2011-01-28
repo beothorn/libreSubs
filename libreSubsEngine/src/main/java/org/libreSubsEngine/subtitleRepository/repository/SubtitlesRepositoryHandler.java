@@ -3,7 +3,7 @@ package org.libreSubsEngine.subtitleRepository.repository;
 import java.io.File;
 import java.io.IOException;
 
-import org.libreSubsApplet.utils.LocaleUtil;
+import org.subtitleDownloadLogic.utils.LocaleUtil;
 
 public class SubtitlesRepositoryHandler {
 

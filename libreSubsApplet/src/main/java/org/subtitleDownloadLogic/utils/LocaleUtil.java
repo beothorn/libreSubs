@@ -1,4 +1,4 @@
-package org.libreSubsApplet.utils;
+package org.subtitleDownloadLogic.utils;
 
 import java.util.ArrayList;
 import java.util.Arrays;

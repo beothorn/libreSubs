@@ -6,9 +6,9 @@ import java.io.IOException;
 import libreSubs.libreSubsSite.WicketApplication;
 
 import org.apache.log4j.Logger;
-import org.libreSubsApplet.utils.IOUtils;
-import org.libreSubsApplet.utils.LocaleUtil;
 import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepositoryHandler;
+import org.subtitleDownloadLogic.utils.IOUtils;
+import org.subtitleDownloadLogic.utils.LocaleUtil;
 
 public class SubtitleUploader {
 

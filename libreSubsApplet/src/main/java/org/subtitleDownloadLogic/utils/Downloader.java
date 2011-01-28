@@ -1,12 +1,12 @@
-package org.libreSubsApplet.utils;
+package org.subtitleDownloadLogic.utils;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
 
-import org.libreSubsApplet.DownloadedContent;
-import org.libreSubsApplet.OutputListener;
+import org.OutputListener;
+import org.subtitleDownloadLogic.DownloadedContent;
 
 public class Downloader {
 

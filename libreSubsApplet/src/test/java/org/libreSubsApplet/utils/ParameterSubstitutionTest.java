@@ -3,6 +3,7 @@ package org.libreSubsApplet.utils;
 import junit.framework.Assert;
 
 import org.junit.Test;
+import org.subtitleDownloadLogic.utils.SubtitleResourceResolver;
 
 public class ParameterSubstitutionTest {
 

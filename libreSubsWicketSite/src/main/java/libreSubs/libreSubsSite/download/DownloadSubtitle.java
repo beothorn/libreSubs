@@ -11,8 +11,8 @@ import org.apache.wicket.RequestCycle;
 import org.apache.wicket.markup.html.DynamicWebResource;
 import org.apache.wicket.protocol.http.WebResponse;
 import org.apache.wicket.util.value.ValueMap;
-import org.libreSubsApplet.utils.LocaleUtil;
 import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepositoryHandler;
+import org.subtitleDownloadLogic.utils.LocaleUtil;
 
 @SuppressWarnings("serial")
 public class DownloadSubtitle extends DynamicWebResource {

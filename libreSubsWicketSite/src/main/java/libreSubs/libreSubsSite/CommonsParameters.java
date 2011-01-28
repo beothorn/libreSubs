@@ -2,7 +2,7 @@ package libreSubs.libreSubsSite;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.wicket.util.value.ValueMap;
-import org.libreSubsApplet.utils.SubtitleResourceResolver;
+import org.subtitleDownloadLogic.utils.SubtitleResourceResolver;
 
 public class CommonsParameters {
 

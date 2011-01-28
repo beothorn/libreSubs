@@ -7,7 +7,7 @@ import libreSubs.libreSubsSite.wicketComponents.DeployJava;
 import org.apache.wicket.ResourceReference;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.image.Image;
-import org.libreSubsApplet.utils.SubtitleResourceResolver;
+import org.subtitleDownloadLogic.utils.SubtitleResourceResolver;
 
 public class HomePage extends BasePage {
 

@@ -1,12 +1,13 @@
-package org.libreSubsApplet;
+package org.subtitleDownloadLogic;
 
 import java.io.File;
 import java.util.List;
 
+import org.OutputListener;
 import org.libreSubsApplet.dropFile.DropFileListener;
-import org.libreSubsApplet.utils.Downloader;
-import org.libreSubsApplet.utils.SubtitleResourceResolver;
-import org.libreSubsApplet.utils.Uploader;
+import org.subtitleDownloadLogic.utils.Downloader;
+import org.subtitleDownloadLogic.utils.SubtitleResourceResolver;
+import org.subtitleDownloadLogic.utils.Uploader;
 
 public class DroppedFilesProcessor implements DropFileListener {
 

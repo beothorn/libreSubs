@@ -8,11 +8,11 @@ import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
-import org.libreSubsApplet.utils.LocaleUtil;
 import org.libreSubsEngine.subtitleRepository.SubtitleRepositoryLocation;
 import org.libreSubsEngine.subtitleRepository.fileUtils.RepositoryScanner;
 import org.libreSubsEngine.subtitleRepository.fileUtils.RepositoryScannerListener;
 import org.libreSubsEngine.subtitleRepository.git.GitRepoHandler;
+import org.subtitleDownloadLogic.utils.LocaleUtil;
 
 public class SubtitlesRepository implements RepositoryScannerListener{
 

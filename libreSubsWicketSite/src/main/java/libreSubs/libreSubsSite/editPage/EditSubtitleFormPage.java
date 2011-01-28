@@ -8,7 +8,7 @@ import org.apache.wicket.PageParameters;
 import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.CompoundPropertyModel;
-import org.libreSubsApplet.utils.SubtitleResourceResolver;
+import org.subtitleDownloadLogic.utils.SubtitleResourceResolver;
 import org.wicketstuff.annotation.mount.MountPath;
 
 @MountPath(path = "edit")

@@ -1,12 +1,13 @@
-package org.libreSubsApplet;
+package org.subtitleDownloadLogic;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.libreSubsApplet.utils.Downloader;
-import org.libreSubsApplet.utils.IOUtils;
-import org.libreSubsApplet.utils.Uploader;
+import org.OutputListener;
+import org.subtitleDownloadLogic.utils.Downloader;
+import org.subtitleDownloadLogic.utils.IOUtils;
+import org.subtitleDownloadLogic.utils.Uploader;
 
 public class ActionForDroppedFilesResolver {
 

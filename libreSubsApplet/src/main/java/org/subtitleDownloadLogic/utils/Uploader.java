@@ -1,10 +1,10 @@
-package org.libreSubsApplet.utils;
+package org.subtitleDownloadLogic.utils;
 
 import java.io.File;
 import java.io.IOException;
 
-import org.libreSubsApplet.OutputListener;
-import org.libreSubsApplet.VideoWithSubtitle;
+import org.OutputListener;
+import org.subtitleDownloadLogic.VideoWithSubtitle;
 
 public class Uploader {
 

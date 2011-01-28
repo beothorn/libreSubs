@@ -12,8 +12,8 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.markup.html.form.TextArea;
 import org.apache.wicket.model.CompoundPropertyModel;
-import org.libreSubsApplet.utils.SubtitleResourceResolver;
 import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepositoryHandler;
+import org.subtitleDownloadLogic.utils.SubtitleResourceResolver;
 import org.wicketstuff.annotation.mount.MountPath;
 
 @MountPath(path = "editSrtPage")

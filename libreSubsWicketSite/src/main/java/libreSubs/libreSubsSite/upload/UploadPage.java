@@ -17,7 +17,7 @@ import org.apache.wicket.protocol.http.servlet.MultipartServletWebRequest;
 import org.apache.wicket.request.target.resource.ResourceStreamRequestTarget;
 import org.apache.wicket.util.lang.Bytes;
 import org.apache.wicket.util.upload.FileItem;
-import org.libreSubsApplet.utils.LocaleUtil;
+import org.subtitleDownloadLogic.utils.LocaleUtil;
 import org.wicketstuff.annotation.mount.MountPath;
 
 @MountPath(path = "upload")

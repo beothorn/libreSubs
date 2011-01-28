@@ -1,4 +1,4 @@
-package org.libreSubsApplet.utils;
+package org.subtitleDownloadLogic.utils;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

@@ -11,12 +11,10 @@ import javax.swing.JTextArea;
 @SuppressWarnings("serial")
 public class SubtitleDropTextArea extends JTextArea {
 	
-
 	private final Image image;
 
 	public SubtitleDropTextArea() {
 		setOpaque(false);
-		setBorder(null);
 		setEditable(false);
 		setLineWrap(true);
 		setWrapStyleWord(true);

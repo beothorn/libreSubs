@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Locale;
 
+import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JApplet;
 import javax.swing.JComboBox;
@@ -16,10 +17,13 @@ import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.border.Border;
 
+import org.OutputListener;
 import org.libreSubsApplet.dropFile.DropFilesTarget;
-import org.libreSubsApplet.utils.LocaleUtil;
-import org.libreSubsApplet.utils.SubtitleResourceResolver;
+import org.subtitleDownloadLogic.DroppedFilesProcessor;
+import org.subtitleDownloadLogic.utils.LocaleUtil;
+import org.subtitleDownloadLogic.utils.SubtitleResourceResolver;
 
 @SuppressWarnings("serial")
 public class MainApplet extends JApplet implements OutputListener{
@@ -103,7 +107,8 @@ public class MainApplet extends JApplet implements OutputListener{
 		dropFilesTarget.addDropFileListener(dropFileListener);
 		stringBucketLabel.setDropTarget(dropFilesTarget);
 		final JScrollPane scrollpane = new JScrollPane(stringBucketLabel,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		scrollpane.setBorder(null);
+		final Border border = BorderFactory.createEmptyBorder( 0, 0, 0, 0 );
+		scrollpane.setViewportBorder( border );
 		add(scrollpane,BorderLayout.CENTER);
 	}
 

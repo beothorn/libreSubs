@@ -1,4 +1,4 @@
-package org.libreSubsApplet;
+package org.subtitleDownloadLogic;
 
 public class DownloadedContent {
 	
