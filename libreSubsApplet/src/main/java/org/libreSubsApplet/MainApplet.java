@@ -7,17 +7,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Locale;
 
-import javax.swing.BorderFactory;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JApplet;
 import javax.swing.JComboBox;
 import javax.swing.JList;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.border.Border;
 
 import org.OutputListener;
 import org.libreSubsApplet.dropFile.DropFilesTarget;
@@ -27,8 +23,8 @@ import org.subtitleDownloadLogic.utils.SubtitleResourceResolver;
 
 @SuppressWarnings("serial")
 public class MainApplet extends JApplet implements OutputListener{
-
-	private JTextArea stringBucketLabel;
+	
+	private OutputListener output;
 	
 	@Override
 	public void init() {
@@ -36,11 +32,40 @@ public class MainApplet extends JApplet implements OutputListener{
 		setBackground(Color.WHITE);
 		setLayout(new BorderLayout());
 		final DroppedFilesProcessor dropFileListener = createDroppedFileProcessor();
-		final JComboBox languageChooser = createLanguageChooser(dropFileListener);
-		add(languageChooser,BorderLayout.PAGE_START);
 		createDropFileTextArea(dropFileListener);
+		final JComboBox languageChooser = createLanguageChooser(dropFileListener);
+//		final JPanel jPanel = new JPanel();
+//		jPanel.setLayout(new FlowLayout());
+//		jPanel.setBorder(BorderFactory.createEmptyBorder( 0, 0, 0, 0 ));
+//		jPanel.add(languageChooser);
+//		if(isWindows()){
+//			System.out.println("This is Windows");
+//		}else if(isUnix()){
+//			addMouseListener(new ContextMenu());
+//			System.out.println("This is Unix or Linux");
+//		}else{
+//			System.out.println("Your OS is not support!!");
+//		}
+//		final Button comp = new Button("Adicionar no menu de contexto");
+//		jPanel.add(comp);
+//		add(jPanel,BorderLayout.PAGE_START);
+		add(languageChooser,BorderLayout.PAGE_START);
 		printIntroductionText();
 	}
+	
+	public static boolean isWindows(){
+		final String os = System.getProperty("os.name").toLowerCase();
+		//windows
+	    return (os.indexOf( "win" ) >= 0); 
+ 
+	}
+ 
+	public static boolean isUnix(){
+		final String os = System.getProperty("os.name").toLowerCase();
+		//linux or unix
+	    return (os.indexOf( "nix") >=0 || os.indexOf( "nux") >=0);
+	}
+
 
 	private void setLookAndfeel() {
 		try {
@@ -59,13 +84,13 @@ public class MainApplet extends JApplet implements OutputListener{
 	}
 
 	private void printIntroductionText() {
-		info("Para pegar a legenda arraste o arquivo de vídeo aqui.");
-		info("A legenda vai ser salva junto do arquivo de vídeo.");
-		info("Para fazer upload de uma legenda que ainda não existe,");
-		info("arraste o arquivo de vídeo e o arquivo srt aqui.");
-		info("O arquivo .srt deve ter o mesmo nome do arquivo de vídeo.");
-		info("Se você arrastar um diretório ele será escaneado, fazendo upload das legendas que tiverem um arquivo");
-		info("com o mesmo nome e download para os arquivos que não tiverem legenda .");
+		output.info("Para pegar a legenda arraste o arquivo de vídeo aqui.");
+		output.info("A legenda vai ser salva junto do arquivo de vídeo.");
+		output.info("Para fazer upload de uma legenda que ainda não existe,");
+		output.info("arraste o arquivo de vídeo e o arquivo srt aqui.");
+		output.info("O arquivo .srt deve ter o mesmo nome do arquivo de vídeo.");
+		output.info("Se você arrastar um diretório ele será escaneado, fazendo upload das legendas que tiverem um arquivo");
+		output.info("com o mesmo nome e download para os arquivos que não tiverem legenda .");
 	}
 
 	private JComboBox createLanguageChooser(
@@ -102,14 +127,12 @@ public class MainApplet extends JApplet implements OutputListener{
 	}
 
 	private void createDropFileTextArea(final DroppedFilesProcessor dropFileListener) {
-		stringBucketLabel = new SubtitleDropTextArea();
+		final SubtitleDropComponent subtitleDropTextArea = new SubtitleDropComponent();
 		final DropFilesTarget dropFilesTarget = new DropFilesTarget();
 		dropFilesTarget.addDropFileListener(dropFileListener);
-		stringBucketLabel.setDropTarget(dropFilesTarget);
-		final JScrollPane scrollpane = new JScrollPane(stringBucketLabel,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-		final Border border = BorderFactory.createEmptyBorder( 0, 0, 0, 0 );
-		scrollpane.setViewportBorder( border );
-		add(scrollpane,BorderLayout.CENTER);
+		subtitleDropTextArea.setDropTarget(dropFilesTarget);
+		subtitleDropTextArea.addComponents(this);
+		output = subtitleDropTextArea;
 	}
 
     public String getDownloadUrl() {
@@ -132,17 +155,13 @@ public class MainApplet extends JApplet implements OutputListener{
 
 	@Override
 	public void info(final String info) {
-		stringBucketLabel.append(info+"\n");
-		scrollDown();
-	}
-
-	private void scrollDown() {
-		stringBucketLabel.setCaretPosition(stringBucketLabel.getDocument().getLength());
+		output.info(info);
 	}
 
 	@Override
 	public void error(final String error) {
-		stringBucketLabel.append(error+"\n");
-		scrollDown();
+		output.error(error);
 	}
+
+	
 }
