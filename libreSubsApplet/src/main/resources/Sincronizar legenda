@@ -5,4 +5,4 @@ then
 	wget "http://www.libresubs.com:8080/latestLibresubs/applets/subFinder.jar" -O ~/.libreSubs/subFinder.jar
 fi
 
-/usr/bin/java -jar ~/.libreSubs/subFinder.jar "$@"
+java -jar ~/.libreSubs/subFinder.jar "$@"
