@@ -16,6 +16,7 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 import org.OutputListener;
+import org.SiteAdresses;
 import org.libreSubsApplet.dropFile.DropFilesTarget;
 import org.subtitleDownloadLogic.DroppedFilesProcessor;
 import org.subtitleDownloadLogic.utils.LocaleUtil;
@@ -34,39 +35,10 @@ public class MainApplet extends JApplet implements OutputListener{
 		final DroppedFilesProcessor dropFileListener = createDroppedFileProcessor();
 		createDropFileTextArea(dropFileListener);
 		final JComboBox languageChooser = createLanguageChooser(dropFileListener);
-//		final JPanel jPanel = new JPanel();
-//		jPanel.setLayout(new FlowLayout());
-//		jPanel.setBorder(BorderFactory.createEmptyBorder( 0, 0, 0, 0 ));
-//		jPanel.add(languageChooser);
-//		if(isWindows()){
-//			System.out.println("This is Windows");
-//		}else if(isUnix()){
-//			addMouseListener(new ContextMenu());
-//			System.out.println("This is Unix or Linux");
-//		}else{
-//			System.out.println("Your OS is not support!!");
-//		}
-//		final Button comp = new Button("Adicionar no menu de contexto");
-//		jPanel.add(comp);
-//		add(jPanel,BorderLayout.PAGE_START);
 		add(languageChooser,BorderLayout.PAGE_START);
 		printIntroductionText();
 	}
 	
-	public static boolean isWindows(){
-		final String os = System.getProperty("os.name").toLowerCase();
-		//windows
-	    return (os.indexOf( "win" ) >= 0); 
- 
-	}
- 
-	public static boolean isUnix(){
-		final String os = System.getProperty("os.name").toLowerCase();
-		//linux or unix
-	    return (os.indexOf( "nix") >=0 || os.indexOf( "nux") >=0);
-	}
-
-
 	private void setLookAndfeel() {
 		try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -121,7 +93,9 @@ public class MainApplet extends JApplet implements OutputListener{
 	}
 
 	private DroppedFilesProcessor createDroppedFileProcessor() {
-		final SubtitleResourceResolver srtSource = new SubtitleResourceResolver(getDownloadUrl(), getUploadUrl());
+		final String downloadurl = SiteAdresses.getDownloadurl();
+		final String uploadurl = SiteAdresses.getUploadurl();
+		final SubtitleResourceResolver srtSource = new SubtitleResourceResolver(downloadurl, uploadurl);
 		final DroppedFilesProcessor dropFileListener = new DroppedFilesProcessor(srtSource, this, Locale.getDefault().toString());
 		return dropFileListener;
 	}
@@ -134,24 +108,6 @@ public class MainApplet extends JApplet implements OutputListener{
 		subtitleDropTextArea.addComponents(this);
 		output = subtitleDropTextArea;
 	}
-
-    public String getDownloadUrl() {
-        final String srtProviderURL = getParameter("download");
-		
-		if(srtProviderURL==null){
-			return "http://127.0.0.1:8081/download?id=%id&lang=%lang";
-		}
-        return srtProviderURL;
-    }
-    
-    public String getUploadUrl() {
-        final String srtProviderURL = getParameter("upload");
-		
-		if(srtProviderURL==null){
-			return "http://127.0.0.1:8081/upload";
-		}
-        return srtProviderURL;
-    }
 
 	@Override
 	public void info(final String info) {

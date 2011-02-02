@@ -1,13 +1,10 @@
 package libreSubs.libreSubsSite;
 
-import libreSubs.libreSubsSite.download.DownloadSubtitle;
-import libreSubs.libreSubsSite.upload.UploadPage;
 import libreSubs.libreSubsSite.wicketComponents.DeployJava;
 
 import org.apache.wicket.ResourceReference;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.image.Image;
-import org.subtitleDownloadLogic.utils.SubtitleResourceResolver;
 
 public class HomePage extends BasePage {
 
@@ -15,7 +12,6 @@ public class HomePage extends BasePage {
 		setStatelessHint(true);
 		addSubtitleFinderApplet();
 		add(new Image("appletReflex", new ResourceReference(BasePage.class, "appletReflex.png")));
-//		add(new Label("siteBaseURL", WicketApplication.getBasePath()));
 	}
 
 	private void addSubtitleFinderApplet() {
@@ -30,12 +26,6 @@ public class HomePage extends BasePage {
 		div.setCode("org.libreSubsApplet.MainApplet.class");
 		div.setCodebase(WicketApplication.getBasePath() + "applets");
 		div.setArchive("subFinder.jar");
-		final String idParam = SubtitleResourceResolver.idParameter;
-		final String langParam = SubtitleResourceResolver.langParameter;
-		div.addParameter("download", DownloadSubtitle
-				.getDownloadURLPath()
-				+ "?" + idParam + "=%id&" + langParam + "=%lang");
-		div.addParameter("upload", UploadPage.getUploadURLPath());
 		div.setMinimalVersion("1.6");
 		add(div);
 	}

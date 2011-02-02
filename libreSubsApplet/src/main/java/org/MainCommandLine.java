@@ -11,8 +11,8 @@ public class MainCommandLine {
 
 	public static void main(final String[] args) {
 		final OutputListener outputListener = new WindowOutputListener();
-		final String downloadUrl = "http://www.libresubs.com:8080/latestLibresubs/download?id=%id&lang=%lang";
-		final String uploadUrl = "http://www.libresubs.com:8080/latestLibresubs/upload";
+		final String downloadUrl = SiteAdresses.getDownloadurl();
+		final String uploadUrl = SiteAdresses.getUploadurl();
 		final SubtitleResourceResolver srtSource = new SubtitleResourceResolver(downloadUrl, uploadUrl);
 		final String defaulLocale = Locale.getDefault().toString();
 		final DroppedFilesProcessor dropFileListener = new DroppedFilesProcessor(srtSource, outputListener, defaulLocale);
