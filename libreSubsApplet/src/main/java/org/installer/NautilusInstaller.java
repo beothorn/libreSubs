@@ -1,31 +1,31 @@
 package org.installer;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
+
+import org.subtitleDownloadLogic.utils.IOUtils;
 
 public class NautilusInstaller implements Installer {
 
-	public static void main(final String[] args) throws IOException {
-		new NautilusInstaller().install();
+	private final static String USER_HOME = System.getProperty("user.home");
+	public final static File NAUTILUS_SCRIPT_DIR = new File(USER_HOME+"/.gnome2/nautilus-scripts");
+	public final static File NAUTILUS_SCRIPT = new File(NAUTILUS_SCRIPT_DIR,"Sincronizar legenda");
+	
+	public static boolean isInstalledOnNautilus() {
+		return NAUTILUS_SCRIPT.exists();
+	}
+
+	public static boolean isUsingNautilus() {
+		return NAUTILUS_SCRIPT_DIR.exists();
 	}
 	
 	@Override
 	public void install() throws IOException {
 		final InputStream resourceAsStream = NautilusInstaller.class.getResourceAsStream("/installer/Sincronizar legenda");
-		final File nautilusScript = InstallerFactory.NAUTILUS_SCRIPT;
-		nautilusScript.createNewFile();
-		nautilusScript.setExecutable(true);
-		final OutputStream out = new FileOutputStream(nautilusScript);
-		int read=0;
-		final byte[] bytes = new byte[1024];
-		while((read = resourceAsStream.read(bytes))!= -1){
-			out.write(bytes, 0, read);
-		}
-		resourceAsStream.close();
-		out.flush();
-		out.close();
+		final File nautilusScript = NautilusInstaller.NAUTILUS_SCRIPT;
+		IOUtils.inputStreamToFile(resourceAsStream, nautilusScript);
 	}
+
+	
 }

@@ -5,15 +5,18 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Locale;
 
 public class IOUtils {
 	
@@ -27,7 +30,7 @@ public class IOUtils {
         final char[] buffer = new char[1024];
         try {
             final Reader reader = new BufferedReader(
-                    new InputStreamReader(is, "UTF-8"));
+                    new InputStreamReader(is, LocaleUtil.getEncodingForLanguage(Locale.getDefault().toString())));
             int n;
             while ((n = reader.read(buffer)) != -1) {
                 writer.write(buffer, 0, n);
@@ -114,6 +117,21 @@ public class IOUtils {
 	
 	public static String getPartialSHA1SizeAsHumanReadable(){
 		return PARTIAL_SHA1_SIZE+"k";
+	}
+	
+	public static void inputStreamToFile(final InputStream inputStream,
+			final File outputFile) throws IOException, FileNotFoundException {
+		outputFile.createNewFile();
+		outputFile.setExecutable(true);
+		final OutputStream out = new FileOutputStream(outputFile);
+		int read=0;
+		final byte[] bytes = new byte[1024];
+		while((read = inputStream.read(bytes))!= -1){
+			out.write(bytes, 0, read);
+		}
+		inputStream.close();
+		out.flush();
+		out.close();
 	}
 	
 }
