@@ -11,7 +11,7 @@ import org.subtitleDownloadLogic.utils.Uploader;
 
 public class ActionForDroppedFilesResolver {
 
-	private static final int MAX_UP_SIZE_IN_BYTES = 200000;
+	public static final int MAX_UP_SIZE_IN_BYTES = 1000000;
 	private static final String SUBTITLE_EXTENSION = "srt";
 	private final static String[] VIDEO_EXTENSIONS = "mpeg,mpg,avi,mov,wmv,rm,rmvb,mp4,3gp,ogm,ogg,mkv,asf".split(",");
 	private final Downloader downloader;

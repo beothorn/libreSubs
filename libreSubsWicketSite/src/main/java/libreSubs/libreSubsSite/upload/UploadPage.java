@@ -17,13 +17,14 @@ import org.apache.wicket.protocol.http.servlet.MultipartServletWebRequest;
 import org.apache.wicket.request.target.resource.ResourceStreamRequestTarget;
 import org.apache.wicket.util.lang.Bytes;
 import org.apache.wicket.util.upload.FileItem;
+import org.subtitleDownloadLogic.ActionForDroppedFilesResolver;
 import org.subtitleDownloadLogic.utils.LocaleUtil;
 import org.wicketstuff.annotation.mount.MountPath;
 
 @MountPath(path = "upload")
 public class UploadPage extends WebPage {
 
-	private static final Bytes MAX_SUB_SIZE = Bytes.kilobytes(200);
+	private static final Bytes MAX_SUB_SIZE = Bytes.bytes(ActionForDroppedFilesResolver.MAX_UP_SIZE_IN_BYTES);
 	public static final String RESOURCE_NAME = "upload";
 
 	public UploadPage(final PageParameters pageParameters) {
