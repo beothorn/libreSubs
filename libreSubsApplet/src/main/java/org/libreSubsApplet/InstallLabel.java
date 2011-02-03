@@ -27,6 +27,10 @@ public class InstallLabel extends JLabel{
 				public void mouseClicked(final MouseEvent eve) {
 					try {
 						final Installer installer = InstallerFactory.getInstaller();
+						if(installer == null){
+							setText("Erro ao instalar - Instalador não encontrado");
+							return;
+						}
 						installer.install();
 						setText("Instalado com sucesso");
 					} catch (final IOException e) {

@@ -19,6 +19,9 @@ public class InstallerFactory {
 		if(NautilusInstaller.isUsingNautilus() ){
 			return new NautilusInstaller();
 		}
+		if(WindowsInstaller.isUsingWindows()){
+			return new WindowsInstaller();
+		}
 		return null;
 	}
 	
