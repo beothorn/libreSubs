@@ -17,6 +17,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 import org.OutputListener;
 import org.SiteAdresses;
+import org.installer.InstallerFactory;
 import org.libreSubsApplet.dropFile.DropFilesTarget;
 import org.subtitleDownloadLogic.DroppedFilesProcessor;
 import org.subtitleDownloadLogic.utils.LocaleUtil;
@@ -36,6 +37,9 @@ public class MainApplet extends JApplet implements OutputListener{
 		createDropFileTextArea(dropFileListener);
 		final JComboBox languageChooser = createLanguageChooser(dropFileListener);
 		add(languageChooser,BorderLayout.PAGE_START);
+		if(InstallerFactory.isInstallAvailable()){
+			add(new InstallLabel(),BorderLayout.PAGE_END);	
+		}
 		printIntroductionText();
 	}
 	

@@ -19,7 +19,7 @@ public class InstallerFactory {
 	
 	public static Installer getInstaller(){
 		if(NAUTILUS_SCRIPT_DIR.exists() ){
-			return null;
+			return new NautilusInstaller();
 		}
 		return null;
 	}
