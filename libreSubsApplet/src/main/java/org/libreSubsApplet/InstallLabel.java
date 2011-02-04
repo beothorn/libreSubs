@@ -28,7 +28,7 @@ public class InstallLabel extends JLabel{
 					try {
 						final Installer installer = InstallerFactory.getInstaller();
 						if(installer == null){
-							setText("Erro ao instalar - Instalador n„o encontrado");
+							setText("Erro ao instalar - Instalador n√£o encontrado");
 							return;
 						}
 						installer.install();

@@ -23,6 +23,7 @@ public class WindowsInstaller implements Installer{
 		libresubsDir.mkdir();
 		IOUtils.inputStreamToFile(libreSubsInputStream,libresubsfile);
 		Runtime.getRuntime().exec("REG ADD \"HKEY_CLASSES_ROOT\\*\\shell\\Sincronizar legenda\\Command\" /ve /d \"\\\"C:\\WINDOWS\\system32\\javaw.exe\\\" -jar \\\""+libresubsfile.getAbsolutePath()+"\\\" \\\"%1\\\"\"");
+		Runtime.getRuntime().exec("REG ADD \"HKEY_CLASSES_ROOT\\Folder\\shell\\Sincronizar legenda\\Command\" /ve /d \"\\\"C:\\WINDOWS\\system32\\javaw.exe\\\" -jar \\\""+libresubsfile.getAbsolutePath()+"\\\" \\\"%1\\\"\"");
 	}
 
 	public static boolean isUsingWindows() {
