@@ -32,10 +32,12 @@ public class ActionForDroppedFilesResolverTest implements OutputListener {
 	public void testActionForDroppedFilesOverwritePolicy() throws IOException {
 		final ArrayList<File> filesDropped = new ArrayList<File>();
 		final File tempFileAvi = File.createTempFile("DELNOW", ".avi");
+		tempFileAvi.deleteOnExit();
 		filesDropped.add(tempFileAvi);
 		final String tempFileWithoutExtension = IOUtils.removeExtension(tempFileAvi.getAbsolutePath());
 		final File subFile = new File(tempFileWithoutExtension+".srt");
 		Assert.assertTrue("Error creating temp file", subFile.createNewFile());
+		subFile.deleteOnExit();
 		
 		final MockDownloaderUploader mockDownloaderUploader = new MockDownloaderUploader();
 		final boolean onSeparateThread = false;
