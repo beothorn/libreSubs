@@ -17,17 +17,21 @@ public class SubtitleKey {
 			return false;
 		final SubtitleKey otherSubKey = (SubtitleKey) other;
 		
-		return otherSubKey.language.equals(language) && otherSubKey.videoID.equals(videoID);
+		return otherSubKey.getLanguage().equals(getLanguage()) && otherSubKey.videoID.equals(videoID);
 	}
 	
 	@Override
 	public int hashCode() {
-		return (videoID.toString()+language).hashCode();
+		return (videoID.toString()+getLanguage()).hashCode();
 	}
 	
 	@Override
 	public String toString() {
-		return "videoID: "+videoID +" language: "+ language.toString();
+		return "videoID: "+videoID +" language: "+ getLanguage().toString();
+	}
+
+	public String getLanguage() {
+		return language;
 	}
 
 }

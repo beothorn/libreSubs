@@ -4,25 +4,21 @@ import java.io.File;
 import java.io.IOException;
 
 import org.apache.commons.io.FileUtils;
+import org.subtitleDownloadLogic.utils.LocaleUtil;
 
 public class Subtitle {
 	
 	private String content;
 	private File srtFile;
-
-	public Subtitle(final File srtFile) throws IOException {
-		this.srtFile = srtFile;
-		this.content = FileUtils.readFileToString(srtFile);//TODO: here uses the default plataform encoding :( BUG
-	}
 	
 	public Subtitle(final String content, final File srtFile) throws IOException {
 		this.setStrFile(srtFile);
-		this.setContent(content);
+		this.content = content;
 	}
 
-	public void setContent(final String content) throws IOException {
+	public void setContent(final String content, final String language) throws IOException {
 		this.content = content;
-		writeContentToFile();
+		writeContentToFile(language);
 	}
 
 	public String getContent(){
@@ -37,7 +33,8 @@ public class Subtitle {
 		return srtFile;
 	}
 
-	private void writeContentToFile() throws IOException {
-		FileUtils.writeStringToFile(srtFile, content);
+	private void writeContentToFile(final String language) throws IOException {
+		final String encodingForLanguage = LocaleUtil.getEncodingForLanguage(language);
+		FileUtils.writeStringToFile(srtFile, content,encodingForLanguage);
 	}
 }

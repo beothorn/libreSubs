@@ -29,6 +29,7 @@ public class SubtitlesRepository implements RepositoryScannerListener{
 		} catch (final IOException e) {
 			throw new RuntimeException("Error loading reposiory",e);
 		}
+		//primeiro load chega aqui como utf8
 		gitRepoHandler = new GitRepoHandler(repoDir);
 	}
 
@@ -77,7 +78,8 @@ public class SubtitlesRepository implements RepositoryScannerListener{
 
 	public void changeContentsForSubtitle(final String commiter,final String email,final String message, final String newContent, final SubtitleKey subtitleKey) throws IOException {
 		final Subtitle subtitle = subtitles.get(subtitleKey);
-		subtitle.setContent(newContent);
+		final String language = subtitleKey.getLanguage();
+		subtitle.setContent(newContent,language);
 		commitAs(commiter,email,message);
 	}
 
