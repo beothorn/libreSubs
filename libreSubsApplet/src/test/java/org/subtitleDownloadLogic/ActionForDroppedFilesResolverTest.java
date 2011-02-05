@@ -16,7 +16,6 @@ public class ActionForDroppedFilesResolverTest implements OutputListener {
 	public void testActionForDroppedFilesResolver() {
 		final ArrayList<File> filesDropped = new ArrayList<File>();
 		filesDropped.add(new File("/foo/bar.avi"));
-		filesDropped.add(new File("/foo/bar.srt"));
 		
 		final MockDownloaderUploader mockDownloaderUploader = new MockDownloaderUploader();
 		final boolean onSeparateThread = false;
@@ -24,8 +23,8 @@ public class ActionForDroppedFilesResolverTest implements OutputListener {
 		
 		final String downloadList = mockDownloaderUploader.getDownloadList();
 		final String uploadList = mockDownloaderUploader.getUploadList();
-		Assert.assertEquals("[]", downloadList);
-		Assert.assertEquals("[/foo/bar.srt]", uploadList);
+		Assert.assertEquals("[/foo/bar.avi]", downloadList);
+		Assert.assertEquals("[]", uploadList);
 	}
 	
 	@Test
@@ -45,8 +44,8 @@ public class ActionForDroppedFilesResolverTest implements OutputListener {
 		
 		final String downloadList = mockDownloaderUploader.getDownloadList();
 		final String uploadList = mockDownloaderUploader.getUploadList();
-		Assert.assertEquals("["+tempFileAvi.toString()+"]", downloadList);
-		Assert.assertEquals("[]", uploadList);
+		Assert.assertEquals("[]", downloadList);
+		Assert.assertEquals("["+subFile.toString()+"]", uploadList);
 	}
 
 	@Override

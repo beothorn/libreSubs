@@ -21,17 +21,16 @@ public class ActionForDroppedFilesResolver {
 		this.downloader = downloader;
 		this.uploader = uploader;
 		final List<File> videoFiles = new ArrayList<File>();
-		final List<File> subtitlesFiles = new ArrayList<File>();
 		
 		final Runnable processFile = new Runnable() {
 			@Override
 			public void run() {
 				outputListener.info("Processando "+droppedList);
 				for (final File fileOrDir : droppedList) {
-					sortFiles(outputListener, videoFiles, subtitlesFiles, fileOrDir);
+					sortFiles(outputListener, videoFiles, fileOrDir);
 				}
 				for (final File videoFile : videoFiles) {
-					downloadAndUploadSubtitles(outputListener, subtitlesFiles, videoFile);
+					downloadAndUploadSubtitles(outputListener, videoFile);
 				}
 				outputListener.info("Terminado");
 			};
@@ -49,9 +48,9 @@ public class ActionForDroppedFilesResolver {
 		this(droppedList,downloader,uploader,outputListener,true);
 	}
 
-	private void downloadAndUploadSubtitles(final OutputListener outputListener, final List<File> subtitlesFiles,
+	private void downloadAndUploadSubtitles(final OutputListener outputListener, 
 			final File videoFile) {
-		final File sub = getSubtitleForVideoOnSubtitleListOrNull(videoFile, subtitlesFiles);
+		final File sub = getSubtitleForVideoOnSubtitleListOrNull(videoFile);
 		if(sub == null){
 			downloader.download(outputListener, videoFile);
 		}else{
@@ -63,37 +62,30 @@ public class ActionForDroppedFilesResolver {
 	}
 
 	private void sortFiles(final OutputListener outputListener,
-			final List<File> videoFiles, final List<File> subtitlesFiles,
+			final List<File> videoFiles,
 			final File fileOrDir) {
 		if(fileOrDir.isDirectory()){
 			final File[] filesInDir = fileOrDir.listFiles();
 			for (final File file : filesInDir) {
-				sortFiles(outputListener,videoFiles,subtitlesFiles,file);
+				sortFiles(outputListener,videoFiles,file);
 			}
 			return;
 		}
 		final File file = fileOrDir;
 		final String extension = IOUtils.getExtension(file.getName()).toLowerCase();
-		if(extension.equals(SUBTITLE_EXTENSION)){
-			subtitlesFiles.add(file);
-		}else {
-			for (final String allowedVideoExtension : VIDEO_EXTENSIONS) {
-				if(extension.equals(allowedVideoExtension)){					
-					videoFiles.add(file);
-				}
+		for (final String allowedVideoExtension : VIDEO_EXTENSIONS) {
+			if(extension.equals(allowedVideoExtension)){					
+				videoFiles.add(file);
 			}
 		}
 	}
 
-	private File getSubtitleForVideoOnSubtitleListOrNull(final File videoFile,
-			final List<File> subtitlesFiles) {
-		final String videoName = IOUtils.getBaseName(videoFile.getAbsolutePath()).toLowerCase();
-		for (final File sub : subtitlesFiles) {
-			final String subName = IOUtils.getBaseName(sub.getAbsolutePath()).toLowerCase();
-			if(videoName.equals(subName)){
-				return sub;
-			}
+	private File getSubtitleForVideoOnSubtitleListOrNull(final File videoFile) {
+		final String videoFileWithoutExtension = IOUtils.removeExtension(videoFile.getAbsolutePath());
+		final File subFile = new File(videoFileWithoutExtension+"."+SUBTITLE_EXTENSION);
+		if(!subFile.exists()){
+			return null;
 		}
-		return null;
+		return subFile;
 	}
 }

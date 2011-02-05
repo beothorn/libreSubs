@@ -26,9 +26,6 @@ public class DownloaderImpl implements Downloader {
 		return new DownloadedContent(content, contentType);
 	}
 	
-	/* (non-Javadoc)
-	 * @see org.subtitleDownloadLogic.utils.Downloader#download(org.OutputListener, java.io.File)
-	 */
 	@Override
 	public void download(final OutputListener outputListener, final File video) {
 		final String shaHex;
