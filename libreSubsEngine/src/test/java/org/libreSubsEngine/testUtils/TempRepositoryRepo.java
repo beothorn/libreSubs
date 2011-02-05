@@ -18,7 +18,6 @@ public class TempRepositoryRepo implements SubtitleRepositoryLocation {
 	public TempRepositoryRepo() throws IOException {
 		tempDir = new File(getTmpDir(), "testLibreSubsRepo");
 		createTempRepository();
-		loadSubtitleBase();
 	}
 	
 	public File getFileOnTemp(final String fileRelativePath){
@@ -44,7 +43,7 @@ public class TempRepositoryRepo implements SubtitleRepositoryLocation {
 		FileUtils.copyDirectory(testRepo, tempDir);
 	}
 
-	private void loadSubtitleBase() throws IOException {
+	public void loadSubtitleBase() throws IOException {
 		subtitlesBase = new SubtitlesRepository(this);
 	}
 

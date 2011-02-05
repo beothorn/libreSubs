@@ -20,6 +20,7 @@ public class AddSubFromFileTest {
 		final String expectedContent = "fooáéí";
 		FileUtils.writeStringToFile(srtFile, expectedContent,"cp1252");
 		final TempRepositoryRepo tempRepo = new TempRepositoryRepo();
+		tempRepo.loadSubtitleBase();
 		final SubtitlesRepository subRepo = tempRepo.getSubRepo();
 		final SubtitlesRepositoryHandler subtitlesRepositoryHandler = new SubtitlesRepositoryHandler(subRepo);
 		final String id = "42";

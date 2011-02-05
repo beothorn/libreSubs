@@ -41,7 +41,7 @@ public class SubtitleResourceHandlerTest {
 		final String lang = "pt_BR";
 		final String id = "12345";
 		final String subtitle = subtitleRepositoryHandler.getSubtitleOrNull(id,lang);
-		Assert.assertEquals("pioneer srt content", subtitle);
+		Assert.assertEquals("pioneer srt content áéíóúàèìòùãç", subtitle);
 	}
 	
 	@Test

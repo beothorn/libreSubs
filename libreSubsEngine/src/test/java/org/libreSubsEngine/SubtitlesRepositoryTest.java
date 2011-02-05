@@ -20,6 +20,7 @@ public class SubtitlesRepositoryTest {
 	@Before
 	public void setup() throws IOException{
 		tempRepo = new TempRepositoryRepo();
+		tempRepo.loadSubtitleBase();
 		repo = tempRepo.getSubRepo();
 	}
 	
@@ -31,7 +32,19 @@ public class SubtitlesRepositoryTest {
 	}
 	
 	@Test
-	public void changeSubtitleContentInternally() throws IOException{
+	public void loadRepositoryMultipleTimesBugTest() throws IOException{
+		final File fileOnTemp = tempRepo.getFileOnTemp(PioneerFileInfo.path);
+		final long length = fileOnTemp.length();
+		
+		for(int i=0; i<5;i++){			
+			tempRepo.loadSubtitleBase();
+		}
+		final long lengthSecondMeasurement = fileOnTemp.length();
+		Assert.assertEquals(length, lengthSecondMeasurement);
+	}
+	
+	@Test
+	public void changeSubtitleContent() throws IOException{
 		final String newContent = "New Content";
 		repo.changeContentsForSubtitle(newContent,PioneerFileInfo.language,PioneerFileInfo.videoID);
 		final File fileOnTemp = tempRepo.getFileOnTemp(PioneerFileInfo.path);
