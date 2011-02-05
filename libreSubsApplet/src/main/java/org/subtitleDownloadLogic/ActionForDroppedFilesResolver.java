@@ -17,12 +17,13 @@ public class ActionForDroppedFilesResolver {
 	private final Downloader downloader;
 	private final Uploader uploader;
 	
-	public ActionForDroppedFilesResolver(final List<File> droppedList,final Downloader downloader, final Uploader uploader,final OutputListener outputListener) {
+	public ActionForDroppedFilesResolver(final List<File> droppedList,final Downloader downloader, final Uploader uploader,final OutputListener outputListener, final boolean onSeparateThread) {
 		this.downloader = downloader;
 		this.uploader = uploader;
 		final List<File> videoFiles = new ArrayList<File>();
 		final List<File> subtitlesFiles = new ArrayList<File>();
-		new Thread(){
+		
+		final Runnable processFile = new Runnable() {
 			@Override
 			public void run() {
 				outputListener.info("Processando "+droppedList);
@@ -34,7 +35,18 @@ public class ActionForDroppedFilesResolver {
 				}
 				outputListener.info("Terminado");
 			};
-		}.start();
+		};
+		
+		if(onSeparateThread){
+			final Thread processFileThread = new Thread(processFile);
+			processFileThread.start();
+		}else{
+			processFile.run();
+		}
+	}
+	
+	public ActionForDroppedFilesResolver(final List<File> droppedList,final Downloader downloader, final Uploader uploader,final OutputListener outputListener) {
+		this(droppedList,downloader,uploader,outputListener,true);
 	}
 
 	private void downloadAndUploadSubtitles(final OutputListener outputListener, final List<File> subtitlesFiles,
