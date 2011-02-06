@@ -29,7 +29,6 @@ public class SubtitlesRepository implements RepositoryScannerListener{
 		} catch (final IOException e) {
 			throw new RuntimeException("Error loading reposiory",e);
 		}
-		//primeiro load chega aqui como utf8
 		gitRepoHandler = new GitRepoHandler(repoDir);
 	}
 

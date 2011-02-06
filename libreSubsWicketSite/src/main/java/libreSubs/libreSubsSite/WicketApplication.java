@@ -10,8 +10,8 @@ import org.apache.wicket.protocol.http.RequestUtils;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.settings.IResourceSettings;
 import org.apache.wicket.util.resource.locator.ResourceStreamLocator;
-import org.libreSubsEngine.subtitleRepository.SubtitleDefaultRepository;
 import org.libreSubsEngine.subtitleRepository.SubtitleRepositoryLocation;
+import org.libreSubsEngine.subtitleRepository.SubtitleRepositoryLocationFactory;
 import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepository;
 import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepositoryHandler;
 import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
@@ -72,12 +72,9 @@ public class WicketApplication extends WebApplication
 	}
 
 	private void setupSubtitleRepository() {
-		final SubtitleRepositoryLocation subtitleDefaultRepository = new SubtitleDefaultRepository();
-		final SubtitlesRepository subtitlesRepository = new SubtitlesRepository(
-				subtitleDefaultRepository);
-
-		WicketApplication.subtitles = new SubtitlesRepositoryHandler(
-				subtitlesRepository);
+		final SubtitleRepositoryLocation subtitleDefaultRepository = SubtitleRepositoryLocationFactory.getRepository();
+		final SubtitlesRepository subtitlesRepository = new SubtitlesRepository(subtitleDefaultRepository);
+		WicketApplication.subtitles = new SubtitlesRepositoryHandler(subtitlesRepository);
 	}
 
 	private void addAppletsFolderToPublicResources() {

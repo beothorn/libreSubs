@@ -3,12 +3,15 @@ package libreSubs.libreSubsSite;
 import java.io.File;
 import java.io.IOException;
 
+import libreSubs.libreSubsSite.mock.MockRepository;
+
 import org.OutputListener;
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.libreSubsEngine.subtitleRepository.SubtitleRepositoryLocationFactory;
 import org.subtitleDownloadLogic.VideoWithSubtitle;
 import org.subtitleDownloadLogic.utils.DownloaderImpl;
 import org.subtitleDownloadLogic.utils.IOUtils;
@@ -18,9 +21,12 @@ import org.subtitleDownloadLogic.utils.UploaderImpl;
 public class FunctionalTest implements OutputListener {
 
 	private StartUsingJetty startUsingJetty;
+	private MockRepository subtitleRepositoryLocation;
 
 	@Before
 	public void setup(){
+		subtitleRepositoryLocation = new MockRepository();
+		SubtitleRepositoryLocationFactory.setSubtitleRepositoryLocation(subtitleRepositoryLocation);
 		startUsingJetty = new StartUsingJetty();
 		startUsingJetty.start();		
 	}
@@ -34,7 +40,6 @@ public class FunctionalTest implements OutputListener {
 	@Test
 	public void happyDayAppletUploadDownloadTest() throws IOException{
 		final String originalSubContent = "foo áéíàçã";
-		
 		final String uploadUrl = "http://localhost:8081/upload";
 		final UploaderImpl uploaderImpl = new UploaderImpl(uploadUrl, "pt_BR");
 		final File subtitle = createSubtitleFileOnTmpToUpload(originalSubContent);
