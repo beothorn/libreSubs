@@ -70,8 +70,9 @@ public class DownloadSubtitle extends DynamicWebResource {
 
 			@Override
 			public byte[] getData() {
-				final Charset utf8 = Charset.forName("UTF-8");
-				return subtitle.getBytes(utf8);
+				final String encodingForLanguage = LocaleUtil.getEncodingForLanguage(language);
+				final Charset charset = Charset.forName(encodingForLanguage);
+				return subtitle.getBytes(charset);
 			}
 
 			@Override
