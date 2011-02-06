@@ -20,9 +20,7 @@
 	<modules>
 		<module>libreSubsWicketSite</module>
 		<module>libreSubsEngine</module>
-		<module>libreSubsCLI</module>
 		<module>libreSubsApplet</module>
-		<module>libreSubsCommons</module>
 	</modules>
 
 	<build>
