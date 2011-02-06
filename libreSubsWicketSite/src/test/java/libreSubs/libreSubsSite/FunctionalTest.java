@@ -35,6 +35,7 @@ public class FunctionalTest implements OutputListener {
 	public void tearDown(){
 		startUsingJetty.stop();
 		startUsingJetty = null;
+		subtitleRepositoryLocation.deleteRepo();
 	}
 	
 	@Test
@@ -46,6 +47,11 @@ public class FunctionalTest implements OutputListener {
 		final File video = createFakeVideoOnTmp();
 		final VideoWithSubtitle videoWithSubtitle = new VideoWithSubtitle(video, subtitle);
 		uploaderImpl.upload(this, videoWithSubtitle);
+		
+		final File subOnRepo = new File(subtitleRepositoryLocation.getBaseDir(),"/81/818922070ebed95cd9f4151eeeae1baf12236470.pt_BR");
+		final String subOnRepoContents = FileUtils.readFileToString(subOnRepo,"cp1252");
+		Assert.assertEquals(originalSubContent, subOnRepoContents);
+		
 		final String downloadUrl = "http://localhost:8081/download?id=%id&lang=%lang";
 		final SubtitleResourceResolver subtitleSource = new SubtitleResourceResolver(downloadUrl, uploadUrl);
 		final DownloaderImpl downloaderImpl = new DownloaderImpl(subtitleSource, "pt_BR");

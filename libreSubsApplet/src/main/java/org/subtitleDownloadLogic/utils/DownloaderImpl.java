@@ -2,6 +2,7 @@ package org.subtitleDownloadLogic.utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
@@ -22,7 +23,8 @@ public class DownloaderImpl implements Downloader {
 		final URL url = new URL(address);
 		final URLConnection conn = url.openConnection();
 		final String contentType = conn.getContentType();
-		final String content = IOUtils.convertStreamToString(conn.getInputStream());
+		final InputStream connectionInputStream = conn.getInputStream();
+		final String content = IOUtils.convertStreamToString(connectionInputStream);
 		return new DownloadedContent(content, contentType);
 	}
 	

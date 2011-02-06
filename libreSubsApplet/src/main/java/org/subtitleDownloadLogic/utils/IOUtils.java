@@ -25,15 +25,16 @@ public class IOUtils {
 
     public static String convertStreamToString(final InputStream is)
             throws IOException {
+    	final String encodingForLanguage = LocaleUtil.getEncodingForLanguage(Locale.getDefault().toString());
         final Writer writer = new StringWriter();
-
         final char[] buffer = new char[1024];
         try {
-            final Reader reader = new BufferedReader(
-                    new InputStreamReader(is, LocaleUtil.getEncodingForLanguage(Locale.getDefault().toString())));
-            int n;
-            while ((n = reader.read(buffer)) != -1) {
+			final InputStreamReader in = new InputStreamReader(is, encodingForLanguage);
+			final Reader reader = new BufferedReader(in);
+            int n = reader.read(buffer);
+            while (n != -1){
                 writer.write(buffer, 0, n);
+                n = reader.read(buffer);
             }
         } finally {
             is.close();
