@@ -63,7 +63,7 @@ public class MainApplet extends JApplet implements OutputListener{
 		output.info("Para pegar a legenda arraste o arquivo de vídeo aqui.");
 		output.info("A legenda vai ser salva junto do arquivo de vídeo.");
 		output.info("Para fazer upload de uma legenda que ainda não existe,");
-		output.info("arraste o arquivo de vídeo e o arquivo srt aqui.");
+		output.info("arraste o arquivo de vídeo que tenha um arquivo srt aqui.");
 		output.info("O arquivo .srt deve ter o mesmo nome do arquivo de vídeo.");
 		output.info("Se você arrastar um diretório ele será escaneado, fazendo upload das legendas que tiverem um arquivo");
 		output.info("com o mesmo nome e download para os arquivos que não tiverem legenda .");

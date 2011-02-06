@@ -42,7 +42,7 @@ public class UploaderImpl implements Uploader {
 			final String postSubtitleAnswer = postSubtitle(shaHex,getSubtitleLanguage(),videoWithSubtitle.getSubtitle());
 			outputListener.info("Legenda de " + video.getName() + " Id: "+shaHex+" "+postSubtitleAnswer);
 		} catch (final IOException e) {
-			outputListener.error(e.getMessage());
+			outputListener.error(e.toString());
 		}
 	}
 
