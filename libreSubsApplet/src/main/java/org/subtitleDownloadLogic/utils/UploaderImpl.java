@@ -22,7 +22,7 @@ public class UploaderImpl implements Uploader {
 		clientHttpRequest.setParameter(SubtitleResourceResolver.langParameter, lang);
 		clientHttpRequest.setParameter(SubtitleResourceResolver.fileParameter, subtitle);
 		clientHttpRequest.setParameter(SubtitleResourceResolver.commandLineParameter, "true");
-		return IOUtils.convertStreamToString(clientHttpRequest.post());
+		return IOUtils.convertStreamToString(clientHttpRequest.post(),subtitleLanguage);
 	}
 	
 	/* (non-Javadoc)

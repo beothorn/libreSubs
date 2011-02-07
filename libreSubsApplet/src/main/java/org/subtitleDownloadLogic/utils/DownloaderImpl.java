@@ -24,7 +24,7 @@ public class DownloaderImpl implements Downloader {
 		final URLConnection conn = url.openConnection();
 		final String contentType = conn.getContentType();
 		final InputStream connectionInputStream = conn.getInputStream();
-		final String content = IOUtils.convertStreamToString(connectionInputStream);
+		final String content = IOUtils.convertStreamToString(connectionInputStream,subtitleLanguage);
 		return new DownloadedContent(content, contentType);
 	}
 	
@@ -62,8 +62,8 @@ public class DownloaderImpl implements Downloader {
 
 		final File srtFile = new File(parent, newStrFileName);
 		try {
-			IOUtils.writeStringToFile(srtFile,
-					downloadedContent.getContent());
+			final String downloadedContentString = downloadedContent.getContent(); 
+			IOUtils.writeStringToFile(srtFile,downloadedContentString);
 			outputListener.info("Legenda de "+fileName+" salva com sucesso");
 		} catch (final IOException e) {
 			srtFile.delete();

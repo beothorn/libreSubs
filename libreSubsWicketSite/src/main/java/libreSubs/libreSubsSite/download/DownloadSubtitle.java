@@ -1,7 +1,5 @@
 package libreSubs.libreSubsSite.download;
 
-import java.nio.charset.Charset;
-
 import libreSubs.libreSubsSite.CommonsParameters;
 import libreSubs.libreSubsSite.TextPage;
 import libreSubs.libreSubsSite.WicketApplication;
@@ -66,20 +64,10 @@ public class DownloadSubtitle extends DynamicWebResource {
 				TextPage.redirectToPageWithText(error);
 		}
 
-		return new ResourceState() {
-
-			@Override
-			public byte[] getData() {
-				final String encodingForLanguage = LocaleUtil.getEncodingForLanguage(language);
-				final Charset charset = Charset.forName(encodingForLanguage);
-				return subtitle.getBytes(charset);
-			}
-
-			@Override
-			public String getContentType() {
-				return "text/srt";
-			}
-		};
+		
+		final SubtitleResourceState subtitleResourceState = new SubtitleResourceState(subtitle, language, response);
+		
+		return subtitleResourceState;
 	}
 
 	private void setHeaderForSubtitle(final WebResponse response) {

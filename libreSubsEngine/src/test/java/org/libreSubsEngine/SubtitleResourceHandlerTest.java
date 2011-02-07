@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepository;
 import org.libreSubsEngine.subtitleRepository.repository.SubtitlesRepositoryHandler;
+import org.libreSubsEngine.testUtils.PioneerFileInfo;
 import org.libreSubsEngine.testUtils.TempRepositoryRepo;
 
 public class SubtitleResourceHandlerTest {
@@ -41,7 +42,7 @@ public class SubtitleResourceHandlerTest {
 		final String lang = "pt_BR";
 		final String id = "12345";
 		final String subtitle = subtitleRepositoryHandler.getSubtitleOrNull(id,lang);
-		Assert.assertEquals("pioneer srt content áéíóúàèìòùãç", subtitle);
+		Assert.assertEquals(PioneerFileInfo.content, subtitle);
 	}
 	
 	@Test

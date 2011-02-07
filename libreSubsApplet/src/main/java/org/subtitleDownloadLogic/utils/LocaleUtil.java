@@ -34,6 +34,6 @@ public class LocaleUtil {
 		if(language.toLowerCase().equals("pt_br")){
 			return "cp1252";
 		}
-		return "UTF8";
+		return "utf-8";
 	}
 }

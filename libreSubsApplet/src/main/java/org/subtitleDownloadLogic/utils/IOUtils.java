@@ -1,7 +1,7 @@
 package org.subtitleDownloadLogic.utils;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -9,37 +9,47 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.io.Reader;
-import java.io.StringWriter;
-import java.io.Writer;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.Locale;
 
 public class IOUtils {
 	
 	private static final int SHA1_KEY_LENGTH = 40;
 	private static int PARTIAL_SHA1_SIZE = 100;
 
-    public static String convertStreamToString(final InputStream is)
-            throws IOException {
-    	final String encodingForLanguage = LocaleUtil.getEncodingForLanguage(Locale.getDefault().toString());
-        final Writer writer = new StringWriter();
-        final char[] buffer = new char[1024];
-        try {
-			final InputStreamReader in = new InputStreamReader(is, encodingForLanguage);
-			final Reader reader = new BufferedReader(in);
-            int n = reader.read(buffer);
-            while (n != -1){
-                writer.write(buffer, 0, n);
-                n = reader.read(buffer);
-            }
-        } finally {
-            is.close();
+//    public static String convertStreamToString(final InputStream is, final String language)
+//            throws IOException {
+//    	final String encodingForLanguage = LocaleUtil.getEncodingForLanguage(language);
+//        final char[] buffer = new char[1024];
+//        final StringBuilder out = new StringBuilder();
+//        try {
+//	        final Reader reader = new InputStreamReader(is, encodingForLanguage);
+//	        int read;
+//	        do {
+//	        	read = reader.read(buffer, 0, buffer.length);
+//	        	if (read>0) {
+//	        		out.append(buffer, 0, read);
+//	        	}
+//	        } while (read>=0);
+//        } finally {
+//            is.close();
+//        }
+//        final String resultingString = out.toString();
+//		return resultingString;
+//    }
+    
+    public static String convertStreamToString(final InputStream is, final String language) throws IOException{
+    	final String encodingForLanguage = LocaleUtil.getEncodingForLanguage(language);
+        final ByteArrayOutputStream bout = new ByteArrayOutputStream();
+        final byte[] buffer = new byte[1024];
+        int bufferUsed;
+        while ( (bufferUsed = is.read(buffer)) > 0 ) {
+            bout.write(buffer, 0, bufferUsed);
         }
-        return writer.toString();
+        final byte[] byteArray = bout.toByteArray();
+		final String string = new String(byteArray, encodingForLanguage);
+		return string;
     }
 
 	public static void writeStringToFile(final File srtFile, final String content) throws IOException{
