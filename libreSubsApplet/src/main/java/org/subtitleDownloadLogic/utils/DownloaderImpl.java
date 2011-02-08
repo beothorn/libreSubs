@@ -42,7 +42,7 @@ public class DownloaderImpl implements Downloader {
 		final String fileName = video.getName();
 		final File parent = video.getParentFile();
 		final String newStrFileName = IOUtils.removeExtension(fileName)+ ".srt";
-		final String subtitleUrl = subtitleSource.resolve(shaHex, getSubtitleLanguage(), newStrFileName);
+		final String subtitleUrl = subtitleSource.resolve(shaHex, subtitleLanguage, newStrFileName);
 
 		final DownloadedContent downloadedContent;
 
@@ -63,7 +63,8 @@ public class DownloaderImpl implements Downloader {
 		final File srtFile = new File(parent, newStrFileName);
 		try {
 			final String downloadedContentString = downloadedContent.getContent(); 
-			IOUtils.writeStringToFile(srtFile,downloadedContentString);
+			final String encodingForLanguage = LocaleUtil.getEncodingForLanguage(subtitleLanguage);
+			IOUtils.writeStringToFile(srtFile,downloadedContentString, encodingForLanguage);
 			outputListener.info("Legenda de "+fileName+" salva com sucesso");
 		} catch (final IOException e) {
 			srtFile.delete();

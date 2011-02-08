@@ -1,15 +1,14 @@
 package org.subtitleDownloadLogic.utils;
 
-import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -52,10 +51,11 @@ public class IOUtils {
 		return string;
     }
 
-	public static void writeStringToFile(final File srtFile, final String content) throws IOException{
-		final BufferedWriter out = new BufferedWriter(new FileWriter(srtFile));
-		out.write(content);
-		out.close();
+	public static void writeStringToFile(final File srtFile, final String content, final String charset) throws IOException{
+		final FileOutputStream fileOutputStream = new FileOutputStream(srtFile);
+		final OutputStreamWriter outputStreamWriter = new OutputStreamWriter(fileOutputStream, charset);
+		outputStreamWriter.write(content);
+		outputStreamWriter.close();
 	}
 
 	public static String removeExtension(final String fileName) {

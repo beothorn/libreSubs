@@ -42,7 +42,7 @@ public class SubtitleResourceHandlerTest {
 		final String lang = "pt_BR";
 		final String id = "12345";
 		final String subtitle = subtitleRepositoryHandler.getSubtitleOrNull(id,lang);
-		Assert.assertEquals(PioneerFileInfo.content, subtitle);
+		Assert.assertEquals(PioneerFileInfo.getContent(), subtitle);
 	}
 	
 	@Test
