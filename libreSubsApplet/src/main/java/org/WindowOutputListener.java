@@ -37,7 +37,7 @@ public class WindowOutputListener implements OutputListener {
 		output = new SubtitleDropComponent();
 		output.addComponents(frame);
 	}
-
+	
 	@Override
 	public void info(final String info) {
 		output.info(info);
