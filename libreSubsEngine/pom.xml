@@ -71,7 +71,7 @@
 		</dependency>
 		<dependency>
 			<groupId>libreSubs</groupId>
-			<artifactId>libreSubsCommons</artifactId>
+			<artifactId>libreSubsApplet</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 	</dependencies>

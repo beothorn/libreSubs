@@ -17,12 +17,13 @@
   })();
 
 </script>
+<link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 <body>
 <div id="pagewidth">
 	<div id="wrapper" class="clearfix">
 		<div id="headerArea">
-			<a id="logoLink" href=".">
+			<a id="logoLink" href="http://www.libresubs.com">
 				<img wicket:id="headerIcon" id="headerIcon" src="headerIcon.png" alt="Libresubs"/>
 			</a>
 			<div id="menu">
@@ -37,10 +38,15 @@
 		</div>
 		<div id="headerBottomLine"></div>
 		<div id="logoArea">
-			<img wicket:id="libreSubsTitle" id="libreSubsTitle" src="libreSubsTitle.png" alt="Libresubs"/>
-			<img wicket:id="libreSubsLogo" id="libreSubsLogo" src="libreSubsLogo.png" alt="Libresubs"/>
+			<a id="logoLink" href="http://www.libresubs.com">
+				<img wicket:id="libreSubsTitle" id="libreSubsTitle" src="libreSubsTitle.png" alt="Libresubs"/>
+			</a>
+			<a id="logoLink" href="http://www.libresubs.com">
+				<img wicket:id="libreSubsLogo" id="libreSubsLogo" src="libreSubsLogo.png" alt="Libresubs"/>
+			</a>
 		</div>
-		<div id="logoBottomLine"></div>
+		<div id="logoBottomLine">
+		</div>
 		<div id="dynamicContent">
 			<wicket:child/>
 			<br/>

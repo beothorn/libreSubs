@@ -47,7 +47,7 @@ public class SubtitleResourceHandlerTest {
 	
 	@Test
 	public void testListSubtitles(){
-		Assert.assertEquals("videoID: 12345 language: pt_BR".trim(), subtitleRepositoryHandler.listSubtitles().trim());
+		Assert.assertEquals("videoID: 12345 language: pt_BR tamanho: 32bytes".trim(), subtitleRepositoryHandler.listSubtitles().trim());
 	}
 	
 	@Test

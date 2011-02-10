@@ -11,7 +11,7 @@ import org.subtitleDownloadLogic.utils.IOUtils;
 
 public class WindowsInstaller implements Installer{
 
-	private static final String PROGRAM_FILES_DIR = System.getenv("programfiles");
+	private static final String PROGRAM_FILES_DIR = System.getenv("programfiles");//System.getenv("appdata");
 	private static final  File libresubsDir = new File(PROGRAM_FILES_DIR+"\\Libresubs");
 	private static final  File libresubsfile = new File(libresubsDir,"subFinder.jar");
 	private static final  File uninstallfile = new File(libresubsDir,"uninstall.bat");
@@ -32,7 +32,7 @@ public class WindowsInstaller implements Installer{
 
 	public static boolean isUsingWindows() {
 		final String os = System.getProperty("os.name").toLowerCase();
-		return os.indexOf( "win" ) >= 0;
+		return os.contains("win") && os.contains("xp");
 	}
 	
 	public static boolean isInstalledOnWindows() {

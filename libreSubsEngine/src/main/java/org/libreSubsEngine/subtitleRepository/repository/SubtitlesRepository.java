@@ -86,7 +86,16 @@ public class SubtitlesRepository implements RepositoryScannerListener{
 		final StringBuilder subtitlesList = new StringBuilder();
 		final Set<SubtitleKey> keySet = subtitles.keySet();
 		for (final SubtitleKey subtitleKey : keySet) {
-			subtitlesList.append(subtitleKey.toString()+"\n");
+			final Subtitle subtitle = subtitles.get(subtitleKey);
+			final File strFileOrNull = subtitle.getStrFileOrNull();
+			final String subKeyString = subtitleKey.toString();
+			if(strFileOrNull == null){
+				subtitlesList.append(subKeyString+" sem arquivo ?????????\n");
+			}else{
+				final long subLength = strFileOrNull.length();
+				final String formattedSubDescription = String.format("%s tamanho: %10d bytes\n", subKeyString, subLength);
+				subtitlesList.append(formattedSubDescription);
+			}
 		}
 		return subtitlesList.toString();
 	}
@@ -173,6 +182,15 @@ public class SubtitlesRepository implements RepositoryScannerListener{
 		final SubtitleKey subtitleKey = new SubtitleKey(language, videoSHA1);
 		final Subtitle subtitle = new Subtitle(srtFileContent, srtFile);
 		subtitles.put(subtitleKey, subtitle);
+	}
+
+	public int subtitlesQuantity() {
+		return subtitles.size();
+	}
+
+	public long subtitlesRepoSize() {
+		final File baseDir = repositoryLocation.getBaseDir();
+		return FileUtils.sizeOfDirectory(baseDir);
 	}
 
 }

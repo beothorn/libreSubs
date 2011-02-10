@@ -34,7 +34,7 @@ public class InstallLabel extends JLabel{
 						installer.install();
 						setText("Instalado com sucesso");
 					} catch (final IOException e) {
-						setText("Erro ao instalar");
+						setText("Erro ao instalar:"+e.getMessage());
 					}
 				}
 			}

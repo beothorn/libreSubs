@@ -7,6 +7,8 @@ import org.subtitleDownloadLogic.utils.LocaleUtil;
 
 public class SubtitlesRepositoryHandler {
 
+	//TODO: get rid of this class
+	
 	private final SubtitlesRepository subtitlesBase;
 
 	public SubtitlesRepositoryHandler(final SubtitlesRepository subtitlesBase) {
@@ -52,6 +54,14 @@ public class SubtitlesRepositoryHandler {
 
 	public String getLastNCommits(final int i) {
 		return subtitlesBase.getLastNCommits(i);
+	}
+
+	public int subtitlesQuantity() {
+		return subtitlesBase.subtitlesQuantity();
+	}
+
+	public long subtitlesRepoSize() {
+		return subtitlesBase.subtitlesRepoSize();
 	}
 
 }

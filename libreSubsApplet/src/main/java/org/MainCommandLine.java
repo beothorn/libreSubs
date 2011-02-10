@@ -29,37 +29,51 @@ public class MainCommandLine {
 	
 	private OutputListener outputListener;
 	
-	//TODO: refactor all this mess
+	//TODO: refactor all this mess :(
 	
 	public MainCommandLine(final String[] args) {
-		if(args.length != 1){
-			System.out.println("You should give one file or directory path as an argument.");
+		if(args.length > 1){
+			processAllFilesAndDirs(args);
 			return;
 		}
+		startListeningOnSocketOrSendArgs(args);
+		
+		outputListener = new WindowOutputListener();
+		processFilePath(args[0]);
+	}
+
+	private void startListeningOnSocketOrSendArgs(final String[] args) {
 		new Thread(){
 			@Override
 			public void run() {
 				try {
 					startListening();
 				}catch(final BindException bindException){
-					Socket socket;
-					try {
-						socket = new Socket("127.0.0.1", PORT);
-						writeLine(args[0],socket);
-						System.exit(0);
-					} catch (final UnknownHostException e) {
-						throw new RuntimeException(e);
-					} catch (final IOException e) {
-						throw new RuntimeException(e);
-					}
+					sendArgToSubFinderAlreadyRunning(args);
 				}catch (final IOException e) {
 					throw new RuntimeException(e);
 				}
 			}
+
+			private void sendArgToSubFinderAlreadyRunning(final String[] args) {
+				Socket socket;
+				try {
+					socket = new Socket("127.0.0.1", PORT);
+					writeLine(args[0],socket);
+					System.exit(0);
+				} catch (final UnknownHostException e) {
+					throw new RuntimeException(e);
+				} catch (final IOException e) {
+					throw new RuntimeException(e);
+				}
+			}
 		}.start();
-		
-		outputListener = new WindowOutputListener();
-		processFilePath(args[0]);
+	}
+
+	private void processAllFilesAndDirs(final String[] args) {
+		for (final String arg : args) {
+			processFilePath(arg);
+		}
 	}
 
 	private void startListening() throws IOException {

@@ -19,6 +19,7 @@ public class SubtitleDropComponent implements OutputListener{
 		textArea = new SubtitleDropTextArea();
 		scrollPane = new JScrollPane(textArea,JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		final Border border = BorderFactory.createEmptyBorder( 0, 0, 0, 0 );
+		scrollPane.setBorder(border);
 		scrollPane.setViewportBorder(border);
 	}
 

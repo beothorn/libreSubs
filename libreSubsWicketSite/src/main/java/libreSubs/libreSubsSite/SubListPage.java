@@ -15,7 +15,15 @@ public class SubListPage extends BasePage {
 		final SubtitlesRepositoryHandler subtitlesRepositoryHandler = WicketApplication
 				.getSubtitlesRepositoryHandler();
 		final String listSubtitles = subtitlesRepositoryHandler.listSubtitles();
-		add(new MultiLineLabel("message", "SubCount: "+listSubtitles.length()+" SubList: \n"
-				+ listSubtitles));
+		final int subtitlesQuantity = subtitlesRepositoryHandler.subtitlesQuantity();
+		final long subtitlesRepoSize = subtitlesRepositoryHandler.subtitlesRepoSize();
+		final long kBytes = subtitlesRepoSize/1024;
+		final long mBytes = kBytes/1024;
+		add(new MultiLineLabel(
+				"message", "Quantidade de legendas: "+subtitlesQuantity+"\n"
+				+"Tamanho do repositório: "+subtitlesRepoSize+" bytes ou "+ kBytes+"kbytes ou "+ mBytes+"mb \n"
+				+" Legendas: \n"
+				+ listSubtitles
+		));
 	}
 }
