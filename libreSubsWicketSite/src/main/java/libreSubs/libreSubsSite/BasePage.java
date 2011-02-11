@@ -37,6 +37,7 @@ public abstract class BasePage extends WebPage {
 		add(new BookmarkablePageLink<String>("home", HomePage.class));
 		add(new BookmarkablePageLink<String>("subOperations",SubtitlesOperationsWebInterface.class));
 		add(new BookmarkablePageLink<String>("recentChanges",RecentChangesPage.class));
+		add(new BookmarkablePageLink<String>("faq",FaqPage.class));
 	}
 
 }

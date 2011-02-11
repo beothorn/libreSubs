@@ -1,0 +1,45 @@
+<html xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.5-strict.dtd" >
+    <head>  
+        <title>LibreSubs</title>
+        <link rel="stylesheet" type="text/css" href="style.css"/>
+    </head>
+    <body>
+    	<wicket:extend>
+    		<br/>
+	        <h1>FAQ</h1>
+	        <h3>O que é o libresubs?</h3>
+	        O libresubs é um site de legenda que permite qualquer pessoa fazer download, upload e edição das legendas.
+	        <h3>O que o libresubs tem de diferente?</h3>
+	        4 coisas:<br />
+	        1- Permite qualquer pessoa fazer upload e edição de uma legenda. Sem burocracia, é fácil consertar
+	        aquele errinho que você percebeu no meio do vídeo. Como na wikpedia, o libresubs acredita que, com pequenas
+	        contribuições dos usuários, a comunidade consegue chegar na melhor legenda possível, ou pelo menos algo assim.
+	        <br />
+	        2- Um arquivo de vídeo pra cada arquivo de legenda. O applet do site lê um pedaço do arquivo de video e cria um identificador único para cada vídeo.
+	        Assim, nunca um pedido de legenda de um arquivo vai retornar uma legenda errada ou com timing incorreto.
+	        <br />
+	        3- Acesso direto a legenda. Legendas são acessadas diretamente através de um link. Sem compressões ou lista de legendas.
+	        <br />
+	        4- O código do site é GPL. Isso quer dizer que se você quiser montar seu próprio libresubs, alterar o site ou
+	        quiser saber como ele funciona é só clicar no link código fonte ali em cima, ou entrar em contato conosco.
+	        A equipe do libresubs está trabalhando para disponbilizar toda a base de legendas em um torrent no futuro,
+	        mas se você estiver interessado em montar seu próprio libresubs é só entrar em contato e mandaremos a base por
+	        email.
+	        <h3>Como funciona o libresubs?</h3>
+	        Quando você arrasta um vídeo no applet do site, o applet calcula um identificador para seu arquivo
+	        usando um algoritmo chamado <a href="http://pt.wikipedia.org/wiki/Sha-1">Sha-1</a>. Tudo isso é feito no seu computador
+	        e não existe como fazer o caminho inverso, recriar o video à partir desse identificador. O que fica no libresubs então
+	        são arquivos de legendas com números identificadores.
+	        Usando o sha-1 calculado à partir dos primeiros 100k do seu arquivo o applet monta a url:
+	        <br />
+	        http://www.libresubs.com:8080/latestLibresubs/download?id=%id&#38;lang=%lang
+	        <br />
+	        onde %id é o identificador do seu arquivo de vídeo e %lang é a língua do seu sistema (pt_BR para português do Brasil).
+	        Essa url é um link direto para o arquivo de legenda correspondente ao id.	        
+	        <h3>Como eu uso o libresubs da linha de comando do linux?</h3>
+	        Onde ARQUIVO é o nome do arquivo que você quer pegar a legenda
+	        <br />
+	        head ARQUIVO.avi -c 100 | sha1sum | sed 's/[\ |\-]//g' | xargs -i wget -O ARQUIVO.srt http://www.libresubs.com:8080/latestLibresubs/download?id={}\&#38;lang=pt_BR
+	    </wicket:extend>
+    </body>
+</html>
