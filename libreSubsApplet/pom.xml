@@ -29,7 +29,7 @@
 					<source>1.6</source>
 					<target>1.6</target>
 					<optimize>true</optimize>
-					<debug>true</debug>
+					<debug>false</debug>
 				</configuration>
 			</plugin>
 			<plugin>
