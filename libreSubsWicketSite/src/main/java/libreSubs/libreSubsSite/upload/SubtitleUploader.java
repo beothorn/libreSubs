@@ -23,6 +23,10 @@ public class SubtitleUploader {
 			throw new SubtitleUploadingException("Legenda já existe.");
 		}
 
+		if (id.length()!=40) {
+			throw new SubtitleUploadingException("Id deve ter 40 caracteres.");
+		}
+		
 		try {
 			subtitlesRepositoryHandler.addSubtitleFromFileAndDeleteIt(id, lang,
 					subtitle);

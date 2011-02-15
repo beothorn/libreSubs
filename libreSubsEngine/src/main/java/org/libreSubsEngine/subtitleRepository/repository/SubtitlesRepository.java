@@ -123,7 +123,7 @@ public class SubtitlesRepository implements RepositoryScannerListener{
 		if(commiterMessage == null || commiterMessage.isEmpty()){
 			commiterMessage = GitRepoHandler.DEFAULT_COMMIT_MESSAGE; 
 		}
-		gitRepoHandler.commitWith(commiterName, commiterEmail, message);
+		gitRepoHandler.commitWith(commiterName, commiterEmail, commiterMessage);
 	}
 
 	@Override

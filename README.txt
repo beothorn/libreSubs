@@ -23,7 +23,7 @@ A subtitles site with the following aims:
 The more technical aims
 
 - Subtitles are refered by it's corresponding video file sha1, so there's no way to download a wrong file
-- All edits to a file are logged with git, so all git commands are available from the web interface
+- All edits to a file are logged with git, this way, all git commands are available from the web interface
 - A rich javascript based srt editor
 - Drag and drop video on browser to download subtitle
 
