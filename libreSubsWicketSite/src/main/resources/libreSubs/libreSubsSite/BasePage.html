@@ -16,6 +16,15 @@
     var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
   })();
 
+	function switchTo(id) {
+		document.getElementById('main').style.display = 'none';
+		document.getElementById('download').style.display = 'none';
+		document.getElementById('upload').style.display = 'none';
+		document.getElementById('edit').style.display = 'none';
+		document.getElementById(id).style.display = 'block';		
+	}
+
+  
 </script>
 <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
@@ -32,7 +41,6 @@
 					<li><a wicket:id="faq" href="../FaqPage.html">faq</a>|</li>
 					<li><a href="https://github.com/beothorn/libreSubs">código fonte</a>|</li>
 					<li><a wicket:id="recentChanges" href="../recentChanges/RecentChangesPage.html">últimas alterações</a>|</li>
-					<li><a wicket:id="subOperations" href="../SubtitlesOperationsWebInterface.html">legendas</a>|</li>	
 					<li><a wicket:id="home" href=".">home</a>|</li>
 				</ul>
 			</div>
@@ -47,9 +55,63 @@
 			</a>
 		</div>
 		<div id="logoBottomLine">
+			<a href="javascript:switchTo('main')">&lt;</a>
+			<a href="javascript:switchTo('download')">Download</a>
+			<a href="javascript:switchTo('upload')">Upload</a>
+			<a href="javascript:switchTo('edit')">Edit</a>
 		</div>
 		<div id="dynamicContent">
-			<wicket:child/>
+		 	<br/>
+			<span id="download" style="display:none">
+				<h1>Download</h1>
+	        	<br/>
+				<form wicket:id="inputForm">
+		        	Língua:<br/>
+		        	<select wicket:id="lang">
+		        		<option>pt_BR</option>
+		                <option>en_US</option>
+		            </select><br/>
+		        	SHA1:<br/>
+		        	<input wicket:id="id" type="text" size="40"/><br/>
+		        	Arquivo .srt:<br/>
+		        	<input wicket:id="fileName" type="text" size="80"/><br/>
+		        	<input type="submit" value="Baixar legenda" />
+		    	</form>
+			</span>
+			<span id="upload" style="display:none">
+				<h1>Upload</h1>
+				<br/>
+				<form method="post" enctype="multipart/form-data" action="/upload">
+					Língua:<br/>
+		        	<select wicket:id="lang">
+		        		<option>pt_BR</option>
+		                <option>en_US</option>
+		            </select><br/>
+					SHA1:<br/>
+		        	<input name="id" type="text" size="40"/><br/>
+		        	Arquivo .srt:<br/>
+					<input type="file" size=20 name="file">
+		        	<input type="submit" value="Enviar" />
+		        </form>
+		        <br/>
+			</span>
+			<span id="edit" style="display:none">
+				<h1>Editar</h1>
+				<br/>
+				<form wicket:id="editorCallForm">
+		        	Língua:<br/>
+		        	<select wicket:id="lang">
+		        		<option>pt_BR</option>
+		                <option>en_US</option>
+		            </select><br/>
+		        	SHA1:<br/>
+		        	<input wicket:id="id" type="text" size="40"/><br/>
+		        	<input type="submit" value="Editar" />
+		    	</form>
+			</span>
+			<span id="main">
+				<wicket:child/>
+			</span>
 			<br/>
 		</div>
 		<div id="bottomArea">
