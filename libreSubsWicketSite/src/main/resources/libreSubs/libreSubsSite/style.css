@@ -73,16 +73,7 @@ img{
 #logoBottomLine{
 	background-image: url('middleLine.png'); 
 	background-repeat: repeat-x;
-	padding: 37px;
-}
-
-#logoBottomLine a{
-	font-family: Tahoma;
-	font-weight: bold; 
-	font-size: 12px;
-	color:#555555;
-	float: left;
-	text-decoration:none;
+	text-align:center;
 }
 
 #dynamicContent{

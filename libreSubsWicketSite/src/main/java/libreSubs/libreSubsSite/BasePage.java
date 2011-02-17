@@ -101,6 +101,10 @@ public abstract class BasePage extends WebPage {
 		add(new Image("headerIcon", new ResourceReference(BasePage.class, "headerIcon.png")));
 		add(new Image("libreSubsLogo", new ResourceReference(BasePage.class, "libreSubsLogo.png")));
 		add(new Image("libreSubsTitle", new ResourceReference(BasePage.class, "libreSubsTitle.png")));
+		add(new Image("balloonMain", new ResourceReference(BasePage.class, "balloonMain.png")));
+		add(new Image("balloonDownload", new ResourceReference(BasePage.class, "balloonDownload.png")));
+		add(new Image("balloonUpload", new ResourceReference(BasePage.class, "balloonUpload.png")));
+		add(new Image("balloonEdit", new ResourceReference(BasePage.class, "balloonEdit.png")));
 		add(new BookmarkablePageLink<String>("home", HomePage.class));
 		add(new BookmarkablePageLink<String>("recentChanges",RecentChangesPage.class));
 		add(new BookmarkablePageLink<String>("faq",FaqPage.class));
