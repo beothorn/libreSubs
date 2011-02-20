@@ -15,7 +15,6 @@ import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.form.StatelessForm;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.image.Image;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.protocol.http.WebApplication;
@@ -98,13 +97,6 @@ public abstract class BasePage extends WebPage {
 				response.renderString("<link rel=\"shortcut icon\" href=\"./"+FAVICON+"\">");
 			}
 		}));
-		add(new Image("headerIcon", new ResourceReference(BasePage.class, "headerIcon.png")));
-		add(new Image("libreSubsLogo", new ResourceReference(BasePage.class, "libreSubsLogo.png")));
-		add(new Image("libreSubsTitle", new ResourceReference(BasePage.class, "libreSubsTitle.png")));
-		add(new Image("balloonMain", new ResourceReference(BasePage.class, "balloonMain.png")));
-		add(new Image("balloonDownload", new ResourceReference(BasePage.class, "balloonDownload.png")));
-		add(new Image("balloonUpload", new ResourceReference(BasePage.class, "balloonUpload.png")));
-		add(new Image("balloonEdit", new ResourceReference(BasePage.class, "balloonEdit.png")));
 		add(new BookmarkablePageLink<String>("home", HomePage.class));
 		add(new BookmarkablePageLink<String>("recentChanges",RecentChangesPage.class));
 		add(new BookmarkablePageLink<String>("faq",FaqPage.class));

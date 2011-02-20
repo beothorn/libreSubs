@@ -2,16 +2,13 @@ package libreSubs.libreSubsSite;
 
 import libreSubs.libreSubsSite.wicketComponents.DeployJava;
 
-import org.apache.wicket.ResourceReference;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.image.Image;
 
 public class HomePage extends BasePage {
 
 	public HomePage() {
 		setStatelessHint(true);
 		addSubtitleFinderApplet();
-		add(new Image("appletReflex", new ResourceReference(BasePage.class, "appletReflex.png")));
 	}
 
 	private void addSubtitleFinderApplet() {

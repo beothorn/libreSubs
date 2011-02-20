@@ -33,7 +33,9 @@
 	<div id="wrapper" class="clearfix">
 		<div id="headerArea">
 			<a id="logoLink" href="http://www.libresubs.com">
-				<img wicket:id="headerIcon" id="headerIcon" src="headerIcon.png" alt="Libresubs"/>
+				<wicket:link>
+					<img id="headerIcon" src="headerIcon.png" alt="Libresubs"/>
+				</wicket:link>
 			</a>
 			<div id="menu">
 				<ul>
@@ -48,17 +50,37 @@
 		<div id="headerBottomLine"></div>
 		<div id="logoArea">
 			<a id="logoLink" href="http://www.libresubs.com">
-				<img wicket:id="libreSubsTitle" id="libreSubsTitle" src="libreSubsTitle.png" alt="Libresubs"/>
+				<wicket:link>
+					<img  id="libreSubsTitle" src="libreSubsTitle.png" alt="Libresubs"/>
+				</wicket:link>
 			</a>
 			<a id="logoLink" href="http://www.libresubs.com">
-				<img wicket:id="libreSubsLogo" id="libreSubsLogo" src="libreSubsLogo.png" alt="Libresubs"/>
+				<wicket:link>
+					<img id="libreSubsLogo" src="libreSubsLogo.png" alt="Libresubs"/>
+				</wicket:link>
 			</a>
 		</div>
 		<div id="logoBottomLine">
-			<a href="javascript:switchTo('main')"><img wicket:id="balloonMain" src="miniballon.png" alt="Libresubs"/></a>
-			<a href="javascript:switchTo('download')"><img wicket:id="balloonDownload" src="miniballon.png" alt="Libresubs"/></a>
-			<a href="javascript:switchTo('upload')"><img wicket:id="balloonUpload" src="miniballon.png" alt="Libresubs"/></a>
-			<a href="javascript:switchTo('edit')"><img wicket:id="balloonEdit" src="miniballon.png" alt="Libresubs"/></a>
+			<a href="javascript:switchTo('main')">
+				<wicket:link>
+					<img src="balloonMain.png" alt="main" />
+				</wicket:link>
+			</a>
+			<a href="javascript:switchTo('download')">
+				<wicket:link>
+					<img src="balloonDownload.png" alt="download"/>
+				</wicket:link>
+				</a>
+			<a href="javascript:switchTo('upload')">
+				<wicket:link>
+					<img src="balloonUpload.png" alt="upload"/>
+				</wicket:link>
+			</a>
+			<a href="javascript:switchTo('edit')">
+				<wicket:link>
+					<img src="balloonEdit.png" alt="edit"/>
+				</wicket:link>
+			</a>
 		</div>
 		<div id="dynamicContent">
 		 	<br/>
@@ -74,7 +96,7 @@
 		        	SHA1:<br/>
 		        	<input wicket:id="id" type="text" size="40"/><br/>
 		        	Arquivo .srt:<br/>
-		        	<input wicket:id="fileName" type="text" size="80"/><br/>
+		        	<input wicket:id="fileName" type="text" size="40"/><br/>
 		        	<input type="submit" value="Baixar legenda" />
 		    	</form>
 			</span>
@@ -109,7 +131,7 @@
 		        	<input type="submit" value="Editar" />
 		    	</form>
 			</span>
-			<span id="main">
+			<span id="main" style="display:block">
 				<wicket:child/>
 			</span>
 			<br/>
