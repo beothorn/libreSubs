@@ -33,6 +33,10 @@ img{
 	border: none;
 }
 
+a:focus {
+    outline: 0;
+}
+
 #menu a:link {
 	color:#d3ff21;
 	text-decoration:none;
