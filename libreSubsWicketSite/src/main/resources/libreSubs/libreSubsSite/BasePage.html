@@ -26,7 +26,12 @@
 
   
 </script>
-<link rel="stylesheet" type="text/css" href="style.css" />
+<wicket:link>
+	<link rel="shortcut icon" href="favicon.png">
+</wicket:link>
+<wicket:link>
+	<link rel="stylesheet" type="text/css" href="style.css" />
+</wicket:link>
 </head>
 <body>
 <div id="pagewidth">
@@ -38,13 +43,15 @@
 				</wicket:link>
 			</a>
 			<div id="menu">
-				<ul>
-					<li><a href="mailto:libresub@libresubs.com">contato</a></li>
-					<li><a wicket:id="faq" href="../FaqPage.html">faq</a>|</li>
-					<li><a href="https://github.com/beothorn/libreSubs">código fonte</a>|</li>
-					<li><a wicket:id="recentChanges" href="../recentChanges/RecentChangesPage.html">últimas alterações</a>|</li>
-					<li><a wicket:id="home" href=".">home</a>|</li>
-				</ul>
+				<wicket:link>
+					<ul>
+						<li><a href="mailto:libresub@libresubs.com">contato</a></li>
+						<li><a href="FaqPage.html">faq</a>|</li>
+						<li><a href="https://github.com/beothorn/libreSubs">código fonte</a>|</li>
+						<li><a href="/recentChanges/RecentChangesPage.html">últimas alterações</a>|</li>
+						<li><a href="HomePage.html">home</a>|</li>
+					</ul>
+				</wicket:link>
 			</div>
 		</div>
 		<div id="headerBottomLine"></div>

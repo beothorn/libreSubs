@@ -54,7 +54,6 @@ public class WicketApplication extends WebApplication
 		scanForWicketAnnotations();
 		addAppletsFolderToPublicResources();
 		mountSubRequestResource();
-		BasePage.registerResources(this);
 	}
 
 	private void mountSubRequestResource() {
