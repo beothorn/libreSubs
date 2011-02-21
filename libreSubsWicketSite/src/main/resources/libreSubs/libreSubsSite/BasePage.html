@@ -24,7 +24,13 @@
 		document.getElementById(id).style.display = 'block';		
 	}
 
-  
+	highlightString = 'Highlight';
+	function switchHighlight(id){
+		tmpSrc = document[id].src;
+		document[id].src = document[id+highlightString].src;	
+		document[id+highlightString].src = tmpSrc;
+	}
+	
 </script>
 <wicket:link>
 	<link rel="shortcut icon" href="favicon.png">
@@ -48,7 +54,7 @@
 						<li><a href="mailto:libresub@libresubs.com">contato</a></li>
 						<li><a href="FaqPage.html">faq</a>|</li>
 						<li><a href="https://github.com/beothorn/libreSubs">código fonte</a>|</li>
-						<li><a href="/recentChanges/RecentChangesPage.html">últimas alterações</a>|</li>
+						<li><a href="recentChanges/RecentChangesPage.html">últimas alterações</a>|</li>
 						<li><a href="HomePage.html">home</a>|</li>
 					</ul>
 				</wicket:link>
@@ -70,22 +76,34 @@
 		<div id="logoBottomLine">
 			<a href="javascript:switchTo('main')">
 				<wicket:link>
-					<img src="balloonMain.png" alt="main" />
+					<img id="balloonMain" src="balloonMain.png" alt="main" onMouseOver="switchHighlight(this.id)" onMouseOut="switchHighlight(this.id)"/>
+				</wicket:link>
+				<wicket:link>
+					<img id="balloonMainHighlight" src="balloonMainHL.png" style="display:none"/>
 				</wicket:link>
 			</a>
 			<a href="javascript:switchTo('download')">
 				<wicket:link>
-					<img src="balloonDownload.png" alt="download"/>
+					<img id="balloonDownload" src="balloonDownload.png" alt="download" onMouseOver="switchHighlight(this.id)" onMouseOut="switchHighlight(this.id)"/>
 				</wicket:link>
-				</a>
+				<wicket:link>
+					<img id="balloonDownloadHighlight" src="balloonDownloadHL.png" style="display:none"/>
+				</wicket:link>
+			</a>
 			<a href="javascript:switchTo('upload')">
 				<wicket:link>
-					<img src="balloonUpload.png" alt="upload"/>
+					<img id="balloonUpload" src="balloonUpload.png" alt="upload" onMouseOver="switchHighlight(this.id)" onMouseOut="switchHighlight(this.id)"/>
+				</wicket:link>
+				<wicket:link>
+					<img id="balloonUploadHighlight" src="balloonUploadHL.png" style="display:none"/>
 				</wicket:link>
 			</a>
 			<a href="javascript:switchTo('edit')">
 				<wicket:link>
-					<img src="balloonEdit.png" alt="edit"/>
+					<img id="balloonEdit" src="balloonEdit.png" alt="edit" onMouseOver="switchHighlight(this.id)" onMouseOut="switchHighlight(this.id)"/>
+				</wicket:link>
+				<wicket:link>
+					<img id="balloonEditHighlight" src="balloonEditHL.png" style="display:none"/>
 				</wicket:link>
 			</a>
 		</div>
