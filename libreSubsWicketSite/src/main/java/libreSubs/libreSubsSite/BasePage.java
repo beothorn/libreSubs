@@ -20,7 +20,6 @@ public abstract class BasePage extends WebPage {
 	
 	public BasePage() {
 		subParameters = new SubParameters();
-		setStatelessHint(true);
 		addDownloadElements();
 		addUploadElements();
 		addEditElements();

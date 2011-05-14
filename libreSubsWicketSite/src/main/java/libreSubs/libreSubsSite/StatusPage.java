@@ -31,8 +31,7 @@ public class StatusPage extends BasePage {
 	}
 	
 	private void addSubtitlesListPrintForDebug() {
-		final SubtitlesRepositoryHandler subtitlesRepositoryHandler = WicketApplication
-				.getSubtitlesRepositoryHandler();
+		final SubtitlesRepositoryHandler subtitlesRepositoryHandler = WicketApplication.getSubtitlesRepositoryHandler();
 		final String listSubtitles = subtitlesRepositoryHandler.listSubtitles();
 		final int subtitlesQuantity = subtitlesRepositoryHandler.subtitlesQuantity();
 		final long subtitlesRepoSize = subtitlesRepositoryHandler.subtitlesRepoSize();

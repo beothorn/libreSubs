@@ -23,20 +23,15 @@ public class SubtitleEditorPage extends BasePage {
 	SubParameters subParameters;
 
 	public SubtitleEditorPage(final PageParameters parameters) {
-		setStatelessHint(true);
 
 		final CharSequence idParam = parameters.getCharSequence(SubtitleResourceResolver.idParameter);
 		if(idParam == null){
-			TextPage.redirectToPageWithText("Parametro "
-					+ SubtitleResourceResolver.idParameter
-					+ " não foi passado.");
+			TextPage.redirectToPageWithText("Parametro "+ SubtitleResourceResolver.idParameter+ " não foi passado.");
 		}
 		
 		final CharSequence langParam = parameters.getCharSequence(SubtitleResourceResolver.langParameter); 
 		if(langParam == null){
-			TextPage.redirectToPageWithText("Parametro "
-					+ SubtitleResourceResolver.langParameter
-					+ " não foi passado.");
+			TextPage.redirectToPageWithText("Parametro "+ SubtitleResourceResolver.langParameter+ " não foi passado.");
 		}
 		
 		final String id = idParam.toString();
@@ -47,8 +42,7 @@ public class SubtitleEditorPage extends BasePage {
 	}
 
 	@SuppressWarnings("serial")
-	private void buildPage(final String id, final String lang,
-			final String message) {
+	private void buildPage(final String id, final String lang, final String message) {
 		add(new Label("message", message));
 		final SubtitlesRepositoryHandler subtitlesRepositoryHandler = WicketApplication
 				.getSubtitlesRepositoryHandler();
@@ -58,7 +52,7 @@ public class SubtitleEditorPage extends BasePage {
 		}
 		
 		add(new Label("id", id));
-		add(new Label("lang", lang));
+		add(new Label("editLang", lang));
 		
 		subtitle = subtitlesRepositoryHandler.getSubtitleOrNull(id, lang);
 		
