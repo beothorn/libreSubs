@@ -1,3 +1,19 @@
+Abandonado, mas com várias coisas úteis implementadas no código como:
+Applet:
+- Drag and drop de arquivos que funciona em linux e windows
+- Instalador de comando no menu de contexto do windows explorer/Nautilus
+- Post de arquivo sem depender do apache utils! Applet que faz upload fica bem menor.
+- Implementação de get pra arquivo sem dependências.
+- Calcula sha1
+Wicket:
+- Implementação
+JGit:
+- Cria, adiciona, commita
+Outros:
+Engine organiza arquivos em pastas dependendo do sha1
+
+
+______________________
 pt_BR
 
 Um site de legendas com os seguintes objetivos:
