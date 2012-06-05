@@ -9,6 +9,8 @@ Wicket:
 - Implementação
 JGit:
 - Cria, adiciona, commita
+Maven:
+- Gera war com applet
 Outros:
 Engine organiza arquivos em pastas dependendo do sha1
 
