@@ -5,7 +5,7 @@
 		<arg value="package" />
 		<arg value="-Psign" />
 		<arg value="-Dkeystore.path=/home/lucas/libresubs.keystore" />
-		<arg value="-Dkeystore.password=bolada" />
+		<arg value="-Dkeystore.password=blablabla" />
 	</exec>
 </target>
 </project>	
