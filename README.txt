@@ -1,4 +1,36 @@
-Abandonado, mas com várias coisas úteis implementadas no código como:
+_______
+en_US
+
+Discontinued, but there are some usefull stuff you can find on the source:
+On the applet code:
+- File "Drag and drop" support on linux and windows
+- Context menu option installer for windows file explorer and Ubuntu nautilus
+- File post code without using any libraries, making the applet smaller
+- File download implementation, also without libraries
+- Sha1 for files
+
+Site made using wicket
+uses JGit to create a new repository and commit files
+Maven generates a war with an applet inside
+__
+
+A subtitles site with the following aims:
+- Anyone can edit any subtitle file
+- Anyone can download any subtitle by the easiest way possible
+- Anyone can make a copy of all subtitles and run their own version of libresubs
+
+The more technical aims
+
+- Subtitles are refered by it's corresponding video file sha1, so there's no way to download a wrong file
+- All edits to a file are logged with git, this way, all git commands are available from the web interface
+- A rich javascript based srt editor
+- Drag and drop video on browser to download subtitle
+
+Feel free to use libreSubs. If you want to contribute see this issue list https://github.com/beothorn/libreSubs/issues
+______________________
+pt_BR
+
+Descontinuado, mas com várias coisas úteis implementadas no código como:
 Applet:
 - Drag and drop de arquivos que funciona em linux e windows
 - Instalador de comando no menu de contexto do windows explorer/Nautilus
@@ -13,10 +45,7 @@ Maven:
 - Gera war com applet
 Outros:
 Engine organiza arquivos em pastas dependendo do sha1
-
-
-______________________
-pt_BR
+__
 
 Um site de legendas com os seguintes objetivos:
 - Qualquer pessoa pode editar qualquer legenda
@@ -31,18 +60,3 @@ Objetivos mais técnicos:
 - Carregar arquivos de video no browser para pegar as legendas
 
 Sinta-se à vontade para usar o libresubs. Se você estiver interessado em contribuir, aqui tem uma lista de coisas que o libresubs precisa https://github.com/beothorn/libreSubs/issues
-_______
-en_US
-A subtitles site with the following aims:
-- Anyone can edit any subtitle file
-- Anyone can download any subtitle by the easiest way possible
-- Anyone can make a copy of all subtitles and run their own version of libresubs
-
-The more technical aims
-
-- Subtitles are refered by it's corresponding video file sha1, so there's no way to download a wrong file
-- All edits to a file are logged with git, this way, all git commands are available from the web interface
-- A rich javascript based srt editor
-- Drag and drop video on browser to download subtitle
-
-Feel free to use libreSubs. If you want to contribute see this issue list https://github.com/beothorn/libreSubs/issues
